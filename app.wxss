@@ -1,0 +1,33 @@
+/* app.wxss - 全局样式 */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background: #f4f6fb;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 卡片通用 */
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+}
+
+/* 通用空状态 */
+.empty {
+  text-align: center;
+  color: #bbb;
+  font-size: 26rpx;
+  padding: 80rpx 0;
+}
+
+/* 通用主按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #4A90E2, #5B6FE4);
+  color: #fff;
+  border-radius: 60rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: none;
+  padding: 22rpx 0;
+}
