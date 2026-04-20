@@ -1,0 +1,23 @@
+# WeChat Mini Program
+components/
+pages/
+utils/
+custom-tab-bar/
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# WeChat dev tools
+*.wanl
+*.wxapkg
+*/.wxapkg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
