@@ -1,0 +1,190 @@
+/* pages/profile/profile.wxss - Modern Design */
+.container {
+  min-height: 100vh;
+  background: #f0f2f8;
+  padding-bottom: 50rpx;
+}
+
+.profile-card {
+  background: linear-gradient(145deg, #6C5CE7 0%, #a855f7 50%, #c084fc 100%);
+  padding: 56rpx 32rpx 80rpx;
+  border-radius: 0 0 48rpx 48rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::after {
+  content: '';
+  position: absolute;
+  top: -40rpx;
+  right: -40rpx;
+  width: 200rpx;
+  height: 200rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background: rgba(255,255,255,0.2);
+  margin-right: 28rpx;
+  border: 4rpx solid rgba(255,255,255,0.4);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+}
+
+.user-detail {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  margin-bottom: 10rpx;
+  letter-spacing: 1rpx;
+}
+
+.major {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.85);
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.class-name {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+  display: block;
+}
+
+.edit-btn {
+  background: rgba(255,255,255,0.18);
+  padding: 14rpx 28rpx;
+  border-radius: 28rpx;
+  border: 2rpx solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+
+.edit-btn text {
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+.edit-btn:active {
+  background: rgba(255,255,255,0.28);
+}
+
+.menu-section {
+  background: #fff;
+  margin: -28rpx 24rpx 0;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.06), 0 1rpx 4rpx rgba(0,0,0,0.02);
+  position: relative;
+  z-index: 2;
+}
+
+.menu-section + .menu-section {
+  margin-top: 20rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 28rpx;
+  border-bottom: 1rpx solid #f5f6fa;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background: #fafaff;
+}
+
+.menu-icon-wrap {
+  width: 52rpx;
+  height: 52rpx;
+  background: #f5f6fa;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+
+.menu-icon-wrap.admin-icon {
+  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+}
+
+.menu-emoji {
+  font-size: 28rpx;
+}
+
+.menu-title {
+  flex: 1;
+  font-size: 30rpx;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #d1d5db;
+  font-weight: 300;
+}
+
+.admin-badge {
+  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  margin-right: 12rpx;
+}
+
+.admin-badge text {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+.logout-btn {
+  background: #fff;
+  margin: 24rpx 24rpx 0;
+  padding: 36rpx;
+  text-align: center;
+  border-radius: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.03);
+}
+
+.logout-btn text {
+  font-size: 30rpx;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.logout-btn:active {
+  background: #fff5f5;
+}
+
+.version {
+  text-align: center;
+  margin-top: 44rpx;
+}
+
+.version text {
+  font-size: 24rpx;
+  color: #d1d5db;
+  font-weight: 500;
+}

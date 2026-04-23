@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 顶部标题区 -->
+  <view class="header">
+    <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
+    <text class="title">创建账号</text>
+    <text class="subtitle">加入学习打卡，开启高效学习</text>
+  </view>
+
+  <view class="form">
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/user.png" mode="aspectFit"/>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入用户名/学号"
+        bindinput="onUsernameInput"/>
+    </view>
+    
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/profile.png" mode="aspectFit"/>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入昵称（选填）"
+        bindinput="onNicknameInput"/>
+    </view>
+    
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/lock.png" mode="aspectFit"/>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="请输入密码（至少6位）"
+        bindinput="onPasswordInput"/>
+    </view>
+    
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/lock.png" mode="aspectFit"/>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="请再次输入密码"
+        bindinput="onConfirmInput"/>
+    </view>
+    
+    <button 
+      class="btn-register {{loading ? 'disabled' : ''}}" 
+      bindtap="register"
+      disabled="{{loading}}">
+      <text>{{loading ? '注册中...' : '注 册'}}</text>
+    </button>
+    
+    <view class="login-link">
+      <text>已有账号？</text>
+      <text class="link" bindtap="wx.navigateBack">立即登录</text>
+    </view>
+  </view>
+</view>

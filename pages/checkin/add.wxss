@@ -1,0 +1,157 @@
+/* pages/checkin/add.wxss - Modern Design */
+.container {
+  min-height: 100vh;
+  background: #f0f2f8;
+  padding: 20rpx;
+}
+
+.page-title {
+  padding: 28rpx 12rpx 12rpx;
+}
+
+.page-title text {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: 1rpx;
+}
+
+.page-subtitle {
+  font-size: 26rpx !important;
+  color: #9ca3af !important;
+  font-weight: normal !important;
+  margin-top: 8rpx !important;
+}
+
+.form {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 44rpx 36rpx;
+  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.06), 0 1rpx 4rpx rgba(0,0,0,0.02);
+}
+
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+.label {
+  display: block;
+  font-size: 26rpx;
+  color: #9ca3af;
+  margin-bottom: 14rpx;
+  font-weight: 600;
+}
+
+.input-wrap {
+  background: #f5f6fa;
+  border-radius: 20rpx;
+  padding: 0 28rpx;
+  border: 2rpx solid transparent;
+}
+
+.input-wrap:focus-within {
+  background: #fff;
+  border-color: #6C5CE7;
+  box-shadow: 0 0 0 6rpx rgba(108, 92, 231, 0.08);
+}
+
+.input {
+  width: 100%;
+  height: 92rpx;
+  padding: 0;
+  border: none;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  background: transparent;
+  color: #1a1a2e;
+}
+
+.type-list {
+  display: flex;
+  gap: 20rpx;
+}
+
+.type-item {
+  flex: 1;
+  padding: 32rpx 20rpx;
+  border: 2rpx solid #f0f2f8;
+  border-radius: 24rpx;
+  text-align: center;
+  background: #fafbff;
+}
+
+.type-item.active {
+  border-color: #6C5CE7;
+  background: #f5f3ff;
+  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.15);
+}
+
+.type-icon {
+  display: block;
+  font-size: 48rpx;
+  margin-bottom: 14rpx;
+}
+
+.type-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8rpx;
+}
+
+.type-desc {
+  display: block;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.picker-wrap {
+  background: #f5f6fa;
+  border-radius: 20rpx;
+}
+
+.picker {
+  height: 92rpx;
+  padding: 0 28rpx;
+  font-size: 28rpx;
+  line-height: 92rpx;
+  background: transparent;
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+.checkbox-wrap {
+  background: #f5f6fa;
+  border-radius: 20rpx;
+  padding: 28rpx;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  font-size: 28rpx;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.btn-submit {
+  margin-top: 56rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  border-radius: 48rpx;
+  border: none;
+  box-shadow: 0 8rpx 28rpx rgba(108, 92, 231, 0.35);
+  letter-spacing: 4rpx;
+}
+
+.btn-submit:active {
+  transform: scale(0.97);
+}

@@ -1,6 +1,5 @@
 # WeChat Mini Program
 components/
-pages/
 utils/
 custom-tab-bar/
 dist/

@@ -1,22 +1,25 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/login/register",
     "pages/index/index",
     "pages/course/course",
+    "pages/course/add",
     "pages/plan/plan",
     "pages/checkin/checkin",
+    "pages/checkin/add",
     "pages/profile/profile",
     "pages/admin/admin"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarBackgroundColor": "#667eea",
     "navigationBarTitleText": "学习打卡",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#4A90E2",
+    "selectedColor": "#667eea",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
