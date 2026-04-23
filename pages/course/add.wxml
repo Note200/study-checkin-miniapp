@@ -1,0 +1,92 @@
+<view class="container">
+  <view class="page-title">
+    <text>{{id ? '编辑课程' : '添加课程'}}</text>
+    <text class="page-subtitle">{{id ? '修改课程信息' : '填写课程信息'}}</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="label">课程名称</text>
+      <view class="input-wrap">
+        <input class="input" placeholder="如：Java程序设计" bindinput="onNameInput" value="{{name}}" />
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">授课教师</text>
+      <view class="input-wrap">
+        <input class="input" placeholder="如：陈老师" bindinput="onTeacherInput" value="{{teacher}}" />
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">上课教室</text>
+      <view class="input-wrap">
+        <input class="input" placeholder="如：A301" bindinput="onClassroomInput" value="{{classroom}}" />
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">星期</text>
+      <view class="picker-wrap">
+        <picker mode="selector" range="{{weekDays}}" bindchange="onWeekDayChange">
+          <view class="picker">{{weekDays[weekDay - 1]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-item half">
+        <text class="label">开始节次</text>
+        <view class="picker-wrap">
+          <picker mode="selector" range="{{sections}}" bindchange="onStartSectionChange">
+            <view class="picker">第{{startSection}}节</view>
+          </picker>
+        </view>
+      </view>
+      <view class="form-item half">
+        <text class="label">结束节次</text>
+        <view class="picker-wrap">
+          <picker mode="selector" range="{{sections}}" bindchange="onEndSectionChange">
+            <view class="picker">第{{endSection}}节</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-item half">
+        <text class="label">开始周</text>
+        <view class="picker-wrap">
+          <picker mode="selector" range="{{weeks}}" bindchange="onStartWeekChange">
+            <view class="picker">第{{startWeek}}周</view>
+          </picker>
+        </view>
+      </view>
+      <view class="form-item half">
+        <text class="label">结束周</text>
+        <view class="picker-wrap">
+          <picker mode="selector" range="{{weeks}}" bindchange="onEndWeekChange">
+            <view class="picker">第{{endWeek}}周</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">课程颜色</text>
+      <view class="color-list">
+        <view
+          wx:for="{{colors}}"
+          wx:key="index"
+          class="color-item {{color === item ? 'active' : ''}}"
+          style="background: {{item}}"
+          data-index="{{index}}"
+          bindtap="onColorChange"
+        ></view>
+      </view>
+    </view>
+
+    <button class="btn-submit" bindtap="submit">保存课程</button>
+  </view>
+</view>

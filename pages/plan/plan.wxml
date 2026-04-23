@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 标签切换 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 0 ? 'active' : ''}}" data-index="0" bindtap="switchTab">
+      <text>今日</text>
+    </view>
+    <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">
+      <text>本周</text>
+    </view>
+    <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">
+      <text>全部</text>
+    </view>
+  </view>
+
+  <!-- 计划列表 -->
+  <view class="plan-list">
+    <view class="plan-item {{item.status === 1 ? 'done' : ''}}" wx:for="{{plans}}" wx:key="id">
+      <view class="plan-check" data-id="{{item.id}}" data-status="{{item.status}}" bindtap="togglePlan">
+        <view class="check-circle {{item.status === 1 ? 'checked' : ''}}">
+          <text wx:if="{{item.status === 1}}">✓</text>
+        </view>
+      </view>
+      <view class="plan-content">
+        <text class="plan-title">{{item.title}}</text>
+        <text class="plan-date">{{item.planDate}}</text>
+      </view>
+      <view class="plan-delete" data-id="{{item.id}}" bindtap="deletePlan">
+        <text class="delete-icon">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{plans.length === 0}}">
+    <image class="empty-icon" src="/assets/icons/course.png" mode="aspectFit"/>
+    <text class="empty-text">还没有计划，添加一个吧</text>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="fab" bindtap="showAdd">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <!-- 添加弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddModal}}" bindtap="closeModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-title">添加学习计划</view>
+      <view class="form-input-group">
+        <input class="input" placeholder="计划标题" data-field="title" bindinput="onInput" value="{{newPlan.title}}"/>
+      </view>
+      <view class="modal-textarea-wrap">
+        <textarea class="modal-textarea" placeholder="计划详情（可选）" data-field="content" bindinput="onInput" value="{{newPlan.content}}"/>
+      </view>
+      <view class="modal-row">
+        <text class="modal-label">计划日期</text>
+        <picker mode="date" value="{{newPlan.planDate}}" bindchange="onDateChange">
+          <view class="date-picker">{{newPlan.planDate || '选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeModal">取消</button>
+        <button class="modal-btn confirm" bindtap="submitPlan">确认添加</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,195 @@
+/* pages/index/index.wxss - Modern Design */
+.container {
+  min-height: 100vh;
+  background: #f0f2f8;
+  padding-bottom: 30rpx;
+}
+
+.header {
+  background: linear-gradient(145deg, #6C5CE7 0%, #a855f7 50%, #c084fc 100%);
+  padding: 48rpx 32rpx 110rpx;
+  border-radius: 0 0 48rpx 48rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  top: -60rpx;
+  right: -60rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: -40rpx;
+  left: -40rpx;
+  width: 160rpx;
+  height: 160rpx;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 52rpx;
+  background: rgba(255,255,255,0.2);
+  margin-right: 24rpx;
+  border: 3rpx solid rgba(255,255,255,0.4);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8rpx;
+  letter-spacing: 1rpx;
+}
+
+.greeting {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 1rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 36rpx;
+  margin: -64rpx 24rpx 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.07), 0 1rpx 4rpx rgba(0,0,0,0.03);
+  position: relative;
+  z-index: 2;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: 1rpx;
+}
+
+.card-more {
+  font-size: 24rpx;
+  color: #6C5CE7;
+  font-weight: 600;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 16rpx 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 52rpx;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.course-color {
+  width: 8rpx;
+  height: 56rpx;
+  border-radius: 4rpx;
+  margin-right: 20rpx;
+}
+
+.course-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-name {
+  font-size: 28rpx;
+  color: #1a1a2e;
+  margin-bottom: 8rpx;
+  font-weight: 600;
+}
+
+.course-detail {
+  font-size: 24rpx;
+  color: #9ca3af;
+}
+
+.plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.plan-item {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.plan-item.done .plan-title {
+  text-decoration: line-through;
+  color: #d1d5db;
+}
+
+.plan-title {
+  margin-left: 16rpx;
+  font-size: 28rpx;
+  color: #374151;
+  font-weight: 500;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 36rpx 0;
+  color: #d1d5db;
+  font-size: 26rpx;
+}

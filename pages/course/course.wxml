@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 周次选择 -->
+  <view class="week-selector">
+    <text class="week-label">第</text>
+    <picker mode="selector" range="{{weeks}}" bindchange="onWeekChange">
+      <text class="week-value">{{currentWeek}}</text>
+    </picker>
+    <text class="week-label">周</text>
+  </view>
+
+  <!-- 星期选择 -->
+  <view class="weekday-tabs">
+    <view 
+      class="weekday-tab {{weekDay === index + 1 ? 'active' : ''}}" 
+      wx:for="{{weekDays}}" 
+      wx:key="index"
+      data-index="{{index}}"
+      bindtap="switchWeekDay">
+      <text>{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list" wx:if="{{courses.length > 0}}">
+    <view class="course-card" wx:for="{{courses}}" wx:key="id">
+      <view class="course-color-bar" style="background: {{item.color}}"></view>
+      <view class="course-content" data-id="{{item.id}}" bindtap="editCourse">
+        <view class="course-name">{{item.name}}</view>
+        <view class="course-info">
+          <text class="info-item">{{item.teacher}}</text>
+          <text class="info-sep">·</text>
+          <text class="info-item">{{item.classroom}}</text>
+        </view>
+        <view class="course-time">
+          第{{item.startSection}}-{{item.endSection}}节
+        </view>
+      </view>
+      <view class="course-action" data-id="{{item.id}}" bindtap="deleteCourse">
+        <text class="delete-dot"></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <image class="empty-icon" src="/assets/icons/course.png" mode="aspectFit"/>
+    <text class="empty-text">暂无课程安排</text>
+    <button class="btn-add" bindtap="addCourse">添加课程</button>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="fab" bindtap="addCourse">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

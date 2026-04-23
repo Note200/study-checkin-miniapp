@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="page-title">
+    <text>创建打卡</text>
+    <text class="page-subtitle">设定你的学习目标</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="label">打卡任务名称</text>
+      <view class="input-wrap">
+        <input class="input" placeholder="如：每日背单词" bindinput="onTitleInput" value="{{title}}" />
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">任务类型</text>
+      <view class="type-list">
+        <view
+          class="type-item {{type === 0 ? 'active' : ''}}"
+          data-type="0"
+          bindtap="onTypeChange">
+          <text class="type-icon">🔄</text>
+          <text class="type-name">习惯打卡</text>
+          <text class="type-desc">每天都要打卡</text>
+        </view>
+        <view
+          class="type-item {{type === 1 ? 'active' : ''}}"
+          data-type="1"
+          bindtap="onTypeChange">
+          <text class="type-icon">🎯</text>
+          <text class="type-name">目标打卡</text>
+          <text class="type-desc">坚持完成N天</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">目标天数</text>
+      <view class="picker-wrap">
+        <picker mode="selector" range="{{days}}" bindchange="onDaysChange">
+          <view class="picker">{{targetDays}} 天</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="label">公开范围</text>
+      <view class="checkbox-wrap">
+        <checkbox-group bindchange="onPublicChange">
+          <label class="checkbox-item">
+            <checkbox value="1" checked="{{isPublic === 1}}" color="#667eea"/>
+            <text>公开给班级成员</text>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+
+    <button class="btn-submit" bindtap="submit">创建打卡任务</button>
+  </view>
+</view>
