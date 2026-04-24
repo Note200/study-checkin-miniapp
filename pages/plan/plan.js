@@ -52,6 +52,9 @@ Page({
     this.setData({ showAddModal: false })
   },
 
+  // 阻止弹窗内部点击冒泡到遮罩层
+  preventClose() {},
+
   // 输入监听
   onInput(e) {
     const field = e.currentTarget.dataset.field

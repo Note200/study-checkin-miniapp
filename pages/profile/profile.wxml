@@ -2,7 +2,7 @@
 
   <!-- 绿色渐变头部 -->
   <view class="profile-header">
-    <image class="avatar" src="{{userInfo.avatar || '/assets/icons/profile.png'}}" mode="aspectFill"/>
+    <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
     <view class="name-row">
       <text class="nickname">{{userInfo.nickname || '同学'}}</text>
       <view class="edit-icon" bindtap="editProfile"><text>✏️</text></view>
@@ -65,7 +65,7 @@
 
   <!-- 编辑昵称弹窗 -->
   <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">
-    <view class="modal-content" catchtap="">
+    <view class="modal-content" catchtap="preventClose">
       <view class="modal-title">编辑个人信息</view>
       <view class="form-input-group">
         <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />

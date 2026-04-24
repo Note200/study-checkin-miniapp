@@ -81,6 +81,9 @@ Page({
 
   closeModal() { this.setData({ showCheckinModal: false }) },
 
+  // 阻止弹窗内部点击冒泡到遮罩层
+  preventClose() {},
+
   onRemarkInput(e) { this.setData({ checkinRemark: e.detail.value }) },
 
   async doCheckin() {
