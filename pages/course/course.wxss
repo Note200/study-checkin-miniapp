@@ -5,6 +5,42 @@
   padding-bottom: 160rpx;
 }
 
+/* 周次选择 */
+.week-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 16rpx 24rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.week-selector-label { font-size: 28rpx; color: #555; }
+.week-selector-value {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #07C160;
+  min-width: 36rpx;
+  text-align: center;
+}
+
+/* FAB 悬浮按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 160rpx;
+  width: 96rpx;
+  height: 96rpx;
+  background: #07C160;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(7,193,96,0.4);
+  z-index: 100;
+}
+.fab-icon { font-size: 56rpx; color: #fff; line-height: 1; margin-top: -4rpx; }
+
 /* 星期选择器 */
 .week-tabs {
   background: #fff;
