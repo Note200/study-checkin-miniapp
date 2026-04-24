@@ -8,7 +8,12 @@ Page({
     classList: [],
     classInfo: null,
     noticeList: [],
-    stats: {},
+    stats: {
+      memberCount: 0,
+      taskCount: 0,
+      checkinCount: 0,
+      planCount: 0
+    },
     showPublishModal: false,
     noticeTitle: '',
     noticeContent: ''
@@ -62,9 +67,12 @@ Page({
       const res = await app.request({ url: '/api/admin/notices' })
       if (res.code === 200) {
         this.setData({ noticeList: res.data || [] })
+      } else {
+        this.setData({ noticeList: [] })
       }
     } catch (e) {
-      console.log('加载公告失败')
+      console.log('加载公告失败，使用空列表')
+      this.setData({ noticeList: [] })
     }
   },
 
@@ -72,10 +80,18 @@ Page({
     try {
       const res = await app.request({ url: '/api/admin/stats' })
       if (res.code === 200) {
-        this.setData({ stats: res.data })
+        this.setData({
+          stats: {
+            memberCount: res.data.memberCount || 0,
+            taskCount: res.data.taskCount || 0,
+            checkinCount: res.data.checkinCount || 0,
+            planCount: res.data.planCount || 0
+          }
+        })
       }
     } catch (e) {
-      console.log('加载统计失败')
+      console.log('加载统计失败，使用默认数据')
+      // 不修改 stats，保持 data 中的默认值 0
     }
   },
 
@@ -92,6 +108,9 @@ Page({
   hideNoticeModal() {
     this.setData({ showPublishModal: false })
   },
+
+  // 阻止弹窗内部点击冒泡到遮罩层
+  preventClose() {},
 
   // 输入监听
   onNoticeTitleInput(e) {

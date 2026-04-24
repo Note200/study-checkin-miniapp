@@ -82,6 +82,9 @@ Page({
     this.setData({ showEditModal: false })
   },
 
+  // 阻止弹窗内部点击冒泡到遮罩层
+  preventClose() {},
+
   onNicknameInput(e) { this.setData({ editNickname: e.detail.value }) },
   onMajorInput(e) { this.setData({ editMajor: e.detail.value }) },
   onClassInput(e) { this.setData({ editClass: e.detail.value }) },

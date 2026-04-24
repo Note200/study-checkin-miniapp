@@ -18,7 +18,7 @@ page { background: #f4f6f8; }
   margin-bottom: 56rpx;
   gap: 16rpx;
 }
-.logo { width: 100rpx; height: 100rpx; border-radius: 28rpx; }
+.logo { width: 140rpx; height: 140rpx; border-radius: 36rpx; }
 .app-name { font-size: 44rpx; font-weight: 700; color: #fff; }
 .app-slogan { font-size: 26rpx; color: rgba(255,255,255,0.85); }
 

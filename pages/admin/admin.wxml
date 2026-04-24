@@ -54,7 +54,7 @@
       </view>
       <view class="member-list" wx:if="{{classList.length > 0}}">
         <view class="member-item" wx:for="{{classList}}" wx:key="id">
-          <image class="member-avatar" src="{{item.avatar || '/assets/icons/profile.png'}}" mode="aspectFill"/>
+          <image class="member-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
           <view class="member-info">
             <text class="member-name">{{item.nickname}}</text>
             <text class="member-role">{{item.role === 1 ? '管理员' : '成员'}}</text>
@@ -134,7 +134,7 @@
 
   <!-- 公告发布弹窗 -->
   <view class="modal-mask" wx:if="{{showPublishModal}}" bindtap="hideNoticeModal">
-    <view class="modal-content" catchtap="">
+    <view class="modal-content" catchtap="preventClose">
       <view class="modal-title">发布公告</view>
       <view class="form-input-group">
         <input class="input" placeholder="公告标题" bindinput="onNoticeTitleInput" value="{{noticeTitle}}"/>

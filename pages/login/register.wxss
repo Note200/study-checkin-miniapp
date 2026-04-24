@@ -17,7 +17,7 @@ page { background: #f4f6f8; }
   margin-bottom: 48rpx;
   gap: 12rpx;
 }
-.logo { width: 88rpx; height: 88rpx; border-radius: 24rpx; }
+.logo { width: 140rpx; height: 140rpx; border-radius: 36rpx; }
 .app-name { font-size: 40rpx; font-weight: 700; color: #fff; }
 
 .register-card {
