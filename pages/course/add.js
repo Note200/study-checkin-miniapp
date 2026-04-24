@@ -12,10 +12,10 @@ Page({
     endSection: 2,
     startWeek: 1,
     endWeek: 18,
-    color: '#667eea',
+    color: '#07C160',
     weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
     sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    colors: ['#667eea', '#67C23A', '#E6A23C', '#F56C6C', '#9B59B6', '#1ABC9C', '#FF6B6B']
+    colors: ['#07C160', '#2ECC71', '#E6A23C', '#F56C6C', '#9B59B6', '#1ABC9C', '#FF6B6B']
   },
 
   onLoad(options) {
@@ -44,7 +44,7 @@ Page({
           endSection: c.endSection || 2,
           startWeek: c.startWeek || 1,
           endWeek: c.endWeek || 18,
-          color: c.color || '#667eea'
+          color: c.color || '#07C160'
         })
       }
     } catch (e) {

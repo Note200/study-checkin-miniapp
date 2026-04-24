@@ -55,9 +55,7 @@
   </view>
 
   <!-- FAB -->
-  <view class="fab" bindtap="addTask">
-    <text class="fab-icon">+</text>
-  </view>
+  <view class="fab" bindtap="addTask">+</view>
 
   <!-- 打卡弹窗 -->
   <view class="modal-mask" wx:if="{{showCheckinModal}}" bindtap="closeModal">

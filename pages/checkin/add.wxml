@@ -48,7 +48,7 @@
       <view class="checkbox-wrap">
         <checkbox-group bindchange="onPublicChange">
           <label class="checkbox-item">
-            <checkbox value="1" checked="{{isPublic === 1}}" color="#667eea"/>
+            <checkbox value="1" checked="{{isPublic === 1}}" color="#07C160"/>
             <text>公开给班级成员</text>
           </label>
         </checkbox-group>

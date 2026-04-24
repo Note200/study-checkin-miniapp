@@ -7,9 +7,7 @@
       <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">进行中</view>
       <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">已完成</view>
     </view>
-    <view class="btn-add" bindtap="showAdd">
-      <text>+ 新增</text>
-    </view>
+    <view class="btn-add" bindtap="showAdd">+ 新增</view>
   </view>
 
   <!-- 计划列表 -->
@@ -65,9 +63,7 @@
   </view>
 
   <!-- FAB -->
-  <view class="fab" bindtap="showAdd">
-    <text class="fab-icon">+</text>
-  </view>
+  <view class="fab" bindtap="showAdd">+</view>
 
   <!-- 添加弹窗 -->
   <view class="modal-mask" wx:if="{{showAddModal}}" bindtap="closeModal">
