@@ -34,7 +34,7 @@ Page({
 
   // 切换标签
   switchTab(e) {
-    this.setData({ activeTab: e.currentTarget.dataset.index })
+    this.setData({ activeTab: parseInt(e.currentTarget.dataset.index) })
     this.loadPlans()
   },
 
