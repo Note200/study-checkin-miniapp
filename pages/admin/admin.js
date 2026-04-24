@@ -44,7 +44,7 @@ Page({
   },
 
   switchTab(e) {
-    this.setData({ activeTab: e.currentTarget.dataset.index })
+    this.setData({ activeTab: parseInt(e.currentTarget.dataset.index) })
   },
 
   async loadClass() {
