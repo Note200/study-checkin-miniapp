@@ -1,71 +1,106 @@
 <view class="container">
-  <!-- 顶部欢迎区域 -->
+
+  <!-- 顶部绿色渐变头部 -->
   <view class="header">
-    <view class="user-info">
+    <view class="header-left">
       <image class="avatar" src="{{userInfo.avatar || '/assets/icons/profile.png'}}" mode="aspectFill"/>
-      <view class="user-text">
-        <text class="nickname">{{userInfo.nickname || '同学'}}</text>
-        <text class="greeting">今天也要加油哦~</text>
+      <view class="header-text">
+        <text class="nickname">{{userInfo.nickname || '同学'}}，{{greeting}}！</text>
+        <text class="slogan">坚持学习，成就未来 🌱</text>
       </view>
+    </view>
+    <view class="bell-btn" bindtap="goAdmin" wx:if="{{isAdmin}}">
+      <text class="bell-icon">🔔</text>
     </view>
   </view>
 
-  <!-- 打卡统计卡片 -->
-  <view class="card checkin-card" bindtap="goCheckin">
-    <view class="card-header">
-      <text class="card-title">今日打卡</text>
-      <text class="card-more">去打卡 ></text>
-    </view>
-    <view class="stats-row">
-      <view class="stat-item">
-        <text class="stat-num">{{checkinStats.done}}</text>
-        <text class="stat-label">已打卡</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-num">{{checkinStats.total}}</text>
-        <text class="stat-label">目标</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-num">{{checkinStats.rate}}%</text>
-        <text class="stat-label">完成率</text>
-      </view>
-    </view>
+  <!-- 公告横幅 -->
+  <view class="notice-bar" wx:if="{{notice}}">
+    <text class="notice-icon">📢</text>
+    <text class="notice-text">{{notice}}</text>
   </view>
 
-  <!-- 今日课程 -->
-  <view class="card" bindtap="goCourse">
-    <view class="card-header">
-      <text class="card-title">今日课程</text>
-      <text class="card-more">查看全部 ></text>
+  <!-- 今日进度 -->
+  <view class="section-header">
+    <text class="section-title">今日进度</text>
+    <text class="section-right green" bindtap="goCheckin">{{todayRate}}%</text>
+  </view>
+  <view class="card progress-card">
+    <!-- 学习时长进度 -->
+    <view class="progress-row">
+      <text class="progress-label">学习时长</text>
+      <text class="progress-val">{{studyHours.done}}h / {{studyHours.target}}h</text>
     </view>
-    <view class="course-list" wx:if="{{todayCourse.length > 0}}">
-      <view class="course-item" wx:for="{{todayCourse}}" wx:key="id">
-        <view class="course-color" style="background: {{item.color}}"></view>
-        <view class="course-info">
-          <text class="course-name">{{item.name}}</text>
-          <text class="course-detail">{{item.classroom}} · 第{{item.startSection}}-{{item.endSection}}节</text>
+    <view class="progress-bar-wrap">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{studyHours.rate}}%"></view>
+      </view>
+    </view>
+
+    <!-- 今日任务列表 -->
+    <view class="task-list">
+      <view class="task-row {{item.status === 1 ? 'done' : ''}}" wx:for="{{todayTasks}}" wx:key="id" data-id="{{item.id}}" bindtap="goCheckin">
+        <view class="task-check {{item.status === 1 ? 'checked' : ''}}">
+          <text wx:if="{{item.status === 1}}">✓</text>
         </view>
+        <view class="task-meta">
+          <text class="task-name {{item.status === 1 ? 'done-text' : ''}}">{{item.title}}</text>
+          <text class="task-sub">{{item.courseName || '习惯打卡'}} · {{item.targetMinutes || 30}}分钟</text>
+        </view>
+        <text class="task-badge {{item.status === 1 ? 'badge-done' : 'badge-pending'}}">
+          {{item.status === 1 ? '已完成' : '待完成'}}
+        </text>
       </view>
     </view>
-    <view class="empty-tip" wx:else>
-      <text>今日无课程安排</text>
+
+    <!-- 无任务空状态 -->
+    <view class="empty-tip" wx:if="{{todayTasks.length === 0}}">
+      <text>暂无打卡任务，去创建一个吧</text>
     </view>
   </view>
 
-  <!-- 今日计划 -->
-  <view class="card" bindtap="goPlan">
-    <view class="card-header">
-      <text class="card-title">今日计划</text>
-      <text class="card-more">查看全部 ></text>
-    </view>
-    <view class="plan-list" wx:if="{{todayPlans.length > 0}}">
-      <view class="plan-item {{item.status === 1 ? 'done' : ''}}" wx:for="{{todayPlans}}" wx:key="id">
-        <icon type="{{item.status === 1 ? 'success' : 'circle'}}" size="20" color="{{item.status === 1 ? '#67C23A' : '#999'}}"/>
-        <text class="plan-title">{{item.title}}</text>
+  <!-- 本周学习时长 -->
+  <view class="section-header">
+    <text class="section-title">本周学习时长</text>
+    <text class="section-right green" bindtap="goCheckin">详细报告 ›</text>
+  </view>
+  <view class="card chart-card">
+    <!-- 简易柱状图 -->
+    <view class="bar-chart">
+      <view class="bar-item" wx:for="{{weekData}}" wx:key="day">
+        <view class="bar-wrap">
+          <view class="bar-fill {{item.isToday ? 'today' : ''}}" style="height: {{item.height}}rpx"></view>
+        </view>
+        <text class="bar-label">{{item.day}}</text>
       </view>
     </view>
-    <view class="empty-tip" wx:else>
-      <text>暂无计划，去制定一个吧</text>
+    <view class="chart-footer">
+      <text class="chart-total-label">本周累计</text>
+      <text class="chart-total-val">{{weekTotal}} 小时</text>
     </view>
   </view>
+
+  <!-- 快捷功能 -->
+  <view class="section-header">
+    <text class="section-title">快捷功能</text>
+  </view>
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="goCheckin">
+      <view class="quick-icon bg-green"><text>✅</text></view>
+      <text class="quick-label">每日打卡</text>
+    </view>
+    <view class="quick-item" bindtap="goPlan">
+      <view class="quick-icon bg-blue"><text>📋</text></view>
+      <text class="quick-label">学习计划</text>
+    </view>
+    <view class="quick-item" bindtap="goCourse">
+      <view class="quick-icon bg-orange"><text>📚</text></view>
+      <text class="quick-label">课程表</text>
+    </view>
+    <view class="quick-item" bindtap="goProfile">
+      <view class="quick-icon bg-purple"><text>👤</text></view>
+      <text class="quick-label">我的</text>
+    </view>
+  </view>
+
 </view>

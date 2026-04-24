@@ -1,6 +1,10 @@
 // pages/checkin/checkin.js
 const app = getApp()
 
+// 课程图标映射
+const ICONS = ['📐', '🌍', '💻', '📚', '🔭', '🎨', '🎵', '⚗️', '📝', '🏃']
+const ICON_BG = ['#E8F8EF', '#E3F2FD', '#FFF3E0', '#F3E8FF', '#FEF0F0', '#E8F5E9', '#E1F5FE', '#FFF8E1', '#F3E5F5', '#E8F5E9']
+
 Page({
   data: {
     tasks: [],
@@ -8,63 +12,90 @@ Page({
     showCheckinModal: false,
     checkinRemark: '',
     showHistory: false,
-    historyList: []
+    historyList: [],
+    calendarYear: new Date().getFullYear(),
+    calendarMonth: new Date().getMonth() + 1,
+    calendarDays: []
   },
 
   onShow() {
     this.loadTasks()
+    this.loadCalendar()
   },
 
   async loadTasks() {
     try {
       const res = await app.request({ url: '/api/checkin/tasks' })
       if (res.code === 200) {
-        this.setData({ tasks: res.data || [] })
+        const tasks = (res.data || []).map((t, i) => ({
+          ...t,
+          icon: ICONS[i % ICONS.length],
+          iconBg: ICON_BG[i % ICON_BG.length]
+        }))
+        this.setData({ tasks })
       }
     } catch (e) {
       console.log('加载任务失败')
     }
   },
 
-  // 打开打卡弹窗
+  // 加载本月打卡日历
+  async loadCalendar() {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = now.getMonth() + 1
+    const today = now.getDate()
+
+    let checkedDays = []
+    try {
+      const res = await app.request({ url: '/api/checkin/calendar', data: { year, month } })
+      if (res.code === 200) {
+        checkedDays = res.data || []
+      }
+    } catch (e) {}
+
+    // 生成日历格子
+    const firstDay = new Date(year, month - 1, 1).getDay() // 0=周日
+    const daysInMonth = new Date(year, month, 0).getDate()
+    const cells = []
+    // 前面的空格
+    for (let i = 0; i < firstDay; i++) cells.push({ empty: true })
+    // 日期
+    for (let d = 1; d <= daysInMonth; d++) {
+      cells.push({
+        day: d,
+        checked: checkedDays.includes(d),
+        isToday: d === today,
+        empty: false
+      })
+    }
+
+    this.setData({ calendarYear: year, calendarMonth: month, calendarDays: cells })
+  },
+
   openCheckin(e) {
     const taskId = e.currentTarget.dataset.id
     const task = this.data.tasks.find(t => t.id === taskId)
-    this.setData({
-      currentTask: task,
-      showCheckinModal: true,
-      checkinRemark: ''
-    })
+    this.setData({ currentTask: task, showCheckinModal: true, checkinRemark: '' })
   },
 
-  // 关闭弹窗
-  closeModal() {
-    this.setData({ showCheckinModal: false })
-  },
+  closeModal() { this.setData({ showCheckinModal: false }) },
 
-  // 备注输入
-  onRemarkInput(e) {
-    this.setData({ checkinRemark: e.detail.value })
-  },
+  onRemarkInput(e) { this.setData({ checkinRemark: e.detail.value }) },
 
-  // 打卡
   async doCheckin() {
     const { currentTask, checkinRemark } = this.data
-
     try {
       const res = await app.request({
         url: '/api/checkin/do',
         method: 'POST',
-        data: {
-          taskId: currentTask.id,
-          remark: checkinRemark
-        }
+        data: { taskId: currentTask.id, remark: checkinRemark }
       })
-
       if (res.code === 200) {
-        wx.showToast({ title: '打卡成功', icon: 'success' })
+        wx.showToast({ title: '打卡成功 🎉', icon: 'success' })
         this.closeModal()
         this.loadTasks()
+        this.loadCalendar()
       } else {
         wx.showToast({ title: res.msg || '打卡失败', icon: 'none' })
       }
@@ -73,32 +104,17 @@ Page({
     }
   },
 
-  // 查看历史
   async viewHistory(e) {
     const taskId = e.currentTarget.dataset.id
     try {
-      const res = await app.request({
-        url: '/api/checkin/history',
-        data: { taskId }
-      })
+      const res = await app.request({ url: '/api/checkin/history', data: { taskId } })
       if (res.code === 200) {
-        this.setData({
-          showHistory: true,
-          historyList: res.data || []
-        })
+        this.setData({ showHistory: true, historyList: res.data || [] })
       }
-    } catch (e) {
-      console.log('加载历史失败')
-    }
+    } catch (e) {}
   },
 
-  // 关闭历史
-  closeHistory() {
-    this.setData({ showHistory: false })
-  },
+  closeHistory() { this.setData({ showHistory: false }) },
 
-  // 添加新任务
-  addTask() {
-    wx.navigateTo({ url: '/pages/checkin/add' })
-  }
+  addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }
 })

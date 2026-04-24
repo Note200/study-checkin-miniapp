@@ -1,42 +1,70 @@
 <view class="container">
-  <!-- 标签切换 -->
-  <view class="tabs">
-    <view class="tab {{activeTab === 0 ? 'active' : ''}}" data-index="0" bindtap="switchTab">
-      <text>今日</text>
+
+  <!-- 标签栏 + 新增按钮 -->
+  <view class="top-bar">
+    <view class="tabs">
+      <view class="tab {{activeTab === 0 ? 'active' : ''}}" data-index="0" bindtap="switchTab">全部</view>
+      <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">进行中</view>
+      <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">已完成</view>
     </view>
-    <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">
-      <text>本周</text>
-    </view>
-    <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">
-      <text>全部</text>
+    <view class="btn-add" bindtap="showAdd">
+      <text>+ 新增</text>
     </view>
   </view>
 
   <!-- 计划列表 -->
-  <view class="plan-list">
-    <view class="plan-item {{item.status === 1 ? 'done' : ''}}" wx:for="{{plans}}" wx:key="id">
-      <view class="plan-check" data-id="{{item.id}}" data-status="{{item.status}}" bindtap="togglePlan">
-        <view class="check-circle {{item.status === 1 ? 'checked' : ''}}">
-          <text wx:if="{{item.status === 1}}">✓</text>
+  <view class="plan-list" wx:if="{{plans.length > 0}}">
+    <view
+      class="plan-card {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}}"
+      wx:for="{{plans}}"
+      wx:key="id">
+      <!-- 左侧彩色竖条 -->
+      <view class="plan-left-bar"></view>
+
+      <view class="plan-body">
+        <!-- 顶部：勾选 + 标题 + 删除 -->
+        <view class="plan-top">
+          <view
+            class="check-circle {{item.status === 1 ? 'checked' : ''}}"
+            data-id="{{item.id}}"
+            data-status="{{item.status}}"
+            bindtap="togglePlan">
+            <text wx:if="{{item.status === 1}}">✓</text>
+          </view>
+          <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
+          <view class="delete-btn" data-id="{{item.id}}" bindtap="deletePlan">
+            <text class="delete-icon">🗑</text>
+          </view>
         </view>
-      </view>
-      <view class="plan-content">
-        <text class="plan-title">{{item.title}}</text>
-        <text class="plan-date">{{item.planDate}}</text>
-      </view>
-      <view class="plan-delete" data-id="{{item.id}}" bindtap="deletePlan">
-        <text class="delete-icon">删除</text>
+
+        <!-- 标签行：课程 + 优先级 + 日期 -->
+        <view class="plan-tags">
+          <text class="tag tag-blue" wx:if="{{item.courseName}}">{{item.courseName}}</text>
+          <text class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
+            {{item.priority === 2 ? '紧急' : item.priority === 1 ? '普通' : '宽松'}}
+          </text>
+          <text class="tag-date">⏰ {{item.planDate}}</text>
+        </view>
+
+        <!-- 进度条 -->
+        <view class="plan-progress-row">
+          <text class="progress-label">完成进度</text>
+          <text class="progress-pct {{item.status === 1 ? 'green' : ''}}">{{item.status === 1 ? '100%' : (item.progress || 0) + '%'}}</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.status === 1 ? 100 : (item.progress || 0)}}%"></view>
+        </view>
       </view>
     </view>
   </view>
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{plans.length === 0}}">
-    <image class="empty-icon" src="/assets/icons/course.png" mode="aspectFit"/>
+    <text class="empty-emoji">📋</text>
     <text class="empty-text">还没有计划，添加一个吧</text>
   </view>
 
-  <!-- 添加按钮 -->
+  <!-- FAB -->
   <view class="fab" bindtap="showAdd">
     <text class="fab-icon">+</text>
   </view>
@@ -52,6 +80,14 @@
         <textarea class="modal-textarea" placeholder="计划详情（可选）" data-field="content" bindinput="onInput" value="{{newPlan.content}}"/>
       </view>
       <view class="modal-row">
+        <text class="modal-label">优先级</text>
+        <view class="priority-row">
+          <view class="pri-btn {{newPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setPriority">宽松</view>
+          <view class="pri-btn {{newPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setPriority">普通</view>
+          <view class="pri-btn {{newPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setPriority">紧急</view>
+        </view>
+      </view>
+      <view class="modal-row">
         <text class="modal-label">计划日期</text>
         <picker mode="date" value="{{newPlan.planDate}}" bindchange="onDateChange">
           <view class="date-picker">{{newPlan.planDate || '选择日期'}}</view>
@@ -63,4 +99,5 @@
       </view>
     </view>
   </view>
+
 </view>

@@ -1,131 +1,30 @@
-/* pages/course/add.wxss - Modern Design */
-.container {
-  min-height: 100vh;
-  background: #f0f2f8;
-  padding: 20rpx;
-}
+/* ===== 添加课程页 ===== */
+page { background: #f4f6f8; }
+.container { padding: 32rpx 24rpx; }
+.page-title { margin-bottom: 36rpx; }
+.page-title text:first-child { font-size: 40rpx; font-weight: 700; color: #1a1a1a; display: block; }
+.page-subtitle { font-size: 26rpx; color: #aaa; }
 
-.page-title {
-  padding: 28rpx 12rpx 12rpx;
-}
-
-.page-title text {
-  display: block;
-  font-size: 44rpx;
-  font-weight: 800;
-  color: #1a1a2e;
-  letter-spacing: 1rpx;
-}
-
-.page-subtitle {
-  font-size: 26rpx !important;
-  color: #9ca3af !important;
-  font-weight: normal !important;
-  margin-top: 8rpx !important;
-}
-
-.form {
-  background: #fff;
-  border-radius: 32rpx;
-  padding: 44rpx 36rpx;
-  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.06), 0 1rpx 4rpx rgba(0,0,0,0.02);
-}
-
-.form-item {
-  margin-bottom: 36rpx;
-}
-
-.form-item.half {
-  flex: 1;
-}
-
-.form-row {
-  display: flex;
-  gap: 20rpx;
-}
-
-.label {
-  display: block;
-  font-size: 26rpx;
-  color: #9ca3af;
-  margin-bottom: 14rpx;
-  font-weight: 600;
-}
-
-.input-wrap {
-  background: #f5f6fa;
-  border-radius: 20rpx;
-  padding: 0 28rpx;
+.form-section { background: #fff; border-radius: 20rpx; padding: 28rpx 24rpx; margin-bottom: 24rpx; box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05); }
+.form-label { font-size: 26rpx; color: #555; margin-bottom: 12rpx; display: block; }
+.form-input {
+  width: 100%; background: #f7f8fa; border-radius: 14rpx;
+  padding: 24rpx; font-size: 28rpx; box-sizing: border-box;
   border: 2rpx solid transparent;
 }
+.form-input:focus { border-color: #07C160; background: #fff; }
 
-.input-wrap:focus-within {
-  background: #fff;
-  border-color: #6C5CE7;
-  box-shadow: 0 0 0 6rpx rgba(108, 92, 231, 0.08);
+.day-wrap { display: flex; flex-wrap: wrap; gap: 12rpx; }
+.day-btn {
+  padding: 12rpx 24rpx; border-radius: 40rpx; font-size: 26rpx;
+  background: #f7f8fa; color: #666; border: 2rpx solid transparent;
 }
-
-.input {
-  width: 100%;
-  height: 92rpx;
-  padding: 0;
-  border: none;
-  border-radius: 20rpx;
-  font-size: 28rpx;
-  box-sizing: border-box;
-  background: transparent;
-  color: #1a1a2e;
-}
-
-.picker-wrap {
-  background: #f5f6fa;
-  border-radius: 20rpx;
-}
-
-.picker {
-  height: 92rpx;
-  padding: 0 28rpx;
-  font-size: 28rpx;
-  line-height: 92rpx;
-  background: transparent;
-  color: #1a1a2e;
-  font-weight: 500;
-}
-
-.color-list {
-  display: flex;
-  gap: 20rpx;
-  flex-wrap: wrap;
-  padding-top: 8rpx;
-}
-
-.color-item {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: 50%;
-  border: 4rpx solid transparent;
-}
-
-.color-item.active {
-  border-color: #6C5CE7;
-  transform: scale(1.2);
-  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.35);
-}
+.day-btn.active { background: #E8F8EF; color: #07C160; border-color: #07C160; font-weight: 700; }
 
 .btn-submit {
-  margin-top: 56rpx;
-  height: 96rpx;
-  line-height: 96rpx;
-  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
-  color: #fff;
-  font-size: 32rpx;
-  font-weight: 700;
-  border-radius: 48rpx;
-  border: none;
-  box-shadow: 0 8rpx 28rpx rgba(108, 92, 231, 0.35);
-  letter-spacing: 4rpx;
+  width: 100%; background: #07C160; color: #fff;
+  border-radius: 50rpx; font-size: 32rpx; font-weight: 700;
+  padding: 28rpx 0; border: none; margin-top: 8rpx;
+  box-shadow: 0 6rpx 20rpx rgba(7,193,96,0.3);
 }
-
-.btn-submit:active {
-  transform: scale(0.97);
-}
+.btn-submit:active { transform: scale(0.97); }
