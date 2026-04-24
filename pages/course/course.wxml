@@ -47,7 +47,5 @@
   </view>
 
   <!-- 添加按钮（FAB） -->
-  <view class="fab" bindtap="addCourse">
-    <text class="fab-icon">+</text>
-  </view>
+  <view class="fab" bindtap="addCourse">+</view>
 </view>

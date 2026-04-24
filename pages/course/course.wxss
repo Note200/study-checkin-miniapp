@@ -39,7 +39,7 @@
   box-shadow: 0 4rpx 16rpx rgba(7,193,96,0.4);
   z-index: 100;
 }
-.fab-icon { font-size: 56rpx; color: #fff; line-height: 1; margin-top: -4rpx; }
+
 
 /* 星期选择器 */
 .week-tabs {
