@@ -76,7 +76,7 @@ Page({
     wx.showModal({
       title: '确认删除',
       content: '确定要删除这门课程吗？',
-      confirmColor: '#667eea',
+      confirmColor: '#F56C6C',
       success: async (res) => {
         if (res.confirm) {
           try {

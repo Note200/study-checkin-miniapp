@@ -121,3 +121,12 @@
   font-size: 22rpx;
   color: #ccc;
 }
+
+/* 编辑弹窗 input 样式复用全局 .form-input-group */
+.modal-content .form-input-group {
+  margin-bottom: 20rpx;
+}
+.modal-content .form-input-group input {
+  height: 88rpx;
+  font-size: 28rpx;
+}
