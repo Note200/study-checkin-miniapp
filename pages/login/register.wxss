@@ -46,7 +46,7 @@ page { background: #f4f6f8; }
   transition: border 0.2s;
 }
 .input-group:focus-within { border-color: #07C160; background: #fff; }
-.input-icon { font-size: 34rpx; margin-right: 16rpx; }
+.input-icon { width: 36rpx; height: 36rpx; flex-shrink: 0; margin-right: 16rpx; }
 .input { flex: 1; height: 96rpx; font-size: 28rpx; color: #1a1a1a; }
 
 .btn-register {
