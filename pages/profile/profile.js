@@ -4,6 +4,10 @@ const app = getApp()
 Page({
   data: {
     userInfo: null,
+    showEditModal: false,
+    editNickname: '',
+    editMajor: '',
+    editClass: '',
     menuItems: [
       { emoji: '🔔', title: '提醒设置', desc: '设置打卡提醒时间', path: '', isTab: false, bg: '#FFF3E0' },
       { emoji: '📚', title: '学习计划', desc: '管理每周学习计划', path: '/pages/plan/plan', isTab: true, bg: '#E3F2FD' },
@@ -65,7 +69,52 @@ Page({
 
   // 编辑个人信息
   editProfile() {
-    wx.showToast({ title: '个人信息编辑开发中', icon: 'none' })
+    const info = this.data.userInfo || {}
+    this.setData({
+      showEditModal: true,
+      editNickname: info.nickname || '',
+      editMajor: info.major || '',
+      editClass: info.className || ''
+    })
+  },
+
+  closeEditModal() {
+    this.setData({ showEditModal: false })
+  },
+
+  onNicknameInput(e) { this.setData({ editNickname: e.detail.value }) },
+  onMajorInput(e) { this.setData({ editMajor: e.detail.value }) },
+  onClassInput(e) { this.setData({ editClass: e.detail.value }) },
+
+  async saveProfile() {
+    const { editNickname, editMajor, editClass } = this.data
+    if (!editNickname.trim()) {
+      wx.showToast({ title: '请输入昵称', icon: 'none' })
+      return
+    }
+    try {
+      const res = await app.request({
+        url: '/api/user/profile',
+        method: 'PUT',
+        data: {
+          nickname: editNickname,
+          major: editMajor,
+          className: editClass
+        }
+      })
+      if (res.code === 200) {
+        // 更新本地数据
+        const userInfo = { ...this.data.userInfo, nickname: editNickname, major: editMajor, className: editClass }
+        app.globalData.userInfo = userInfo
+        wx.setStorageSync('userInfo', userInfo)
+        this.setData({ userInfo, showEditModal: false })
+        wx.showToast({ title: '保存成功', icon: 'success' })
+      } else {
+        wx.showToast({ title: res.msg || '保存失败', icon: 'none' })
+      }
+    } catch (e) {
+      wx.showToast({ title: '保存失败', icon: 'none' })
+    }
   },
 
   // 管理员入口

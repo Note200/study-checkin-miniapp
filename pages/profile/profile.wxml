@@ -63,4 +63,24 @@
 
   <view class="version"><text>学而时习 v1.0.0</text></view>
 
+  <!-- 编辑昵称弹窗 -->
+  <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-title">编辑个人信息</view>
+      <view class="form-input-group">
+        <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
+      </view>
+      <view class="form-input-group">
+        <input class="input" placeholder="请输入专业" bindinput="onMajorInput" value="{{editMajor}}" />
+      </view>
+      <view class="form-input-group">
+        <input class="input" placeholder="请输入班级" bindinput="onClassInput" value="{{editClass}}" />
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeEditModal">取消</button>
+        <button class="modal-btn confirm" bindtap="saveProfile">保存</button>
+      </view>
+    </view>
+  </view>
+
 </view>

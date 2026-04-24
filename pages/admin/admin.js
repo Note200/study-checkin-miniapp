@@ -147,7 +147,7 @@ Page({
     wx.showModal({
       title: '确认删除',
       content: '确定要删除这条公告吗？',
-      confirmColor: '#667eea',
+      confirmColor: '#F56C6C',
       success: async (res) => {
         if (res.confirm) {
           try {
@@ -155,8 +155,8 @@ Page({
               url: '/api/admin/notice/' + id,
               method: 'DELETE'
             })
-            this.loadNotices()
             wx.showToast({ title: '删除成功', icon: 'success' })
+            this.loadNotices()
           } catch (e) {
             wx.showToast({ title: '删除失败', icon: 'none' })
           }
