@@ -60,5 +60,9 @@ Page({
     }
     
     this.setData({ loading: false })
+  },
+
+  goBack() {
+    wx.navigateBack()
   }
 })
