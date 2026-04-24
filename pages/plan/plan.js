@@ -9,7 +9,8 @@ Page({
     newPlan: {
       title: '',
       content: '',
-      planDate: ''
+      planDate: '',
+      priority: 1
     }
   },
 
@@ -42,7 +43,7 @@ Page({
     const today = new Date().toISOString().split('T')[0]
     this.setData({
       showAddModal: true,
-      newPlan: { title: '', content: '', planDate: today }
+      newPlan: { title: '', content: '', planDate: today, priority: 1 }
     })
   },
 
@@ -59,6 +60,11 @@ Page({
     })
   },
 
+  // 设置优先级
+  setPriority(e) {
+    this.setData({ 'newPlan.priority': parseInt(e.currentTarget.dataset.val) })
+  },
+
   // 日期选择
   onDateChange(e) {
     this.setData({
@@ -68,7 +74,7 @@ Page({
 
   // 添加计划
   async submitPlan() {
-    const { title, content, planDate } = this.data.newPlan
+    const { title, content, planDate, priority } = this.data.newPlan
     if (!title) {
       wx.showToast({ title: '请输入计划标题', icon: 'none' })
       return
@@ -78,7 +84,7 @@ Page({
       const res = await app.request({
         url: '/api/plan/add',
         method: 'POST',
-        data: { title, content, planDate }
+        data: { title, content, planDate, priority }
       })
       if (res.code === 200) {
         wx.showToast({ title: '添加成功', icon: 'success' })

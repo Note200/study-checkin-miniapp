@@ -1,188 +1,123 @@
-/* pages/login/login.wxss - Modern Glassmorphism */
+/* ===== 登录页 ===== */
+page { background: #f4f6f8; }
 .container {
   min-height: 100vh;
-  background: linear-gradient(160deg, #0f0c29 0%, #302b63 50%, #6C5CE7 100%);
-  padding: 80rpx 44rpx;
+  background: linear-gradient(160deg, #2ECC71 0%, #07C160 45%, #05A550 100%);
   display: flex;
   flex-direction: column;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 60rpx;
-  padding-top: 60rpx;
-}
-
-.logo {
-  width: 140rpx;
-  height: 140rpx;
-  background: rgba(255,255,255,0.15);
-  border-radius: 36rpx;
-  margin-bottom: 36rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.15);
-}
-
-.title {
-  display: block;
-  font-size: 52rpx;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 16rpx;
-  letter-spacing: 4rpx;
-}
-
-.subtitle {
-  font-size: 26rpx;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 2rpx;
-}
-
-.login-tabs {
-  display: flex;
-  background: rgba(255,255,255,0.1);
-  border-radius: 56rpx;
-  padding: 8rpx;
-  margin-bottom: 40rpx;
-  backdrop-filter: blur(10px);
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 20rpx 0;
-  border-radius: 48rpx;
-  font-size: 28rpx;
-  color: rgba(255,255,255,0.5);
-  font-weight: 500;
-}
-
-.tab.active {
-  background: rgba(255,255,255,0.95);
-  color: #6C5CE7;
-  font-weight: 700;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
-}
-
-.login-form {
-  background: rgba(255,255,255,0.95);
-  border-radius: 36rpx;
-  padding: 56rpx 44rpx;
-  box-shadow: 0 24rpx 64rpx rgba(0,0,0,0.15);
-  backdrop-filter: blur(20px);
-}
-
-.btn-wechat {
-  background: #07C160;
-  color: #fff;
-  font-size: 32rpx;
-  font-weight: 600;
-  padding: 26rpx;
-  border-radius: 52rpx;
-  display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.3);
+  padding: 60rpx 0;
 }
 
-.btn-wechat:active {
-  transform: scale(0.97);
+/* Logo区 */
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 56rpx;
+  gap: 16rpx;
+}
+.logo { width: 100rpx; height: 100rpx; border-radius: 28rpx; }
+.app-name { font-size: 44rpx; font-weight: 700; color: #fff; }
+.app-slogan { font-size: 26rpx; color: rgba(255,255,255,0.85); }
+
+/* 卡片 */
+.login-card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  width: 680rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0,0,0,0.12);
 }
 
-.btn-wechat.disabled {
-  opacity: 0.5;
+/* 切换类型 */
+.login-types {
+  display: flex;
+  background: #f7f8fa;
+  border-radius: 50rpx;
+  padding: 6rpx;
+  margin-bottom: 36rpx;
 }
-
-.btn-icon {
-  width: 48rpx;
-  height: 48rpx;
-  margin-right: 16rpx;
-}
-
-.tips {
+.type-btn {
+  flex: 1;
   text-align: center;
-  margin-top: 36rpx;
-  font-size: 22rpx;
-  color: #aaa;
+  padding: 16rpx 0;
+  border-radius: 44rpx;
+  font-size: 28rpx;
+  color: #999;
+  transition: all 0.2s;
+}
+.type-btn.active {
+  background: #07C160;
+  color: #fff;
+  font-weight: 700;
 }
 
-.link {
-  color: #6C5CE7;
-  font-weight: 600;
-}
-
+/* 输入框 */
 .input-group {
   display: flex;
   align-items: center;
-  background: #f5f6fa;
-  border-radius: 52rpx;
-  padding: 26rpx 30rpx;
-  margin-bottom: 28rpx;
+  background: #f7f8fa;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  padding: 0 24rpx;
   border: 2rpx solid transparent;
+  transition: border 0.2s;
 }
-
-.input-group:focus-within {
-  background: #fff;
-  border-color: #6C5CE7;
-  box-shadow: 0 0 0 6rpx rgba(108, 92, 231, 0.08);
-}
-
-.input-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 20rpx;
-  opacity: 0.6;
-}
-
-.input {
-  flex: 1;
-  font-size: 28rpx;
-  color: #1a1a2e;
-}
-
-.options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 36rpx;
-}
-
-.remember {
-  display: flex;
-  align-items: center;
-  font-size: 26rpx;
-  color: #6b7280;
-}
+.input-group:focus-within { border-color: #07C160; background: #fff; }
+.input-icon { font-size: 34rpx; margin-right: 16rpx; }
+.input { flex: 1; height: 96rpx; font-size: 28rpx; color: #1a1a1a; }
 
 .forgot {
-  font-size: 26rpx;
-  color: #6C5CE7;
-  font-weight: 500;
+  text-align: right;
+  font-size: 24rpx;
+  color: #07C160;
+  margin-bottom: 32rpx;
+  display: block;
 }
 
+/* 登录按钮 */
 .btn-login {
-  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+  width: 100%;
+  background: #07C160;
   color: #fff;
+  border-radius: 50rpx;
   font-size: 32rpx;
   font-weight: 700;
-  padding: 26rpx;
-  border-radius: 52rpx;
+  padding: 28rpx 0;
   border: none;
-  box-shadow: 0 8rpx 28rpx rgba(108, 92, 231, 0.35);
-  letter-spacing: 6rpx;
+  box-shadow: 0 6rpx 20rpx rgba(7,193,96,0.3);
+}
+.btn-login:active { transform: scale(0.97); }
+
+/* 微信登录 */
+.wechat-btn {
+  width: 100%;
+  background: #fff;
+  color: #07C160;
+  border: 2rpx solid #07C160;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 26rpx 0;
 }
 
-.btn-login:active {
-  transform: scale(0.97);
+/* 分割线 */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin: 28rpx 0;
 }
+.divider-line { flex: 1; height: 1rpx; background: #eee; }
+.divider-text { font-size: 24rpx; color: #aaa; }
 
-.btn-login.disabled {
-  opacity: 0.5;
-}
-
+/* 注册链接 */
 .register-link {
   text-align: center;
-  margin-top: 36rpx;
+  margin-top: 28rpx;
   font-size: 26rpx;
-  color: #6b7280;
+  color: #999;
 }
+.register-link text:last-child { color: #07C160; font-weight: 600; }

@@ -1,41 +1,60 @@
 <view class="container">
-  <!-- 打卡任务列表 -->
-  <view class="task-list">
+
+  <!-- 今日打卡任务 -->
+  <view class="section-hd">
+    <text class="section-title">今日打卡任务</text>
+  </view>
+
+  <view class="task-list" wx:if="{{tasks.length > 0}}">
     <view class="task-card" wx:for="{{tasks}}" wx:key="id">
-      <view class="task-header">
-        <view class="task-info">
-          <text class="task-name">{{item.title}}</text>
-          <text class="task-type">{{item.type === 0 ? '习惯打卡' : '目标打卡'}}</text>
-        </view>
-        <view class="task-stats">
-          <text class="stats-num">{{item.totalDays}}</text>
-          <text class="stats-label">累计天数</text>
+      <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
+        <text class="task-icon">{{item.icon || '📖'}}</text>
+      </view>
+      <view class="task-info">
+        <text class="task-name">{{item.title}}</text>
+        <view class="task-sub-row">
+          <text class="task-clock">⏱</text>
+          <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
         </view>
       </view>
-      <view class="task-progress">
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: {{item.progress}}%"></view>
-        </view>
-        <text class="progress-text">连续 {{item.continueDays}} 天</text>
-      </view>
-      <view class="task-actions">
-        <button class="btn-checkin" data-id="{{item.id}}" bindtap="openCheckin">
-          {{item.todayChecked ? '已打卡' : '打卡'}}
-        </button>
-        <button class="btn-history" data-id="{{item.id}}" bindtap="viewHistory">
-          历史
-        </button>
-      </view>
+      <button
+        class="btn-checkin {{item.todayChecked ? 'checked' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="{{item.todayChecked ? '' : 'openCheckin'}}">
+        {{item.todayChecked ? '已打卡' : '打卡'}}
+      </button>
     </view>
   </view>
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{tasks.length === 0}}">
-    <text class="empty-text">还没有打卡任务</text>
-    <button class="btn-add" bindtap="addTask">创建打卡任务</button>
+    <text class="empty-emoji">✏️</text>
+    <text class="empty-text">还没有打卡任务，去创建一个吧</text>
+    <button class="btn-create" bindtap="addTask">+ 创建任务</button>
   </view>
 
-  <!-- 打卡按钮 -->
+  <!-- 本月打卡日历 -->
+  <view class="section-hd" style="margin-top: 16rpx;">
+    <text class="section-title">本月打卡日历</text>
+    <text class="section-month">{{calendarYear}}年{{calendarMonth}}月</text>
+  </view>
+  <view class="card calendar-card">
+    <!-- 星期标题 -->
+    <view class="week-row">
+      <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this" class="week-label">{{item}}</text>
+    </view>
+    <!-- 日期格 -->
+    <view class="date-grid">
+      <view
+        wx:for="{{calendarDays}}"
+        wx:key="*this"
+        class="date-cell {{item.checked ? 'checked' : ''}} {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}}">
+        <text wx:if="{{!item.empty}}">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- FAB -->
   <view class="fab" bindtap="addTask">
     <text class="fab-icon">+</text>
   </view>
@@ -45,7 +64,9 @@
     <view class="modal-content" catchtap="">
       <view class="modal-title">今日打卡</view>
       <view class="modal-task-name">{{currentTask.title}}</view>
-      <textarea class="modal-textarea" placeholder="说点什么吧（可选）" bindinput="onRemarkInput" value="{{checkinRemark}}" style="width:100%;box-sizing:border-box;" />
+      <view class="modal-textarea-wrap">
+        <textarea class="modal-textarea" placeholder="说点什么吧（可选）" bindinput="onRemarkInput" value="{{checkinRemark}}" style="width:100%;box-sizing:border-box;" />
+      </view>
       <view class="modal-actions">
         <button class="modal-btn cancel" bindtap="closeModal">取消</button>
         <button class="modal-btn confirm" bindtap="doCheckin">确认打卡</button>
@@ -53,7 +74,7 @@
     </view>
   </view>
 
-  <!-- 历史记录弹窗 -->
+  <!-- 历史弹窗 -->
   <view class="modal-mask" wx:if="{{showHistory}}" bindtap="closeHistory">
     <view class="modal-content history-modal" catchtap="">
       <view class="modal-title">打卡历史</view>
@@ -63,7 +84,8 @@
           <view class="history-remark">{{item.remark || '无备注'}}</view>
         </view>
       </scroll-view>
-      <button class="modal-btn" bindtap="closeHistory">关闭</button>
+      <button class="modal-btn confirm" bindtap="closeHistory">关闭</button>
     </view>
   </view>
+
 </view>

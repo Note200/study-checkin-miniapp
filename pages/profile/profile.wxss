@@ -1,190 +1,123 @@
-/* pages/profile/profile.wxss - Modern Design */
+/* ===== 个人中心 ===== */
 .container {
+  background: #f4f6f8;
   min-height: 100vh;
-  background: #f0f2f8;
-  padding-bottom: 50rpx;
+  padding-bottom: 60rpx;
 }
 
-.profile-card {
-  background: linear-gradient(145deg, #6C5CE7 0%, #a855f7 50%, #c084fc 100%);
-  padding: 56rpx 32rpx 80rpx;
-  border-radius: 0 0 48rpx 48rpx;
-  position: relative;
-  overflow: hidden;
-}
-
-.profile-card::after {
-  content: '';
-  position: absolute;
-  top: -40rpx;
-  right: -40rpx;
-  width: 200rpx;
-  height: 200rpx;
-  background: rgba(255,255,255,0.08);
-  border-radius: 50%;
-}
-
-.user-info {
+/* 绿色渐变头部 */
+.profile-header {
+  background: linear-gradient(135deg, #2ECC71 0%, #07C160 100%);
+  padding: 60rpx 32rpx 80rpx;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  z-index: 1;
+  gap: 12rpx;
 }
-
 .avatar {
   width: 120rpx;
   height: 120rpx;
-  border-radius: 60rpx;
-  background: rgba(255,255,255,0.2);
-  margin-right: 28rpx;
-  border: 4rpx solid rgba(255,255,255,0.4);
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border: 6rpx solid rgba(255,255,255,0.7);
+  margin-bottom: 8rpx;
 }
-
-.user-detail {
-  flex: 1;
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
 }
-
 .nickname {
   font-size: 40rpx;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
-  display: block;
-  margin-bottom: 10rpx;
+}
+.edit-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+}
+.sub-info {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.85);
+}
+
+/* 分组标签 */
+.section-label {
+  font-size: 24rpx;
+  color: #aaa;
+  padding: 28rpx 28rpx 10rpx;
   letter-spacing: 1rpx;
 }
 
-.major {
-  font-size: 26rpx;
-  color: rgba(255,255,255,0.85);
-  display: block;
-  margin-bottom: 6rpx;
-}
-
-.class-name {
-  font-size: 24rpx;
-  color: rgba(255,255,255,0.6);
-  display: block;
-}
-
-.edit-btn {
-  background: rgba(255,255,255,0.18);
-  padding: 14rpx 28rpx;
-  border-radius: 28rpx;
-  border: 2rpx solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
-}
-
-.edit-btn text {
-  font-size: 24rpx;
-  color: #fff;
-  font-weight: 600;
-}
-
-.edit-btn:active {
-  background: rgba(255,255,255,0.28);
-}
-
-.menu-section {
+/* 菜单卡片 */
+.menu-card {
   background: #fff;
-  margin: -28rpx 24rpx 0;
-  border-radius: 28rpx;
+  border-radius: 20rpx;
+  margin: 0 24rpx 16rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 24rpx rgba(108, 92, 231, 0.06), 0 1rpx 4rpx rgba(0,0,0,0.02);
-  position: relative;
-  z-index: 2;
-}
-
-.menu-section + .menu-section {
-  margin-top: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  padding: 32rpx 28rpx;
-  border-bottom: 1rpx solid #f5f6fa;
+  padding: 28rpx 24rpx;
+  gap: 20rpx;
+  border-bottom: 1rpx solid #f5f5f5;
 }
-
-.menu-item:last-child {
-  border-bottom: none;
-}
-
-.menu-item:active {
-  background: #fafaff;
-}
+.menu-item:last-child { border-bottom: none; }
 
 .menu-icon-wrap {
-  width: 52rpx;
-  height: 52rpx;
-  background: #f5f6fa;
-  border-radius: 16rpx;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 24rpx;
+  flex-shrink: 0;
 }
+.menu-emoji { font-size: 34rpx; }
 
-.menu-icon-wrap.admin-icon {
-  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
-}
+.menu-body { flex: 1; }
+.menu-title { font-size: 30rpx; color: #1a1a1a; display: block; }
+.menu-desc { font-size: 22rpx; color: #aaa; margin-top: 4rpx; display: block; }
 
-.menu-emoji {
-  font-size: 28rpx;
-}
+.menu-arrow { font-size: 36rpx; color: #ccc; }
 
-.menu-title {
-  flex: 1;
-  font-size: 30rpx;
-  color: #1a1a2e;
-  font-weight: 600;
-}
-
-.menu-arrow {
-  font-size: 32rpx;
-  color: #d1d5db;
-  font-weight: 300;
-}
-
-.admin-badge {
-  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
-  padding: 6rpx 18rpx;
-  border-radius: 20rpx;
-  margin-right: 12rpx;
-}
-
-.admin-badge text {
+.admin-tag {
+  background: #E8F8EF;
+  color: #07C160;
   font-size: 20rpx;
-  color: #fff;
-  font-weight: 600;
+  font-weight: 700;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  margin-right: 4rpx;
 }
 
+/* 退出按钮 */
+.logout-wrap {
+  padding: 20rpx 24rpx 0;
+}
 .logout-btn {
   background: #fff;
-  margin: 24rpx 24rpx 0;
-  padding: 36rpx;
+  border-radius: 50rpx;
   text-align: center;
-  border-radius: 28rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.03);
-}
-
-.logout-btn text {
+  padding: 28rpx 0;
   font-size: 30rpx;
-  color: #ef4444;
+  color: #F56C6C;
   font-weight: 600;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
 }
-
-.logout-btn:active {
-  background: #fff5f5;
-}
+.logout-btn:active { opacity: 0.75; }
 
 .version {
   text-align: center;
-  margin-top: 44rpx;
-}
-
-.version text {
-  font-size: 24rpx;
-  color: #d1d5db;
-  font-weight: 500;
+  padding: 32rpx 0 0;
+  font-size: 22rpx;
+  color: #ccc;
 }

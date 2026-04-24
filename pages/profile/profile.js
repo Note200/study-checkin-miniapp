@@ -5,15 +5,14 @@ Page({
   data: {
     userInfo: null,
     menuItems: [
-      { icon: 'profile.png', title: '个人信息', path: '/pages/profile/edit', isTab: false },
-      { icon: 'course.png', title: '我的课程', path: '/pages/course/course', isTab: true },
-      { icon: 'plan.png', title: '我的计划', path: '/pages/plan/plan', isTab: true },
-      { icon: 'checkin.png', title: '我的打卡', path: '/pages/checkin/checkin', isTab: true }
+      { emoji: '🔔', title: '提醒设置', desc: '设置打卡提醒时间', path: '', isTab: false, bg: '#FFF3E0' },
+      { emoji: '📚', title: '学习计划', desc: '管理每周学习计划', path: '/pages/plan/plan', isTab: true, bg: '#E3F2FD' },
+      { emoji: '📈', title: '目标管理', desc: '设置学习目标', path: '', isTab: false, bg: '#E8F8EF' }
     ],
     actionItems: [
-      { icon: 'setting.png', title: '设置', action: 'settings' },
-      { icon: 'help.png', title: '帮助与反馈', action: 'help' },
-      { icon: 'about.png', title: '关于我们', action: 'about' }
+      { emoji: '🔑', title: '修改密码', action: 'password', bg: '#FEF0F0' },
+      { emoji: '💬', title: '帮助与反馈', action: 'help', bg: '#F3E8FF' },
+      { emoji: 'ℹ️', title: '关于我们', action: 'about', bg: '#F7F8FA' }
     ],
     isAdmin: false
   },
@@ -28,9 +27,13 @@ Page({
 
   // 菜单点击
   onMenuTap(e) {
-    const path = e.currentTarget.dataset.path
-    if (path) {
+    const item = e.currentTarget.dataset
+    const path = item.path
+    if (!path) { wx.showToast({ title: '功能开发中', icon: 'none' }); return }
+    if (item.isTab) {
       wx.switchTab({ url: path })
+    } else {
+      wx.navigateTo({ url: path })
     }
   },
 
@@ -38,15 +41,15 @@ Page({
   onActionTap(e) {
     const action = e.currentTarget.dataset.action
     switch (action) {
-      case 'settings':
-        wx.showToast({ title: '设置功能开发中', icon: 'none' })
+      case 'password':
+        wx.showToast({ title: '修改密码功能开发中', icon: 'none' })
         break
       case 'help':
         wx.showModal({
           title: '帮助与反馈',
           content: '如有问题请联系管理员',
           showCancel: false,
-          confirmColor: '#667eea'
+          confirmColor: '#07C160'
         })
         break
       case 'about':
@@ -54,7 +57,7 @@ Page({
           title: '关于',
           content: '学而时习 — 大学生学习管理与打卡系统\n版本 v1.0.0',
           showCancel: false,
-          confirmColor: '#667eea'
+          confirmColor: '#07C160'
         })
         break
     }

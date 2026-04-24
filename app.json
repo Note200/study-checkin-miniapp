@@ -13,13 +13,13 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#667eea",
+    "navigationBarBackgroundColor": "#2ECC71",
     "navigationBarTitleText": "学习打卡",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#667eea",
+    "selectedColor": "#07C160",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

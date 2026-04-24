@@ -1,62 +1,66 @@
 <view class="container">
-  <!-- 用户信息卡片 -->
-  <view class="profile-card">
-    <view class="user-info">
-      <image class="avatar" src="{{userInfo.avatar || '/assets/icons/profile.png'}}" mode="aspectFill"/>
-      <view class="user-detail">
-        <text class="nickname">{{userInfo.nickname || '同学'}}</text>
-        <text class="major">{{userInfo.major || '计算机应用技术'}}</text>
-        <text class="class-name">{{userInfo.className || '2024级计算机应用技术2班'}}</text>
-      </view>
-      <view class="edit-btn" bindtap="editProfile">
-        <text>编辑</text>
-      </view>
+
+  <!-- 绿色渐变头部 -->
+  <view class="profile-header">
+    <image class="avatar" src="{{userInfo.avatar || '/assets/icons/profile.png'}}" mode="aspectFill"/>
+    <view class="name-row">
+      <text class="nickname">{{userInfo.nickname || '同学'}}</text>
+      <view class="edit-icon" bindtap="editProfile"><text>✏️</text></view>
     </view>
+    <text class="sub-info">{{userInfo.major || '计算机应用技术'}} · {{userInfo.className || '2024级2班'}}</text>
   </view>
 
-  <!-- 功能菜单 -->
-  <view class="menu-section">
+  <!-- 学习设置 -->
+  <view class="section-label">学习设置</view>
+  <view class="menu-card">
     <view class="menu-item" wx:for="{{menuItems}}" wx:key="title" data-path="{{item.path}}" bindtap="onMenuTap">
-      <view class="menu-icon-wrap">
-        <text class="menu-emoji">{{index === 0 ? '👤' : index === 1 ? '📚' : index === 2 ? '📋' : '✅'}}</text>
+      <view class="menu-icon-wrap" style="background: {{item.bg || '#E8F8EF'}}">
+        <text class="menu-emoji">{{item.emoji}}</text>
       </view>
-      <text class="menu-title">{{item.title}}</text>
+      <view class="menu-body">
+        <text class="menu-title">{{item.title}}</text>
+        <text class="menu-desc">{{item.desc}}</text>
+      </view>
       <text class="menu-arrow">›</text>
     </view>
   </view>
 
   <!-- 管理员入口 -->
-  <view class="menu-section" wx:if="{{isAdmin}}" bindtap="goAdmin">
-    <view class="menu-item">
-      <view class="menu-icon-wrap admin-icon">
+  <view class="menu-card" wx:if="{{isAdmin}}">
+    <view class="menu-item" bindtap="goAdmin">
+      <view class="menu-icon-wrap" style="background: #E8F8EF">
         <text class="menu-emoji">🛡️</text>
       </view>
-      <text class="menu-title">班级管理</text>
-      <view class="admin-badge">
-        <text>管理员</text>
+      <view class="menu-body">
+        <text class="menu-title">班级管理</text>
+        <text class="menu-desc">管理成员与公告</text>
       </view>
+      <view class="admin-tag"><text>管理员</text></view>
       <text class="menu-arrow">›</text>
     </view>
   </view>
 
-  <!-- 操作菜单 -->
-  <view class="menu-section">
+  <!-- 账号安全 -->
+  <view class="section-label">账号安全</view>
+  <view class="menu-card">
     <view class="menu-item" wx:for="{{actionItems}}" wx:key="title" data-action="{{item.action}}" bindtap="onActionTap">
-      <view class="menu-icon-wrap">
-        <text class="menu-emoji">{{index === 0 ? '⚙️' : index === 1 ? '💬' : 'ℹ️'}}</text>
+      <view class="menu-icon-wrap" style="background: {{item.bg || '#F7F8FA'}}">
+        <text class="menu-emoji">{{item.emoji}}</text>
       </view>
-      <text class="menu-title">{{item.title}}</text>
+      <view class="menu-body">
+        <text class="menu-title">{{item.title}}</text>
+      </view>
       <text class="menu-arrow">›</text>
     </view>
   </view>
 
   <!-- 退出登录 -->
-  <view class="logout-btn" bindtap="logout">
-    <text>退出登录</text>
+  <view class="logout-wrap">
+    <view class="logout-btn" bindtap="logout">
+      <text>退出登录</text>
+    </view>
   </view>
 
-  <!-- 版本信息 -->
-  <view class="version">
-    <text>学而时习 v1.0.0</text>
-  </view>
+  <view class="version"><text>学而时习 v1.0.0</text></view>
+
 </view>
