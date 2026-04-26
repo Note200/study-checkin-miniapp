@@ -22,15 +22,51 @@ Page({
       { emoji: '💬', title: '帮助与反馈', action: 'help', bg: '#F3E8FF' },
       { emoji: 'ℹ️', title: '关于我们', action: 'about', bg: '#F7F8FA' }
     ],
-    isAdmin: false
+    isAdmin: false,
+    achievements: [],
+    totalDays: 0,
+    streakDays: 0,
+    monthDays: 0
   },
 
   onShow() {
     const userInfo = app.globalData.userInfo
-    this.setData({ 
+    this.setData({
       userInfo,
       isAdmin: userInfo && userInfo.role === 1
     })
+    this.loadStats()
+  },
+
+  // 加载打卡统计，计算成就
+  async loadStats() {
+    try {
+      const res = await app.request({ url: '/api/checkin/stats' })
+      if (res.code === 200 && res.data) {
+        const d = res.data
+        this.setData({
+          totalDays: d.totalDays || 0,
+          streakDays: d.streakDays || 0,
+          monthDays: d.monthDays || 0
+        })
+        this.calculateAchievements(d.totalDays || 0, d.streakDays || 0, d.monthDays || 0)
+      }
+    } catch (e) {}
+  },
+
+  // 计算成就列表
+  calculateAchievements(total, streak, month) {
+    const achievements = [
+      { name: '初来乍到', desc: '完成首次打卡', icon: '🌱', unlocked: total >= 1, bg: '#E8F8EF' },
+      { name: '一周坚持', desc: '累计打卡7天', icon: '📖', unlocked: total >= 7, bg: '#E3F2FD' },
+      { name: '月度达人', desc: '累计打卡30天', icon: '⭐', unlocked: total >= 30, bg: '#FFF8E1' },
+      { name: '百日征程', desc: '累计打卡100天', icon: '🏆', unlocked: total >= 100, bg: '#FEF0F0' },
+      { name: '连击新手', desc: '连续打卡3天', icon: '🔥', unlocked: streak >= 3, bg: '#FFF3E0' },
+      { name: '连击高手', desc: '连续打卡7天', icon: '💥', unlocked: streak >= 7, bg: '#F3E8FF' },
+      { name: '连击大师', desc: '连续打卡30天', icon: '⚡', unlocked: streak >= 30, bg: '#E1F5FE' },
+      { name: '本月勤奋', desc: '本月打卡15天', icon: '📅', unlocked: month >= 15, bg: '#FCE4EC' }
+    ]
+    this.setData({ achievements })
   },
 
   // 菜单点击

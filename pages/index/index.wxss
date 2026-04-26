@@ -166,15 +166,53 @@
 }
 
 /* 任务列表 */
-.task-list { display: flex; flex-direction: column; gap: 0; }
-.task-row {
+.task-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+
+/* 左滑容器 */
+.swipe-wrap {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1rpx solid #f2f3f5;
+}
+.swipe-wrap:last-child { border-bottom: none; }
+.swipe-content {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  gap: 20rpx;
+  position: relative;
+  background: #fff;
+  z-index: 2;
+  transition: transform 0.25s ease;
+}
+.swipe-actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  display: flex;
+  z-index: 1;
+}
+.swipe-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #fff;
+}
+.btn-do { background: #07C160; }
+.btn-undo { background: #FF9500; }
+
+.swipe-row {
   display: flex;
   align-items: center;
   padding: 20rpx 0;
   border-bottom: 1rpx solid #f2f3f5;
   gap: 20rpx;
 }
-.task-row:last-child { border-bottom: none; }
 
 /* 勾选圆 */
 .task-check {

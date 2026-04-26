@@ -46,6 +46,74 @@
   color: rgba(255,255,255,0.85);
 }
 
+/* 学习数据面板 */
+.stats-panel {
+  background: #fff;
+  margin: -36rpx 24rpx 16rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 28rpx 0;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2;
+}
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+.stats-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #07C160;
+}
+.stats-label {
+  font-size: 22rpx;
+  color: #999;
+}
+.stats-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: #f0f0f0;
+}
+
+/* 成就徽章 */
+.achievement-scroll {
+  white-space: nowrap;
+  padding: 0 24rpx;
+}
+.achievement-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180rpx;
+  padding: 20rpx 12rpx;
+  gap: 8rpx;
+  vertical-align: top;
+}
+.achievement-item.locked { opacity: 0.4; }
+.achievement-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+.achievement-name {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.achievement-desc {
+  font-size: 20rpx;
+  color: #aaa;
+}
+
 /* 分组标签 */
 .section-label {
   font-size: 24rpx;

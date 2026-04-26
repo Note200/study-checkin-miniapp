@@ -10,6 +10,36 @@
     <text class="sub-info">{{userInfo.major || '计算机应用技术'}} · {{userInfo.className || '2024级2班'}}</text>
   </view>
 
+  <!-- 学习数据面板 -->
+  <view class="stats-panel">
+    <view class="stats-item">
+      <text class="stats-num">{{totalDays}}</text>
+      <text class="stats-label">累计打卡</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-num">{{streakDays}}</text>
+      <text class="stats-label">连续天数</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-num">{{monthDays}}</text>
+      <text class="stats-label">本月打卡</text>
+    </view>
+  </view>
+
+  <!-- 成就徽章 -->
+  <view class="section-label">我的成就</view>
+  <scroll-view scroll-x class="achievement-scroll">
+    <view class="achievement-item {{item.unlocked ? '' : 'locked'}}" wx:for="{{achievements}}" wx:key="name">
+      <view class="achievement-icon" style="background: {{item.unlocked ? item.bg : '#f0f0f0'}}">
+        <text>{{item.icon}}</text>
+      </view>
+      <text class="achievement-name">{{item.name}}</text>
+      <text class="achievement-desc">{{item.desc}}</text>
+    </view>
+  </scroll-view>
+
   <!-- 学习设置 -->
   <view class="section-label">学习设置</view>
   <view class="menu-card">

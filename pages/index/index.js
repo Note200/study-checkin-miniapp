@@ -13,7 +13,10 @@ Page({
     weekData: [],
     weekTotal: 0,
     streakDays: 0,
-    todayCourses: []
+    todayCourses: [],
+    touchStartX: 0,
+    touchCurrentX: 0,
+    swipingIndex: -1
   },
 
   onShow() {
@@ -153,5 +156,78 @@ Page({
   goCourse()  { wx.switchTab({ url: '/pages/course/course' }) },
   goPlan()    { wx.switchTab({ url: '/pages/plan/plan' }) },
   goProfile() { wx.switchTab({ url: '/pages/profile/profile' }) },
-  goAdmin()   { wx.navigateTo({ url: '/pages/admin/admin' }) }
+  goAdmin()   { wx.navigateTo({ url: '/pages/admin/admin' }) },
+
+  // 左滑手势
+  onSwipeStart(e) {
+    this.setData({ touchStartX: e.touches[0].clientX, swipingIndex: e.currentTarget.dataset.index })
+  },
+  onSwipeMove(e) {
+    this.setData({ touchCurrentX: e.touches[0].clientX })
+  },
+  onSwipeEnd(e) {
+    const deltaX = this.data.touchCurrentX - this.data.touchStartX
+    const index = this.data.swipingIndex
+    const tasks = this.data.todayTasks
+
+    // 关闭其他已滑开的
+    tasks.forEach((t, i) => {
+      if (i !== index && t.swiped) t.swiped = false
+    })
+
+    // 左滑超过 60rpx 打开，否则关闭
+    if (index >= 0 && index < tasks.length) {
+      tasks[index].swiped = deltaX < -30
+    }
+    this.setData({ todayTasks: [...tasks], touchStartX: 0, touchCurrentX: 0, swipingIndex: -1 })
+  },
+
+  // 快捷打卡/撤销
+  quickCheckin(e) {
+    const taskId = e.currentTarget.dataset.id
+    const checked = e.currentTarget.dataset.checked
+    const url = checked ? '/api/checkin/undo' : '/api/checkin/do'
+
+    if (!checked) {
+      // 快捷打卡（无备注）
+      app.request({
+        url: '/api/checkin/do',
+        method: 'POST',
+        data: { taskId }
+      }).then(res => {
+        if (res.code === 200) {
+          wx.showToast({ title: '打卡成功', icon: 'success' })
+          this.loadTodayTasks()
+        } else {
+          wx.showToast({ title: res.msg || '操作失败', icon: 'none' })
+        }
+      }).catch(() => {
+        wx.showToast({ title: '操作失败', icon: 'none' })
+      })
+    } else {
+      // 快捷撤销
+      wx.showModal({
+        title: '确认撤销',
+        content: '确定撤销该任务的今日打卡？',
+        success: (res) => {
+          if (res.confirm) {
+            app.request({
+              url: '/api/checkin/undo',
+              method: 'POST',
+              data: { taskId }
+            }).then(result => {
+              if (result.code === 200) {
+                wx.showToast({ title: '已撤销', icon: 'success' })
+                this.loadTodayTasks()
+              } else {
+                wx.showToast({ title: result.msg || '撤销失败', icon: 'none' })
+              }
+            }).catch(() => {
+              wx.showToast({ title: '撤销失败', icon: 'none' })
+            })
+          }
+        }
+      })
+    }
+  }
 })
