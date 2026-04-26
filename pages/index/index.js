@@ -11,7 +11,9 @@ Page({
     studyHours: { done: 0, target: 4, rate: 0 },
     todayTasks: [],
     weekData: [],
-    weekTotal: 0
+    weekTotal: 0,
+    streakDays: 0,
+    todayCourses: []
   },
 
   onShow() {
@@ -37,7 +39,9 @@ Page({
     await Promise.all([
       this.loadTodayTasks(),
       this.loadWeekData(),
-      this.loadNotice()
+      this.loadNotice(),
+      this.loadStats(),
+      this.loadTodayCourses()
     ])
   },
 
@@ -119,6 +123,28 @@ Page({
       const res = await app.request({ url: '/api/notice/latest' })
       if (res.code === 200 && res.data && res.data.content) {
         this.setData({ notice: res.data.content })
+      }
+    } catch (e) {}
+  },
+
+  // 加载打卡统计（连续天数、本月天数等）
+  async loadStats() {
+    try {
+      const res = await app.request({ url: '/api/checkin/stats' })
+      if (res.code === 200 && res.data) {
+        this.setData({
+          streakDays: res.data.streakDays || 0
+        })
+      }
+    } catch (e) {}
+  },
+
+  // 加载今日课程
+  async loadTodayCourses() {
+    try {
+      const res = await app.request({ url: '/api/course/today' })
+      if (res.code === 200) {
+        this.setData({ todayCourses: res.data || [] })
       }
     } catch (e) {}
   },

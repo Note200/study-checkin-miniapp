@@ -9,8 +9,15 @@
         <text class="slogan">坚持学习，成就未来 🌱</text>
       </view>
     </view>
-    <view class="bell-btn" bindtap="goAdmin" wx:if="{{isAdmin}}">
-      <text class="bell-icon">🔔</text>
+    <view class="header-right">
+      <!-- 连续打卡火焰徽章 -->
+      <view class="streak-badge" wx:if="{{streakDays > 0}}">
+        <text class="streak-fire">🔥</text>
+        <text class="streak-num">{{streakDays}}</text>
+      </view>
+      <view class="bell-btn" bindtap="goAdmin" wx:if="{{isAdmin}}">
+        <text class="bell-icon">🔔</text>
+      </view>
     </view>
   </view>
 
@@ -19,6 +26,19 @@
     <text class="notice-icon">📢</text>
     <text class="notice-text">{{notice}}</text>
   </view>
+
+  <!-- 今日课程 -->
+  <view class="section-header" wx:if="{{todayCourses.length > 0}}">
+    <text class="section-title">今日课程</text>
+    <text class="section-right green" bindtap="goCourse">查看课表 ›</text>
+  </view>
+  <scroll-view class="course-scroll" scroll-x wx:if="{{todayCourses.length > 0}}">
+    <view class="course-chip" wx:for="{{todayCourses}}" wx:key="id" bindtap="goCourse">
+      <view class="course-chip-bar" style="background: {{item.color || '#07C160'}}"></view>
+      <text class="course-chip-name">{{item.name}}</text>
+      <text class="course-chip-info">第{{item.startSection}}-{{item.endSection}}节 · {{item.classroom}}</text>
+    </view>
+  </scroll-view>
 
   <!-- 今日进度 -->
   <view class="section-header">

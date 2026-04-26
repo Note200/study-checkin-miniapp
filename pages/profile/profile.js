@@ -5,9 +5,13 @@ Page({
   data: {
     userInfo: null,
     showEditModal: false,
+    showPasswordModal: false,
     editNickname: '',
     editMajor: '',
     editClass: '',
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
     menuItems: [
       { emoji: '🔔', title: '提醒设置', desc: '设置打卡提醒时间', path: '', isTab: false, bg: '#FFF3E0' },
       { emoji: '📚', title: '学习计划', desc: '管理每周学习计划', path: '/pages/plan/plan', isTab: true, bg: '#E3F2FD' },
@@ -46,7 +50,7 @@ Page({
     const action = e.currentTarget.dataset.action
     switch (action) {
       case 'password':
-        wx.showToast({ title: '修改密码功能开发中', icon: 'none' })
+        this.setData({ showPasswordModal: true, oldPassword: '', newPassword: '', confirmPassword: '' })
         break
       case 'help':
         wx.showModal({
@@ -88,6 +92,9 @@ Page({
   onNicknameInput(e) { this.setData({ editNickname: e.detail.value }) },
   onMajorInput(e) { this.setData({ editMajor: e.detail.value }) },
   onClassInput(e) { this.setData({ editClass: e.detail.value }) },
+  onOldPwdInput(e) { this.setData({ oldPassword: e.detail.value }) },
+  onNewPwdInput(e) { this.setData({ newPassword: e.detail.value }) },
+  onConfirmPwdInput(e) { this.setData({ confirmPassword: e.detail.value }) },
 
   async saveProfile() {
     const { editNickname, editMajor, editClass } = this.data
@@ -117,6 +124,40 @@ Page({
       }
     } catch (e) {
       wx.showToast({ title: '保存失败', icon: 'none' })
+    }
+  },
+
+  // 修改密码
+  closePasswordModal() { this.setData({ showPasswordModal: false }) },
+
+  async savePassword() {
+    const { oldPassword, newPassword, confirmPassword } = this.data
+    if (!oldPassword) {
+      wx.showToast({ title: '请输入旧密码', icon: 'none' })
+      return
+    }
+    if (!newPassword || newPassword.length < 6) {
+      wx.showToast({ title: '新密码至少6位', icon: 'none' })
+      return
+    }
+    if (newPassword !== confirmPassword) {
+      wx.showToast({ title: '两次密码不一致', icon: 'none' })
+      return
+    }
+    try {
+      const res = await app.request({
+        url: '/api/user/password',
+        method: 'PUT',
+        data: { oldPassword, newPassword }
+      })
+      if (res.code === 200) {
+        wx.showToast({ title: '密码修改成功', icon: 'success' })
+        this.setData({ showPasswordModal: false })
+      } else {
+        wx.showToast({ title: res.msg || '修改失败', icon: 'none' })
+      }
+    } catch (e) {
+      wx.showToast({ title: '修改失败', icon: 'none' })
     }
   },
 
