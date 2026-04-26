@@ -39,16 +39,16 @@
 
     <!-- 今日任务列表 -->
     <view class="task-list">
-      <view class="task-row {{item.status === 1 ? 'done' : ''}}" wx:for="{{todayTasks}}" wx:key="id" data-id="{{item.id}}" bindtap="goCheckin">
-        <view class="task-check {{item.status === 1 ? 'checked' : ''}}">
-          <text wx:if="{{item.status === 1}}">✓</text>
+      <view class="task-row {{item.todayChecked ? 'done' : ''}}" wx:for="{{todayTasks}}" wx:key="id" data-id="{{item.id}}" bindtap="goCheckin">
+        <view class="task-check {{item.todayChecked ? 'checked' : ''}}">
+          <text wx:if="{{item.todayChecked}}">✓</text>
         </view>
         <view class="task-meta">
-          <text class="task-name {{item.status === 1 ? 'done-text' : ''}}">{{item.title}}</text>
+          <text class="task-name {{item.todayChecked ? 'done-text' : ''}}">{{item.title}}</text>
           <text class="task-sub">{{item.courseName || '习惯打卡'}} · {{item.targetMinutes || 30}}分钟</text>
         </view>
-        <text class="task-badge {{item.status === 1 ? 'badge-done' : 'badge-pending'}}">
-          {{item.status === 1 ? '已完成' : '待完成'}}
+        <text class="task-badge {{item.todayChecked ? 'badge-done' : 'badge-pending'}}">
+          {{item.todayChecked ? '已完成' : '待完成'}}
         </text>
       </view>
     </view>
