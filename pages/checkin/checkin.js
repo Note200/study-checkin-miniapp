@@ -15,7 +15,8 @@ Page({
     historyList: [],
     calendarYear: new Date().getFullYear(),
     calendarMonth: new Date().getMonth() + 1,
-    calendarDays: []
+    calendarDays: [],
+    showSuccessAnim: false
   },
 
   onShow() {
@@ -95,10 +96,14 @@ Page({
         data: { taskId: currentTask.id, remark: checkinRemark }
       })
       if (res.code === 200) {
-        wx.showToast({ title: '打卡成功 🎉', icon: 'success' })
         this.closeModal()
-        this.loadTasks()
-        this.loadCalendar()
+        // 播放打卡成功动画
+        this.setData({ showSuccessAnim: true })
+        setTimeout(() => {
+          this.setData({ showSuccessAnim: false })
+          this.loadTasks()
+          this.loadCalendar()
+        }, 1200)
       } else {
         wx.showToast({ title: res.msg || '打卡失败', icon: 'none' })
       }

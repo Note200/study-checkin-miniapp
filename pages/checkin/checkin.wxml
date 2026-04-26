@@ -57,6 +57,19 @@
   <!-- FAB -->
   <view class="fab" bindtap="addTask">+</view>
 
+  <!-- 打卡成功动画 -->
+  <view class="success-overlay" wx:if="{{showSuccessAnim}}">
+    <view class="success-content">
+      <view class="success-circle">
+        <view class="success-check {{showSuccessAnim ? 'animate' : ''}}">
+          <text class="check-mark">✓</text>
+        </view>
+      </view>
+      <text class="success-text">打卡成功</text>
+      <text class="success-sub">继续加油！💪</text>
+    </view>
+  </view>
+
   <!-- 打卡弹窗 -->
   <view class="modal-mask" wx:if="{{showCheckinModal}}" bindtap="closeModal">
     <view class="modal-content" catchtap="preventClose">

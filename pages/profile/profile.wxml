@@ -83,4 +83,24 @@
     </view>
   </view>
 
+  <!-- 修改密码弹窗 -->
+  <view class="modal-mask" wx:if="{{showPasswordModal}}" bindtap="closePasswordModal">
+    <view class="modal-content" catchtap="preventClose">
+      <view class="modal-title">修改密码</view>
+      <view class="form-input-group">
+        <input class="input" password placeholder="请输入旧密码" bindinput="onOldPwdInput" value="{{oldPassword}}" />
+      </view>
+      <view class="form-input-group">
+        <input class="input" password placeholder="请输入新密码（至少6位）" bindinput="onNewPwdInput" value="{{newPassword}}" />
+      </view>
+      <view class="form-input-group">
+        <input class="input" password placeholder="请确认新密码" bindinput="onConfirmPwdInput" value="{{confirmPassword}}" />
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closePasswordModal">取消</button>
+        <button class="modal-btn confirm" bindtap="savePassword">确认修改</button>
+      </view>
+    </view>
+  </view>
+
 </view>
