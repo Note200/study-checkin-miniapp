@@ -47,11 +47,11 @@ Page({
       const res = await app.request({ url: '/api/checkin/tasks' })
       if (res.code === 200) {
         const tasks = res.data || []
-        const done = tasks.filter(t => t.status === 1).length
+        const done = tasks.filter(t => t.todayChecked).length
         const total = tasks.length
         const rate = total > 0 ? Math.round((done / total) * 100) : 0
         // 估算学习时长
-        const doneMin = tasks.filter(t => t.status === 1).reduce((s, t) => s + (t.targetMinutes || 30), 0)
+        const doneMin = tasks.filter(t => t.todayChecked).reduce((s, t) => s + (t.targetMinutes || 30), 0)
         const totalMin = tasks.reduce((s, t) => s + (t.targetMinutes || 30), 0)
         this.setData({
           todayTasks: tasks.slice(0, 6),
