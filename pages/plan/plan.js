@@ -4,7 +4,7 @@ const app = getApp()
 Page({
   data: {
     plans: [],
-    activeTab: 0, // 0-今日 1-本周 2-全部
+    activeTab: 0, // 0-全部 1-进行中 2-已完成
     showAddModal: false,
     newPlan: {
       title: '',
