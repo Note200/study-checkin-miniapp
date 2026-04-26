@@ -20,8 +20,8 @@
       <button
         class="btn-checkin {{item.todayChecked ? 'checked' : ''}}"
         data-id="{{item.id}}"
-        bindtap="{{item.todayChecked ? '' : 'openCheckin'}}">
-        {{item.todayChecked ? '已打卡' : '打卡'}}
+        bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}">
+        {{item.todayChecked ? '撤销' : '打卡'}}
       </button>
     </view>
   </view>

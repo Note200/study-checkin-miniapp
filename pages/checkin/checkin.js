@@ -107,6 +107,34 @@ Page({
     }
   },
 
+  // 撤销今日打卡
+  undoCheckin(e) {
+    const taskId = e.currentTarget.dataset.id
+    wx.showModal({
+      title: '确认撤销',
+      content: '确定要撤销今天的打卡吗？',
+      success: (res) => {
+        if (res.confirm) {
+          app.request({
+            url: '/api/checkin/undo',
+            method: 'POST',
+            data: { taskId }
+          }).then(result => {
+            if (result.code === 200) {
+              wx.showToast({ title: '已撤销', icon: 'success' })
+              this.loadTasks()
+              this.loadCalendar()
+            } else {
+              wx.showToast({ title: result.msg || '撤销失败', icon: 'none' })
+            }
+          }).catch(() => {
+            wx.showToast({ title: '撤销失败', icon: 'none' })
+          })
+        }
+      }
+    })
+  },
+
   async viewHistory(e) {
     const taskId = e.currentTarget.dataset.id
     try {
