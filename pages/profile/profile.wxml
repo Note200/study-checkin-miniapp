@@ -13,7 +13,7 @@
   <!-- 学习设置 -->
   <view class="section-label">学习设置</view>
   <view class="menu-card">
-    <view class="menu-item" wx:for="{{menuItems}}" wx:key="title" data-path="{{item.path}}" bindtap="onMenuTap">
+    <view class="menu-item" wx:for="{{menuItems}}" wx:key="title" data-path="{{item.path}}" data-is-tab="{{item.isTab}}" bindtap="onMenuTap">
       <view class="menu-icon-wrap" style="background: {{item.bg || '#E8F8EF'}}">
         <text class="menu-emoji">{{item.emoji}}</text>
       </view>

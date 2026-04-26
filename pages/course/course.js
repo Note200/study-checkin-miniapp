@@ -29,7 +29,7 @@ Page({
 
   // 切换星期
   switchWeekDay(e) {
-    const index = e.currentTarget.dataset.index
+    const index = parseInt(e.currentTarget.dataset.index)
     this.setData({ weekDay: index + 1 })
     this.loadCourses()
   },
