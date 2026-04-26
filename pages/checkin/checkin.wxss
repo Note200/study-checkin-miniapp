@@ -114,26 +114,44 @@
   justify-content: center;
   font-size: 26rpx;
   color: #555;
-  margin-bottom: 8rpx;
+  margin-bottom: 4rpx;
+  border-radius: 12rpx;
+  transition: all 0.2s;
 }
 .date-cell.empty { visibility: hidden; }
-.date-cell.checked {
-  background: #07C160;
-  color: #fff;
-  border-radius: 50%;
-  font-weight: 700;
-}
 .date-cell.today {
-  background: #E8F8EF;
   color: #07C160;
-  border-radius: 50%;
-  font-weight: 700;
-  border: 2rpx solid #07C160;
+  font-weight: 800;
+  box-shadow: inset 0 0 0 3rpx #07C160;
 }
-.date-cell.checked.today {
-  background: #07C160;
-  color: #fff;
+/* 热力图等级颜色 */
+.date-cell.heat-0 { background: #f8f9fa; }
+.date-cell.heat-1 { background: #c6f6d5; color: #276749; }
+.date-cell.heat-2 { background: #68d391; color: #fff; font-weight: 600; }
+.date-cell.heat-3 { background: #38a169; color: #fff; font-weight: 700; }
+.date-cell.heat-4 { background: #07C160; color: #fff; font-weight: 800; }
+
+/* 热力图图例 */
+.heat-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6rpx;
+  margin-top: 16rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid #f2f3f5;
 }
+.legend-label { font-size: 20rpx; color: #aaa; }
+.legend-dot {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 6rpx;
+}
+.legend-dot.heat-0 { background: #f8f9fa; border: 1rpx solid #e0e0e0; }
+.legend-dot.heat-1 { background: #c6f6d5; }
+.legend-dot.heat-2 { background: #68d391; }
+.legend-dot.heat-3 { background: #38a169; }
+.legend-dot.heat-4 { background: #07C160; }
 
 /* 历史弹窗 */
 .modal-task-name {

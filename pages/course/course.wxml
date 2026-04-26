@@ -1,49 +1,100 @@
 <view class="container">
-  <!-- 周次选择 -->
-  <view class="week-selector">
-    <text class="week-selector-label">第</text>
-    <picker mode="selector" range="{{weeks}}" bindchange="onWeekChange">
-      <text class="week-selector-value">{{currentWeek}}</text>
-    </picker>
-    <text class="week-selector-label">周</text>
-  </view>
-
-  <!-- 星期选择 -->
-  <view class="week-tabs">
-    <view 
-      class="week-tab {{weekDay === index + 1 ? 'active' : ''}}" 
-      wx:for="{{weekDays}}" 
-      wx:key="index"
-      data-index="{{index}}"
-      bindtap="switchWeekDay">
-      <text class="week-name">{{item}}</text>
+  <!-- 顶部栏：周次 + 视图切换 -->
+  <view class="top-bar">
+    <view class="week-selector">
+      <text class="week-selector-label">第</text>
+      <picker mode="selector" range="{{weeks}}" bindchange="onWeekChange">
+        <text class="week-selector-value">{{currentWeek}}</text>
+      </picker>
+      <text class="week-selector-label">周</text>
+    </view>
+    <view class="view-toggle" bindtap="switchView">
+      <text>{{showGrid ? '📋 列表' : '📊 表格'}}</text>
     </view>
   </view>
 
-  <!-- 课程列表 -->
-  <view class="course-list" wx:if="{{courses.length > 0}}">
-    <view class="course-card" wx:for="{{courses}}" wx:key="id">
-      <view class="course-left-bar" style="background: {{item.color}}"></view>
-      <view class="course-body" data-id="{{item.id}}" bindtap="editCourse">
-        <view class="course-name">{{item.name}}</view>
-        <view class="course-detail">
-          <text>{{item.teacher}}</text>
-          <text> · </text>
-          <text>{{item.classroom}}</text>
+  <!-- ====== 格子视图 ====== -->
+  <view wx:if="{{showGrid}}">
+    <!-- 星期标题行 -->
+    <view class="grid-header">
+      <view class="grid-corner">
+        <text class="grid-corner-text">节次</text>
+      </view>
+      <view 
+        class="grid-day-header {{item === todayDay ? 'today' : ''}}" 
+        wx:for="{{weekDays}}" 
+        wx:key="index">
+        <text class="grid-day-name">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 格子主体 -->
+    <scroll-view scroll-y class="grid-body" style="max-height: 80vh;">
+      <view class="grid-row" wx:for="{{gridData}}" wx:key="section">
+        <!-- 节次标签 -->
+        <view class="grid-section-label">
+          <text class="section-num">{{item.section}}</text>
         </view>
-        <view class="course-detail">第{{item.startSection}}-{{item.endSection}}节</view>
+        <!-- 7天的格子 -->
+        <view class="grid-cell" 
+          wx:for="{{item.cells}}" 
+          wx:for-item="cell" 
+          wx:key="index"
+          wx:if="{{!cell.isContinue}}"
+          style="height: {{cell.span * 100}}rpx;"
+          bindtap="{{cell.course ? 'editCourse' : ''}}"
+          data-id="{{cell.course.id}}">
+          <view 
+            class="cell-content" 
+            wx:if="{{cell.course}}"
+            style="background: {{cell.course.color}}20; border-left: 6rpx solid {{cell.course.color}};">
+            <text class="cell-name">{{cell.course.name}}</text>
+            <text class="cell-info" wx:if="{{cell.span > 1}}">📍{{cell.course.classroom}}</text>
+          </view>
+        </view>
       </view>
-      <view class="course-actions">
-        <button class="btn-del" data-id="{{item.id}}" bindtap="deleteCourse">删除</button>
-      </view>
-    </view>
+    </scroll-view>
   </view>
 
-  <!-- 空状态 -->
-  <view class="empty-state" wx:else>
-    <image class="empty-emoji" src="/assets/icons/course.png" mode="aspectFit" style="width:120rpx;height:120rpx;"/>
-    <text class="empty-text">暂无课程安排</text>
-    <button class="btn-create" bindtap="addCourse">添加课程</button>
+  <!-- ====== 列表视图 ====== -->
+  <view wx:else>
+    <!-- 星期选择 -->
+    <view class="week-tabs">
+      <view 
+        class="week-tab {{weekDay === index + 1 ? 'active' : ''}}" 
+        wx:for="{{weekDays}}" 
+        wx:key="index"
+        data-index="{{index}}"
+        bindtap="switchWeekDay">
+        <text class="week-name">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 课程列表 -->
+    <view class="course-list" wx:if="{{courses.length > 0}}">
+      <view class="course-card" wx:for="{{courses}}" wx:key="id">
+        <view class="course-left-bar" style="background: {{item.color}}"></view>
+        <view class="course-body" data-id="{{item.id}}" bindtap="editCourse">
+          <view class="course-name">{{item.name}}</view>
+          <view class="course-detail">
+            <text>{{item.teacher}}</text>
+            <text> · </text>
+            <text>{{item.classroom}}</text>
+          </view>
+          <view class="course-detail">第{{item.startSection}}-{{item.endSection}}节</view>
+        </view>
+        <view class="course-actions">
+          <button class="btn-del" data-id="{{item.id}}" bindtap="deleteCourse">删除</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:else>
+      <text class="empty-emoji">📚</text>
+      <text class="empty-text">暂无课程安排</text>
+      <button class="btn-create" bindtap="addCourse">添加课程</button>
+    </view>
   </view>
 
   <!-- 添加按钮（FAB） -->
