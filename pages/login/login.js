@@ -65,9 +65,7 @@ Page({
               app.globalData.userInfo = result.data.userInfo
               this.saveLoginInfo(result.data)
               wx.showToast({ title: '登录成功', icon: 'success' })
-              setTimeout(() => {
-                wx.switchTab({ url: '/pages/index/index' })
-              }, 1500)
+              wx.switchTab({ url: '/pages/index/index' })
               return  // 跳转期间保持 loading
             } else {
               wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
@@ -126,9 +124,7 @@ Page({
         }
         
         wx.showToast({ title: '登录成功', icon: 'success' })
-        setTimeout(() => {
-          wx.switchTab({ url: '/pages/index/index' })
-        }, 1500)
+        wx.switchTab({ url: '/pages/index/index' })
         return  // 跳转期间保持 loading，防止重复点击
       } else {
         wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
