@@ -68,6 +68,7 @@ Page({
               setTimeout(() => {
                 wx.switchTab({ url: '/pages/index/index' })
               }, 1500)
+              return  // 跳转期间保持 loading
             } else {
               wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
             }
@@ -128,6 +129,7 @@ Page({
         setTimeout(() => {
           wx.switchTab({ url: '/pages/index/index' })
         }, 1500)
+        return  // 跳转期间保持 loading，防止重复点击
       } else {
         wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
       }

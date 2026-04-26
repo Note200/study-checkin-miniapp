@@ -28,7 +28,7 @@ Page({
       }, 1500)
       return
     }
-    this.loadData()
+    // 首次进入由 onShow 统一加载，避免重复请求
   },
 
   onShow() {
