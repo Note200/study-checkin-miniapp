@@ -40,20 +40,26 @@ Page({
     }
   },
 
-  // 加载本月打卡日历
+  // 加载本月打卡日历（热力图）
   async loadCalendar() {
     const now = new Date()
     const year = now.getFullYear()
     const month = now.getMonth() + 1
     const today = now.getDate()
 
-    let checkedDays = []
+    let dayDataMap = {}
     try {
       const res = await app.request({ url: '/api/checkin/calendar', data: { year, month } })
       if (res.code === 200) {
-        checkedDays = res.data || []
+        const items = res.data || []
+        items.forEach(item => {
+          dayDataMap[item.day] = { count: item.count, level: item.level }
+        })
       }
     } catch (e) {}
+
+    // 热力图颜色等级
+    const heatColors = ['#eef0f3', '#B8F5D0', '#7CE8A8', '#2ECC71', '#07C160']
 
     // 生成日历格子
     const firstDay = new Date(year, month - 1, 1).getDay() // 0=周日
@@ -63,10 +69,14 @@ Page({
     for (let i = 0; i < firstDay; i++) cells.push({ empty: true })
     // 日期
     for (let d = 1; d <= daysInMonth; d++) {
+      const data = dayDataMap[d] || { count: 0, level: 0 }
       cells.push({
         day: d,
-        checked: checkedDays.includes(d),
+        checked: data.count > 0,
+        level: data.level,
+        heatColor: heatColors[data.level],
         isToday: d === today,
+        count: data.count,
         empty: false
       })
     }

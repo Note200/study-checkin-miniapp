@@ -43,17 +43,33 @@
   <!-- 今日进度 -->
   <view class="section-header">
     <text class="section-title">今日进度</text>
-    <text class="section-right green" bindtap="goCheckin">{{todayRate}}%</text>
+    <text class="section-right green" bindtap="goCheckin">查看详情 ›</text>
   </view>
   <view class="card progress-card">
-    <!-- 学习时长进度 -->
-    <view class="progress-row">
-      <text class="progress-label">学习时长</text>
-      <text class="progress-val">{{studyHours.done}}h / {{studyHours.target}}h</text>
-    </view>
-    <view class="progress-bar-wrap">
-      <view class="progress-bar">
-        <view class="progress-fill" style="width: {{studyHours.rate}}%"></view>
+    <!-- 环形进度 + 学习时长 -->
+    <view class="ring-row">
+      <view class="ring-wrap">
+        <view class="ring-bg" style="background: conic-gradient(#07C160 {{todayRate}}%, #eef0f3 {{todayRate}}%);">
+          <view class="ring-inner">
+            <text class="ring-num">{{todayRate}}</text>
+            <text class="ring-unit">%</text>
+          </view>
+        </view>
+        <text class="ring-label">完成率</text>
+      </view>
+      <view class="ring-stats">
+        <view class="stat-item">
+          <text class="stat-val green">{{studyHours.done}}</text>
+          <text class="stat-label">已学时长(h)</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-val">{{studyHours.target}}</text>
+          <text class="stat-label">目标时长(h)</text>
+        </view>
+        <view class="stat-item" wx:if="{{streakDays > 0}}">
+          <text class="stat-val orange">🔥 {{streakDays}}</text>
+          <text class="stat-label">连续打卡(天)</text>
+        </view>
       </view>
     </view>
 

@@ -43,14 +43,24 @@
     <view class="week-row">
       <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this" class="week-label">{{item}}</text>
     </view>
-    <!-- 日期格 -->
+    <!-- 日期格（热力图） -->
     <view class="date-grid">
       <view
         wx:for="{{calendarDays}}"
         wx:key="*this"
-        class="date-cell {{item.checked ? 'checked' : ''}} {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}}">
+        class="date-cell {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}} {{item.checked ? 'heat-' + item.level : ''}}">
         <text wx:if="{{!item.empty}}">{{item.day}}</text>
       </view>
+    </view>
+    <!-- 热力图图例 -->
+    <view class="heat-legend">
+      <text class="legend-label">少</text>
+      <view class="legend-dot heat-0"></view>
+      <view class="legend-dot heat-1"></view>
+      <view class="legend-dot heat-2"></view>
+      <view class="legend-dot heat-3"></view>
+      <view class="legend-dot heat-4"></view>
+      <text class="legend-label">多</text>
     </view>
   </view>
 
