@@ -160,11 +160,13 @@ page {
   background: #fff;
 }
 .form-input-group input {
-  padding: 24rpx 28rpx;
+  height: 88rpx;
+  padding: 0 28rpx;
   font-size: 28rpx;
   color: var(--text-1);
   width: 100%;
   box-sizing: border-box;
+  line-height: 88rpx;
 }
 
 /* ===== 弹窗 ===== */

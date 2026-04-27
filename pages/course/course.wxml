@@ -43,6 +43,7 @@
           wx:if="{{!cell.isContinue}}"
           style="height: {{cell.span * 100}}rpx;"
           bindtap="{{cell.course ? 'editCourse' : ''}}"
+          bindlongpress="{{cell.course ? 'deleteCourse' : ''}}"
           data-id="{{cell.course.id}}">
           <view 
             class="cell-content" 

@@ -190,11 +190,7 @@
   color: #ccc;
 }
 
-/* 编辑弹窗 input 样式复用全局 .form-input-group */
+/* 编辑弹窗 input 样式复用全局 .form-input-group（已在 app.wxss 统一 height:88rpx） */
 .modal-content .form-input-group {
   margin-bottom: 20rpx;
-}
-.modal-content .form-input-group input {
-  height: 88rpx;
-  font-size: 28rpx;
 }

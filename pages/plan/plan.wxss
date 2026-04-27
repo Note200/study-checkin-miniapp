@@ -185,7 +185,22 @@
   min-width: 180rpx;
   text-align: center;
 }
-.modal-textarea-wrap { margin-bottom: 20rpx; }
+
+/* 弹窗内的输入框 — 已由全局 app.wxss 统一设置 */
+
+/* 弹窗内的文本域 */
+.modal-textarea-wrap {
+  margin-bottom: 20rpx;
+}
+.modal-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  background: #f4f6f8;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  box-sizing: border-box;
+}
 
 /* 空状态 */
 .empty-state {
