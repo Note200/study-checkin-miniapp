@@ -220,18 +220,41 @@ page {
   border: none;
   padding: 22rpx 0;
   line-height: 1;
-}
-.modal-btn.cancel {
-  background: var(--bg);
-  color: var(--text-2);
-  border-bottom: 4rpx solid var(--border);
-}
-.modal-btn.confirm {
   background: var(--green);
   color: #fff;
   box-shadow: 0 4rpx 0 var(--green-dark);
 }
-.modal-btn.confirm:active { transform: translateY(3rpx); box-shadow: 0 1rpx 0 var(--green-dark); }
+/* .cancel 和 .confirm 独立写法，供各页面 class="cancel"/"confirm" 直接使用 */
+.modal-btn.cancel, .cancel {
+  background: var(--bg);
+  color: var(--text-2);
+  box-shadow: none;
+  border-bottom: 4rpx solid var(--border);
+}
+.modal-btn.confirm, .confirm {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 4rpx 0 var(--green-dark);
+}
+.modal-btn.confirm:active, .confirm:active {
+  transform: translateY(3rpx);
+  box-shadow: 0 1rpx 0 var(--green-dark);
+}
+
+/* 通用输入框（供 class="input" 直接使用） */
+.input {
+  height: 88rpx;
+  padding: 0 28rpx;
+  font-size: 28rpx;
+  color: var(--text-1);
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 88rpx;
+  background: #fff;
+}
+
+/* 链接文字 */
+.link { color: var(--green); font-weight: 700; }
 
 /* ===== 空状态 ===== */
 .empty-state, .empty-tip {

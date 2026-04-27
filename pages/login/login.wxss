@@ -10,7 +10,7 @@ page { background: var(--bg); }
   padding: 60rpx 0;
 }
 
-/* CSS Logo */
+/* Logo */
 .logo-wrap {
   display: flex;
   flex-direction: column;
@@ -18,49 +18,11 @@ page { background: var(--bg); }
   margin-bottom: 56rpx;
   gap: 16rpx;
 }
-.css-logo {
+.logo {
   width: 140rpx;
   height: 140rpx;
   border-radius: 36rpx;
-  background: rgba(255,255,255,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 4rpx solid rgba(255,255,255,0.4);
-}
-.logo-book {
-  position: relative;
-  width: 72rpx;
-  height: 80rpx;
-}
-.logo-book .book-page {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 30rpx;
-  height: 60rpx;
-  background: #fff;
-  border-radius: 4rpx 0 0 4rpx;
-}
-.logo-book .book-page:nth-child(2) {
-  left: 32rpx;
-  border-radius: 0 4rpx 4rpx 0;
-}
-.logo-book .book-check {
-  position: absolute;
-  right: -8rpx;
-  top: -8rpx;
-  width: 36rpx;
-  height: 36rpx;
-  background: var(--gold);
-  border-radius: 50%;
-  color: var(--green);
-  font-size: 22rpx;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
+  /* 与 register 页 logo 保持一致 */
 }
 .app-name { font-size: 44rpx; font-weight: 800; color: #fff; letter-spacing: 2rpx; }
 .app-slogan { font-size: 26rpx; color: rgba(255,255,255,0.9); font-weight: 600; }

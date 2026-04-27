@@ -1,14 +1,7 @@
 <view class="container">
   <!-- Logo 区 -->
   <view class="logo-wrap">
-    <!-- CSS 绘制的简约 logo -->
-    <view class="css-logo">
-      <view class="logo-book">
-        <view class="book-page"></view>
-        <view class="book-page"></view>
-        <view class="book-check">✓</view>
-      </view>
-    </view>
+    <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
     <text class="app-name">学习打卡系统</text>
     <text class="app-slogan">养成好习惯，从每天打卡开始</text>
   </view>
