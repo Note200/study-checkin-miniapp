@@ -1,90 +1,70 @@
 <view class="container">
   <!-- Logo 区 -->
   <view class="logo-wrap">
-    <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
+    <!-- CSS 绘制的简约 logo -->
+    <view class="css-logo">
+      <view class="logo-book">
+        <view class="book-page"></view>
+        <view class="book-page"></view>
+        <view class="book-check">✓</view>
+      </view>
+    </view>
     <text class="app-name">学习打卡系统</text>
     <text class="app-slogan">养成好习惯，从每天打卡开始</text>
   </view>
 
   <!-- 卡片 -->
   <view class="login-card">
-    <!-- 切换类型 -->
-    <view class="login-types">
-      <view
-        class="type-btn {{loginType === 'wechat' ? 'active' : ''}}"
-        data-type="wechat"
-        bindtap="switchLoginType">微信登录</view>
-      <view
-        class="type-btn {{loginType === 'account' ? 'active' : ''}}"
-        data-type="account"
-        bindtap="switchLoginType">账号登录</view>
+    <text class="card-title">账号登录</text>
+
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/user.png" mode="aspectFit"/>
+      <input
+        class="input"
+        type="text"
+        placeholder="请输入用户名/学号"
+        value="{{username}}"
+        bindinput="onUsernameInput"/>
     </view>
 
-    <!-- 微信登录 -->
-    <view wx:if="{{loginType === 'wechat'}}">
-      <button
-        class="wechat-btn {{loading ? 'disabled' : ''}}"
-        bindtap="wxLogin"
-        disabled="{{loading}}">
-        <text>{{loading ? '登录中...' : '微信一键登录'}}</text>
-      </button>
-      <view class="register-link" style="margin-top:24rpx;">
-        <text>还没有账号？</text>
-        <text class="link" bindtap="toRegister">立即注册</text>
-      </view>
+    <view class="input-group">
+      <image class="input-icon" src="/assets/icons/lock.png" mode="aspectFit"/>
+      <input
+        class="input"
+        type="password"
+        placeholder="请输入密码"
+        value="{{password}}"
+        bindinput="onPasswordInput"/>
     </view>
 
-    <!-- 账号登录 -->
-    <view wx:if="{{loginType === 'account'}}">
-      <view class="input-group">
-        <image class="input-icon" src="/assets/icons/user.png" mode="aspectFit"/>
-        <input
-          class="input"
-          type="text"
-          placeholder="请输入用户名/学号"
-          value="{{username}}"
-          bindinput="onUsernameInput"/>
-      </view>
+    <view style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32rpx;">
+      <checkbox-group bindchange="onRememberChange">
+        <label style="display:flex;align-items:center;font-size:24rpx;color:#999;">
+          <checkbox value="1" style="transform:scale(0.8);"/>
+          <text>记住我</text>
+        </label>
+      </checkbox-group>
+      <text class="forgot" bindtap="onForgotPwd">忘记密码？</text>
+    </view>
 
-      <view class="input-group">
-        <image class="input-icon" src="/assets/icons/lock.png" mode="aspectFit"/>
-        <input
-          class="input"
-          type="password"
-          placeholder="请输入密码"
-          value="{{password}}"
-          bindinput="onPasswordInput"/>
-      </view>
+    <button
+      class="btn-login {{loading ? 'disabled' : ''}}"
+      bindtap="accountLogin"
+      disabled="{{loading}}">
+      <text>{{loading ? '登录中...' : '登 录'}}</text>
+    </button>
 
-      <view style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32rpx;">
-        <checkbox-group bindchange="onRememberChange">
-          <label style="display:flex;align-items:center;font-size:24rpx;color:#999;">
-            <checkbox value="1" style="transform:scale(0.8);"/>
-            <text>记住我</text>
-          </label>
-        </checkbox-group>
-        <text class="forgot" bindtap="onForgotPwd">忘记密码？</text>
-      </view>
-
-      <button
-        class="btn-login {{loading ? 'disabled' : ''}}"
-        bindtap="accountLogin"
-        disabled="{{loading}}">
-        <text>{{loading ? '登录中...' : '登 录'}}</text>
-      </button>
-
-      <view class="register-link">
-        <text>还没有账号？</text>
-        <text class="link" bindtap="toRegister">立即注册</text>
-      </view>
+    <view class="register-link">
+      <text>还没有账号？</text>
+      <text class="link" bindtap="toRegister">立即注册</text>
     </view>
   </view>
 
   <!-- 协议 -->
-  <view style="margin-top:40rpx;text-align:center;font-size:22rpx;color:rgba(255,255,255,0.7);">
+  <view class="agreement">
     <text>登录即表示同意</text>
-    <text style="color:#fff;font-weight:600;">《用户协议》</text>
+    <text class="agreement-link">《用户协议》</text>
     <text>和</text>
-    <text style="color:#fff;font-weight:600;">《隐私政策》</text>
+    <text class="agreement-link">《隐私政策》</text>
   </view>
 </view>

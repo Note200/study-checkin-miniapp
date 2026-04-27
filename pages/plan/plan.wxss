@@ -1,6 +1,6 @@
 /* ===== 计划页 ===== */
 .container {
-  background: #f4f6f8;
+  background: var(--bg);
   min-height: 100vh;
   padding-bottom: 160rpx;
 }
@@ -27,13 +27,13 @@
   transition: all 0.2s;
 }
 .tab.active {
-  background: #07C160;
+  background: var(--green);
   color: #fff;
   font-weight: 700;
 }
 
 .btn-add {
-  background: #07C160;
+  background: var(--green);
   color: #fff;
   border-radius: 40rpx;
   padding: 14rpx 28rpx;
@@ -64,12 +64,12 @@
 /* 左侧竖条（颜色按优先级）*/
 .plan-left-bar {
   width: 8rpx;
-  background: #07C160;
+  background: var(--green);
   flex-shrink: 0;
 }
-.plan-card.urgent .plan-left-bar { background: #F56C6C; }
-.plan-card.low    .plan-left-bar { background: #B8C0CC; }
-.plan-card.done   .plan-left-bar { background: #07C160; }
+.plan-card.urgent .plan-left-bar { background: var(--red); }
+.plan-card.low    .plan-left-bar { background: var(--text-3); }
+.plan-card.done   .plan-left-bar { background: var(--green); }
 
 .plan-body { flex: 1; padding: 24rpx 20rpx 20rpx 20rpx; }
 
@@ -94,8 +94,8 @@
   transition: all 0.2s;
 }
 .check-circle.checked {
-  background: #07C160;
-  border-color: #07C160;
+  background: var(--green);
+  border-color: var(--green);
 }
 .plan-title {
   flex: 1;
@@ -125,10 +125,10 @@
   font-size: 20rpx;
   font-weight: 600;
 }
-.tag-green  { background: #E8F8EF; color: #07C160; }
-.tag-orange { background: #FFF3E0; color: #E6A23C; }
-.tag-red    { background: #FEF0F0; color: #F56C6C; }
-.tag-blue   { background: #E3F2FD; color: #1976D2; }
+.tag-green  { background: var(--green-light); color: var(--green); }
+.tag-orange { background: var(--orange-light); color: var(--orange); }
+.tag-red    { background: var(--red-light); color: var(--red); }
+.tag-blue   { background: var(--blue-light); color: var(--blue); }
 .tag-date { font-size: 22rpx; color: #aaa; }
 
 /* 进度条 */
@@ -140,7 +140,7 @@
 }
 .progress-label { font-size: 22rpx; color: #aaa; }
 .progress-pct { font-size: 24rpx; font-weight: 700; color: #aaa; }
-.progress-pct.green { color: #07C160; }
+.progress-pct.green { color: var(--green); }
 .progress-bar {
   height: 8rpx;
   background: #f0f0f0;
@@ -149,11 +149,11 @@
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #2ECC71, #07C160);
+  background: linear-gradient(90deg, var(--green), var(--green));
   border-radius: 8rpx;
   transition: width 0.4s;
 }
-.plan-card.urgent .progress-fill { background: linear-gradient(90deg, #FF6B6B, #F56C6C); }
+.plan-card.urgent .progress-fill { background: linear-gradient(90deg, var(--red), var(--red)); }
 
 /* 优先级选择 */
 .modal-row {
@@ -172,13 +172,13 @@
   color: #666;
   border: 2rpx solid transparent;
 }
-.pri-btn.active-green  { background: #E8F8EF; color: #07C160; border-color: #07C160; }
-.pri-btn.active-orange { background: #FFF3E0; color: #E6A23C; border-color: #E6A23C; }
-.pri-btn.active-red    { background: #FEF0F0; color: #F56C6C; border-color: #F56C6C; }
+.pri-btn.active-green  { background: var(--green-light); color: var(--green); border-color: var(--green); }
+.pri-btn.active-orange { background: var(--orange-light); color: var(--orange); border-color: var(--orange); }
+.pri-btn.active-red    { background: var(--red-light); color: var(--red); border-color: var(--red); }
 
 .date-picker {
   padding: 12rpx 20rpx;
-  background: #f7f8fa;
+  background: var(--bg);
   border-radius: 12rpx;
   font-size: 26rpx;
   color: #333;

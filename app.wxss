@@ -1,24 +1,48 @@
-/* ===== 全局变量 ===== */
+/* ===== 全局变量 — 多邻国风格配色 ===== */
 page {
-  --primary: #07C160;
-  --primary-dark: #06AE56;
-  --primary-light: #E8F8EF;
-  --primary-grad: linear-gradient(135deg, #2ECC71, #07C160);
-  --danger: #F56C6C;
-  --warn: #E6A23C;
-  --text-1: #1a1a1a;
-  --text-2: #555;
-  --text-3: #999;
-  --bg: #f4f6f8;
+  --green: #58CC02;
+  --green-dark: #46a302;
+  --green-light: #D7FFB8;
+  --green-grad: linear-gradient(135deg, #58CC02, #46a302);
+  --blue: #1CB0F6;
+  --blue-dark: #1899D6;
+  --blue-light: #DDF4FF;
+  --orange: #FF9600;
+  --orange-dark: #E08600;
+  --orange-light: #FFE4B8;
+  --purple: #CE82FF;
+  --purple-dark: #B566E8;
+  --purple-light: #F3E0FF;
+  --red: #FF4B4B;
+  --red-dark: #EA2B2B;
+  --red-light: #FFD5D5;
+  --gold: #FFC800;
+  --gold-dark: #E0B000;
+  --gold-light: #FFF3CC;
+  --primary: var(--green);
+  --primary-dark: var(--green-dark);
+  --primary-light: var(--green-light);
+  --primary-grad: var(--green-grad);
+  --danger: var(--red);
+  --warn: var(--orange);
+  --text-1: #3C3C3C;
+  --text-2: #777;
+  --text-3: #AFAFAF;
+  --bg: #F7F7F7;
   --card-bg: #ffffff;
-  --border: #eef0f3;
+  --border: #E5E5E5;
   --radius-sm: 12rpx;
   --radius-md: 20rpx;
-  --radius-lg: 28rpx;
-  --shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
-  --shadow-green: 0 6rpx 24rpx rgba(7,193,96,0.20);
+  --radius-lg: 24rpx;
+  --shadow-sm: 0 2rpx 8rpx rgba(0,0,0,0.06);
+  --shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+  --shadow-green: 0 6rpx 0 var(--green-dark);
+  --shadow-blue: 0 6rpx 0 var(--blue-dark);
+  --shadow-orange: 0 6rpx 0 var(--orange-dark);
+  --shadow-purple: 0 6rpx 0 var(--purple-dark);
+  --shadow-red: 0 6rpx 0 var(--red-dark);
   background-color: var(--bg);
-  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: -apple-system, 'PingFang SC', 'Nunito', 'Microsoft YaHei', sans-serif;
   font-size: 28rpx;
   color: var(--text-1);
 }
@@ -37,6 +61,7 @@ page {
   padding: 32rpx;
   margin: 24rpx 24rpx 0;
   box-shadow: var(--shadow);
+  border: 2rpx solid var(--border);
 }
 .card-header {
   display: flex;
@@ -46,46 +71,55 @@ page {
 }
 .card-title {
   font-size: 32rpx;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-1);
 }
 .card-more {
   font-size: 26rpx;
   color: var(--primary);
+  font-weight: 700;
 }
 .card-count {
   font-size: 24rpx;
   color: var(--text-3);
 }
 
-/* ===== 按钮 ===== */
+/* ===== 按钮 — 多邻国立体风格 ===== */
 .btn-primary {
-  background: var(--primary);
+  background: var(--green);
   color: #fff;
-  border-radius: 50rpx;
-  font-size: 28rpx;
-  font-weight: 600;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 800;
   border: none;
-  padding: 18rpx 48rpx;
+  padding: 22rpx 48rpx;
   box-shadow: var(--shadow-green);
-  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  transition: all 0.1s;
 }
-.btn-primary:active { transform: scale(0.96); opacity: 0.88; }
+.btn-primary:active { 
+  transform: translateY(4rpx); 
+  box-shadow: 0 2rpx 0 var(--green-dark); 
+}
 
 .btn-outline {
   background: transparent;
   color: var(--primary);
-  border: 2rpx solid var(--primary);
-  border-radius: 50rpx;
+  border: 4rpx solid var(--border);
+  border-radius: 16rpx;
   font-size: 28rpx;
-  padding: 16rpx 40rpx;
+  font-weight: 700;
+  padding: 18rpx 40rpx;
+  transition: all 0.1s;
 }
 
 .btn-small {
-  background: var(--primary);
+  background: var(--green);
   color: #fff;
   border-radius: 12rpx;
   font-size: 24rpx;
+  font-weight: 700;
   padding: 10rpx 24rpx;
   border: none;
   line-height: 1.6;
@@ -96,33 +130,33 @@ page {
   position: fixed;
   right: 40rpx;
   bottom: 120rpx;
-  width: 100rpx;
-  height: 100rpx;
-  background: var(--primary);
+  width: 104rpx;
+  height: 104rpx;
+  background: var(--green);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-green);
+  box-shadow: 0 6rpx 0 var(--green-dark);
   z-index: 99;
   color: #fff;
   font-size: 52rpx;
   line-height: 1;
   font-weight: 300;
 }
-.fab:active { transform: scale(0.92); }
+.fab:active { transform: translateY(4rpx); box-shadow: 0 2rpx 0 var(--green-dark); }
 
 /* ===== 表单输入框 ===== */
 .form-input-group {
-  background: #f7f8fa;
-  border-radius: 14rpx;
+  background: #fff;
+  border-radius: 16rpx;
   margin-bottom: 20rpx;
   overflow: hidden;
-  border: 2rpx solid transparent;
+  border: 4rpx solid var(--border);
   transition: border 0.2s;
 }
 .form-input-group.focused {
-  border-color: var(--primary);
+  border-color: var(--blue);
   background: #fff;
 }
 .form-input-group input {
@@ -156,7 +190,7 @@ page {
 }
 .modal-title {
   font-size: 34rpx;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 32rpx;
   color: var(--text-1);
@@ -164,8 +198,8 @@ page {
 .modal-textarea {
   width: 100%;
   min-height: 120rpx;
-  background: #f7f8fa;
-  border-radius: 14rpx;
+  background: var(--bg);
+  border-radius: 16rpx;
   padding: 20rpx;
   font-size: 26rpx;
   box-sizing: border-box;
@@ -178,23 +212,24 @@ page {
 }
 .modal-btn {
   flex: 1;
-  border-radius: 50rpx;
+  border-radius: 16rpx;
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 800;
   border: none;
   padding: 22rpx 0;
   line-height: 1;
 }
 .modal-btn.cancel {
-  background: #f2f3f5;
+  background: var(--bg);
   color: var(--text-2);
+  border-bottom: 4rpx solid var(--border);
 }
 .modal-btn.confirm {
-  background: var(--primary);
+  background: var(--green);
   color: #fff;
-  box-shadow: var(--shadow-green);
+  box-shadow: 0 4rpx 0 var(--green-dark);
 }
-.modal-btn.confirm:active { transform: scale(0.97); }
+.modal-btn.confirm:active { transform: translateY(3rpx); box-shadow: 0 1rpx 0 var(--green-dark); }
 
 /* ===== 空状态 ===== */
 .empty-state, .empty-tip {
@@ -206,28 +241,29 @@ page {
 
 /* ===== 进度条 ===== */
 .progress-bar {
-  height: 10rpx;
-  background: #eee;
-  border-radius: 10rpx;
+  height: 12rpx;
+  background: var(--border);
+  border-radius: 12rpx;
   overflow: hidden;
 }
 .progress-fill {
   height: 100%;
-  background: var(--primary);
-  border-radius: 10rpx;
+  background: var(--green);
+  border-radius: 12rpx;
   transition: width 0.4s ease;
 }
 
 /* ===== 标签 ===== */
 .tag {
   display: inline-block;
-  padding: 4rpx 14rpx;
-  border-radius: 8rpx;
-  font-size: 20rpx;
-  font-weight: 600;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 700;
 }
-.tag-green { background: var(--primary-light); color: var(--primary); }
-.tag-orange { background: #FFF3E0; color: #E6A23C; }
-.tag-red { background: #FEF0F0; color: #F56C6C; }
-.tag-purple { background: #F3E8FF; color: #9C27B0; }
-.tag-blue { background: #E3F2FD; color: #1976D2; }
+.tag-green  { background: var(--green-light); color: var(--green-dark); }
+.tag-orange { background: var(--orange-light); color: var(--orange-dark); }
+.tag-red    { background: var(--red-light); color: var(--red-dark); }
+.tag-purple { background: var(--purple-light); color: var(--purple-dark); }
+.tag-blue   { background: var(--blue-light); color: var(--blue-dark); }
+.tag-gold   { background: var(--gold-light); color: var(--gold-dark); }

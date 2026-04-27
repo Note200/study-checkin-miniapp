@@ -3,7 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    loginType: 'account', // 默认账号登录
     username: '',
     password: '',
     rememberMe: false,
@@ -23,12 +22,6 @@ Page({
     })
   },
 
-  // 切换登录方式
-  switchLoginType(e) {
-    const type = e.currentTarget.dataset.type
-    this.setData({ loginType: type })
-  },
-
   // 输入框绑定
   onUsernameInput(e) {
     this.setData({ username: e.detail.value })
@@ -41,48 +34,7 @@ Page({
   onRememberChange(e) {
     const checked = e.detail.value.length > 0
     this.setData({ rememberMe: checked })
-    // 保存记住状态
     wx.setStorageSync('rememberMe', checked)
-  },
-
-  // 微信登录
-  wxLogin() {
-    if (this.data.loading) return
-    this.setData({ loading: true })
-
-    wx.login({
-      success: async (res) => {
-        if (res.code) {
-          try {
-            const result = await app.request({
-              url: '/api/user/login',
-              method: 'POST',
-              data: { code: res.code }
-            })
-            
-            if (result.code === 200) {
-              app.globalData.token = result.data.token
-              app.globalData.userInfo = result.data.userInfo
-              this.saveLoginInfo(result.data)
-              wx.showToast({ title: '登录成功', icon: 'success' })
-              wx.switchTab({ url: '/pages/index/index' })
-              return  // 跳转期间保持 loading
-            } else {
-              wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
-            }
-          } catch (e) {
-            wx.showToast({ title: '登录失败', icon: 'none' })
-          }
-        } else {
-          wx.showToast({ title: '获取code失败', icon: 'none' })
-        }
-        this.setData({ loading: false })
-      },
-      fail: () => {
-        wx.showToast({ title: '微信登录失败', icon: 'none' })
-        this.setData({ loading: false })
-      }
-    })
   },
 
   // 账号密码登录
@@ -118,14 +70,13 @@ Page({
           wx.setStorageSync('savedUsername', username)
           wx.setStorageSync('savedPassword', password)
         } else {
-          // 取消记住时清除保存的密码
           wx.removeStorageSync('savedUsername')
           wx.removeStorageSync('savedPassword')
         }
         
         wx.showToast({ title: '登录成功', icon: 'success' })
         wx.switchTab({ url: '/pages/index/index' })
-        return  // 跳转期间保持 loading，防止重复点击
+        return
       } else {
         wx.showToast({ title: result.msg || '登录失败', icon: 'none' })
       }

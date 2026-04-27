@@ -1,11 +1,26 @@
 // pages/index/index.js
 const app = getApp()
 
+// 每日激励语
+const MOTIVATIONS = [
+  '坚持就是胜利 💪',
+  '今天也要元气满满！✨',
+  '学无止境，砥砺前行 📖',
+  '每一次打卡都是进步 🚀',
+  '积少成多，聚沙成塔 🌟',
+  '今天的努力是明天的收获 🌱',
+  '比你优秀的人还在努力 ⚡',
+  '学习让未来更有底气 💎',
+  '日拱一卒，功不唐捐 📚',
+  '越努力越幸运 🍀'
+]
+
 Page({
   data: {
     userInfo: null,
     isAdmin: false,
     greeting: '早上好',
+    motivation: '',
     notice: '',
     todayRate: 0,
     studyHours: { done: 0, target: 4, rate: 0 },
@@ -24,7 +39,8 @@ Page({
     this.setData({
       userInfo: info,
       isAdmin: info && info.role === 1,
-      greeting: this._getGreeting()
+      greeting: this._getGreeting(),
+      motivation: MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)]
     })
     this.loadData()
   },
@@ -78,7 +94,7 @@ Page({
           const d = res.data
           this.setData({
             todayRate: d.rate || 0,
-            studyHours: { done: d.done || 0, target: d.total || 4, rate: d.rate || 0 }
+            studyHours: { done: d.done || 0, target: d.total || 0, rate: d.rate || 0 }
           })
         }
       } catch (_) {}
@@ -94,7 +110,7 @@ Page({
     try {
       const res = await app.request({ url: '/api/checkin/week' })
       if (res.code === 200 && res.data) {
-        const raw = res.data // 期望 [{day, hours}]
+        const raw = res.data // [{day, hours}]
         const maxH = Math.max(...raw.map(r => r.hours || 0), 1)
         const weekData = days.map((day, i) => {
           const h = (raw[i] && raw[i].hours) || 0
@@ -102,22 +118,10 @@ Page({
         })
         const weekTotal = raw.reduce((s, r) => s + (r.hours || 0), 0).toFixed(1)
         this.setData({ weekData, weekTotal })
-        return
       }
-    } catch (e) {}
-
-    // 降级：生成模拟柱状图
-    const mock = [2.5, 3.0, 1.5, 4.0, 3.5, 5.1, 2.0]
-    const maxH = Math.max(...mock)
-    const weekData = days.map((day, i) => ({
-      day, hours: mock[i],
-      height: Math.round((mock[i] / maxH) * 140) + 20,
-      isToday: i === todayIdx
-    }))
-    this.setData({
-      weekData,
-      weekTotal: mock.reduce((s, v) => s + v, 0).toFixed(1)
-    })
+    } catch (e) {
+      console.log('加载本周数据失败')
+    }
   },
 
   // 加载公告
@@ -152,11 +156,14 @@ Page({
     } catch (e) {}
   },
 
+  // 导航方法
   goCheckin() { wx.switchTab({ url: '/pages/checkin/checkin' }) },
   goCourse()  { wx.switchTab({ url: '/pages/course/course' }) },
   goPlan()    { wx.switchTab({ url: '/pages/plan/plan' }) },
   goProfile() { wx.switchTab({ url: '/pages/profile/profile' }) },
   goAdmin()   { wx.navigateTo({ url: '/pages/admin/admin' }) },
+  goRank()    { wx.navigateTo({ url: '/pages/rank/rank' }) },
+  goCircle()  { wx.navigateTo({ url: '/pages/circle/circle' }) },
 
   // 左滑手势
   onSwipeStart(e) {
@@ -186,7 +193,6 @@ Page({
   quickCheckin(e) {
     const taskId = e.currentTarget.dataset.id
     const checked = e.currentTarget.dataset.checked
-    const url = checked ? '/api/checkin/undo' : '/api/checkin/do'
 
     if (!checked) {
       // 快捷打卡（无备注）

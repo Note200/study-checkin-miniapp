@@ -162,5 +162,34 @@ Page({
 
   closeHistory() { this.setData({ showHistory: false }) },
 
+  // 删除打卡任务
+  deleteTask(e) {
+    const taskId = e.currentTarget.dataset.id
+    const task = this.data.tasks.find(t => t.id === taskId)
+    wx.showModal({
+      title: '确认删除',
+      content: `确定要删除任务「${task ? task.title : ''}」吗？该任务的所有打卡记录也会被删除，此操作不可撤销。`,
+      confirmColor: '#F56C6C',
+      success: (res) => {
+        if (res.confirm) {
+          app.request({
+            url: `/api/checkin/task/${taskId}`,
+            method: 'DELETE'
+          }).then(result => {
+            if (result.code === 200) {
+              wx.showToast({ title: '已删除', icon: 'success' })
+              this.loadTasks()
+              this.loadCalendar()
+            } else {
+              wx.showToast({ title: result.msg || '删除失败', icon: 'none' })
+            }
+          }).catch(() => {
+            wx.showToast({ title: '删除失败', icon: 'none' })
+          })
+        }
+      }
+    })
+  },
+
   addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }
 })

@@ -7,6 +7,7 @@ Page({
     tabs: ['班级管理', '公告管理', '数据统计'],
     classList: [],
     classInfo: null,
+    memberList: [],
     noticeList: [],
     stats: {
       memberCount: 0,
@@ -52,13 +53,28 @@ Page({
       const res = await app.request({ url: '/api/admin/classes' })
       if (res.code === 200) {
         const classList = res.data || []
-        this.setData({ 
+        this.setData({
           classList,
           classInfo: classList.length > 0 ? classList[0] : null
         })
+        // 加载第一个班级的成员列表
+        if (classList.length > 0 && classList[0].id) {
+          await this.loadMembers(classList[0].id)
+        }
       }
     } catch (e) {
       console.log('加载班级失败')
+    }
+  },
+
+  async loadMembers(classId) {
+    try {
+      const res = await app.request({ url: '/api/admin/class/' + classId + '/members' })
+      if (res.code === 200) {
+        this.setData({ memberList: res.data || [] })
+      }
+    } catch (e) {
+      console.log('加载成员失败')
     }
   },
 

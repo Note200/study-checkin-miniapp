@@ -1,0 +1,68 @@
+<view class="container">
+  <!-- 标题栏 -->
+  <view class="page-header">
+    <text class="page-title">🏆 打卡排行榜</text>
+    <text class="page-sub">本周班级打卡排名</text>
+  </view>
+
+  <!-- 前三名奖台 -->
+  <view class="podium" wx:if="{{rankList.length >= 3}}">
+    <!-- 第二名 -->
+    <view class="podium-item second">
+      <view class="podium-avatar-wrap">
+        <image class="podium-avatar" src="{{rankList[1].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="podium-crown">🥈</view>
+      </view>
+      <text class="podium-name">{{rankList[1].nickname}}</text>
+      <view class="podium-bar second-bar">
+        <text class="podium-count">{{rankList[1].checkinCount}}次</text>
+      </view>
+    </view>
+    <!-- 第一名 -->
+    <view class="podium-item first">
+      <view class="podium-avatar-wrap">
+        <image class="podium-avatar" src="{{rankList[0].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="podium-crown">🥇</view>
+      </view>
+      <text class="podium-name">{{rankList[0].nickname}}</text>
+      <view class="podium-bar first-bar">
+        <text class="podium-count">{{rankList[0].checkinCount}}次</text>
+      </view>
+    </view>
+    <!-- 第三名 -->
+    <view class="podium-item third">
+      <view class="podium-avatar-wrap">
+        <image class="podium-avatar" src="{{rankList[2].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="podium-crown">🥉</view>
+      </view>
+      <text class="podium-name">{{rankList[2].nickname}}</text>
+      <view class="podium-bar third-bar">
+        <text class="podium-count">{{rankList[2].checkinCount}}次</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 完整排名列表 -->
+  <view class="rank-list" wx:if="{{rankList.length > 0}}">
+    <view class="rank-item {{item.isMe ? 'me' : ''}}" wx:for="{{rankList}}" wx:key="userId">
+      <view class="rank-num rank-{{item.rank <= 3 ? item.rank : 'other'}}">
+        <text>{{item.rank}}</text>
+      </view>
+      <image class="rank-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+      <view class="rank-info">
+        <text class="rank-name">{{item.nickname}}</text>
+        <text class="rank-label">{{item.isMe ? '🎉 就是你！' : ''}}</text>
+      </view>
+      <view class="rank-score">
+        <text class="rank-count">{{item.checkinCount}}</text>
+        <text class="rank-unit">次</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{rankList.length === 0 && !loading}}">
+    <text class="empty-emoji">🏆</text>
+    <text class="empty-text">暂无排行数据，快去打卡吧</text>
+  </view>
+</view>

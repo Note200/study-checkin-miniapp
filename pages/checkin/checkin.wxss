@@ -66,6 +66,20 @@
   border: 2rpx solid #07C160;
 }
 
+/* 删除按钮 */
+.btn-delete {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #f2f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-delete:active { background: #e8e8e8; }
+.delete-icon { font-size: 28rpx; }
+
 /* 空状态 */
 .empty-state {
   display: flex;

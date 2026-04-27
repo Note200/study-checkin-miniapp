@@ -7,7 +7,7 @@
       <text class="nickname">{{userInfo.nickname || '同学'}}</text>
       <view class="edit-icon" bindtap="editProfile"><text>✏️</text></view>
     </view>
-    <text class="sub-info">{{userInfo.major || '计算机应用技术'}} · {{userInfo.className || '2024级2班'}}</text>
+    <text class="sub-info">{{userInfo.major || ''}}{{userInfo.className ? ' · ' + userInfo.className : ''}}</text>
   </view>
 
   <!-- 学习数据面板 -->

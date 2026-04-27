@@ -1,13 +1,13 @@
 /* ===== 个人中心 ===== */
 .container {
-  background: #f4f6f8;
+  background: var(--bg);
   min-height: 100vh;
   padding-bottom: 60rpx;
 }
 
 /* 绿色渐变头部 */
 .profile-header {
-  background: linear-gradient(135deg, #2ECC71 0%, #07C160 100%);
+  background: linear-gradient(135deg, var(--green) 0%, var(--green) 100%);
   padding: 60rpx 32rpx 80rpx;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@
 .stats-num {
   font-size: 40rpx;
   font-weight: 800;
-  color: #07C160;
+  color: var(--green);
 }
 .stats-label {
   font-size: 22rpx;
@@ -158,8 +158,8 @@
 .menu-arrow { font-size: 36rpx; color: #ccc; }
 
 .admin-tag {
-  background: #E8F8EF;
-  color: #07C160;
+  background: var(--green-light);
+  color: var(--green);
   font-size: 20rpx;
   font-weight: 700;
   padding: 4rpx 14rpx;
@@ -177,7 +177,7 @@
   text-align: center;
   padding: 28rpx 0;
   font-size: 30rpx;
-  color: #F56C6C;
+  color: var(--red);
   font-weight: 600;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
 }

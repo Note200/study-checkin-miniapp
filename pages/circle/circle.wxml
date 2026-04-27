@@ -1,0 +1,67 @@
+<view class="container">
+
+  <!-- 顶部发布区 -->
+  <view class="publish-card">
+    <view class="publish-row">
+      <image class="publish-avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+      <view class="publish-input" bindtap="showPublishModal">
+        <text class="publish-placeholder">分享你的学习动态...</text>
+      </view>
+    </view>
+    <view class="type-tags">
+      <text class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">💡 随便说说</text>
+      <text class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">📖 学习分享</text>
+      <text class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">❓ 提问求助</text>
+    </view>
+  </view>
+
+  <!-- 动态列表 -->
+  <view class="post-list" wx:if="{{posts.length > 0}}">
+    <view class="post-card" wx:for="{{posts}}" wx:key="id">
+      <!-- 用户信息行 -->
+      <view class="post-header">
+        <image class="post-avatar" src="{{item.authorAvatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="post-user-info">
+          <text class="post-username">{{item.authorName}}</text>
+          <view class="post-meta-row">
+            <text class="post-time">{{item.createTime}}</text>
+            <text class="post-class-tag" wx:if="{{item.sameClass}}">同班</text>
+          </view>
+        </view>
+        <!-- 删除按钮 -->
+        <view class="post-delete" wx:if="{{item.canDelete}}" data-id="{{item.id}}" bindtap="deletePost">
+          <text>删除</text>
+        </view>
+      </view>
+      <!-- 内容 -->
+      <view class="post-content">
+        <text>{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{posts.length === 0 && !loading}}">
+    <text class="empty-emoji">💬</text>
+    <text class="empty-text">还没有动态，来发第一条吧</text>
+  </view>
+
+  <!-- 发布弹窗 -->
+  <view class="modal-mask" wx:if="{{showPublishModal}}" bindtap="hidePublishModal">
+    <view class="modal-content" catchtap="preventClose">
+      <view class="modal-title">发布动态</view>
+      <textarea class="circle-textarea" placeholder="写下你的想法..." maxlength="500" bindinput="onContentInput" value="{{postContent}}"/>
+      <text class="char-count">{{postContent.length}}/500</text>
+      <view class="type-tags modal-types">
+        <text class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">💡 随便说说</text>
+        <text class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">📖 学习分享</text>
+        <text class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">❓ 提问求助</text>
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="hidePublishModal">取消</button>
+        <button class="modal-btn confirm" bindtap="submitPost">发布</button>
+      </view>
+    </view>
+  </view>
+
+</view>

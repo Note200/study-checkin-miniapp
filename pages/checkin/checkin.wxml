@@ -23,6 +23,9 @@
         bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}">
         {{item.todayChecked ? '撤销' : '打卡'}}
       </button>
+      <view class="btn-delete" data-id="{{item.id}}" bindtap="deleteTask">
+        <text class="delete-icon">🗑</text>
+      </view>
     </view>
   </view>
 

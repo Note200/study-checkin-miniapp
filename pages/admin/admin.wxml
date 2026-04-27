@@ -42,7 +42,7 @@
         </view>
         <view class="info-row">
           <text class="info-label">成员数量</text>
-          <text class="info-value">{{classList.length || 0}} 人</text>
+          <text class="info-value">{{stats.memberCount || 0}} 人</text>
         </view>
       </view>
     </view>
@@ -50,10 +50,10 @@
     <view class="card">
       <view class="card-header">
         <text class="card-title">成员列表</text>
-        <text class="card-count">{{classList.length}} 人</text>
+        <text class="card-count">{{stats.memberCount || 0}} 人</text>
       </view>
-      <view class="member-list" wx:if="{{classList.length > 0}}">
-        <view class="member-item" wx:for="{{classList}}" wx:key="id">
+      <view class="member-list" wx:if="{{memberList.length > 0}}">
+        <view class="member-item" wx:for="{{memberList}}" wx:key="id">
           <image class="member-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
           <view class="member-info">
             <text class="member-name">{{item.nickname}}</text>

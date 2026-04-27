@@ -9,17 +9,19 @@
     "pages/checkin/checkin",
     "pages/checkin/add",
     "pages/profile/profile",
-    "pages/admin/admin"
+    "pages/admin/admin",
+    "pages/rank/rank",
+    "pages/circle/circle"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#2ECC71",
+    "navigationBarBackgroundColor": "#58CC02",
     "navigationBarTitleText": "学习打卡",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#07C160",
+    "selectedColor": "#58CC02",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

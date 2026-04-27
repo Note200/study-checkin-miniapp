@@ -6,7 +6,7 @@
       <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
       <view class="header-text">
         <text class="nickname">{{userInfo.nickname || '同学'}}，{{greeting}}！</text>
-        <text class="slogan">坚持学习，成就未来 🌱</text>
+        <text class="slogan">{{motivation}}</text>
       </view>
     </view>
     <view class="header-right">
@@ -27,6 +27,37 @@
     <text class="notice-text">{{notice}}</text>
   </view>
 
+  <!-- 快捷功能 — 6个彩色入口 -->
+  <view class="section-header">
+    <text class="section-title">快捷功能</text>
+  </view>
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="goCheckin">
+      <view class="quick-icon bg-green"><text>✅</text></view>
+      <text class="quick-label">每日打卡</text>
+    </view>
+    <view class="quick-item" bindtap="goRank">
+      <view class="quick-icon bg-gold"><text>🏆</text></view>
+      <text class="quick-label">排行榜</text>
+    </view>
+    <view class="quick-item" bindtap="goCourse">
+      <view class="quick-icon bg-blue"><text>📚</text></view>
+      <text class="quick-label">课程表</text>
+    </view>
+    <view class="quick-item" bindtap="goPlan">
+      <view class="quick-icon bg-orange"><text>📋</text></view>
+      <text class="quick-label">学习计划</text>
+    </view>
+    <view class="quick-item" bindtap="goCircle">
+      <view class="quick-icon bg-purple"><text>💬</text></view>
+      <text class="quick-label">班级圈</text>
+    </view>
+    <view class="quick-item" bindtap="goProfile">
+      <view class="quick-icon bg-red"><text>👤</text></view>
+      <text class="quick-label">我的</text>
+    </view>
+  </view>
+
   <!-- 今日课程 -->
   <view class="section-header" wx:if="{{todayCourses.length > 0}}">
     <text class="section-title">今日课程</text>
@@ -34,7 +65,7 @@
   </view>
   <scroll-view class="course-scroll" scroll-x wx:if="{{todayCourses.length > 0}}">
     <view class="course-chip" wx:for="{{todayCourses}}" wx:key="id" bindtap="goCourse">
-      <view class="course-chip-bar" style="background: {{item.color || '#07C160'}}"></view>
+      <view class="course-chip-bar" style="background: {{item.color || 'var(--blue)'}}"></view>
       <text class="course-chip-name">{{item.name}}</text>
       <text class="course-chip-info">第{{item.startSection}}-{{item.endSection}}节 · {{item.classroom}}</text>
     </view>
@@ -49,7 +80,7 @@
     <!-- 环形进度 + 学习时长 -->
     <view class="ring-row">
       <view class="ring-wrap">
-        <view class="ring-bg" style="background: conic-gradient(#07C160 {{todayRate}}%, #eef0f3 {{todayRate}}%);">
+        <view class="ring-bg" style="background: conic-gradient(var(--green) {{todayRate}}%, var(--border) {{todayRate}}%);">
           <view class="ring-inner">
             <text class="ring-num">{{todayRate}}</text>
             <text class="ring-unit">%</text>
@@ -128,29 +159,6 @@
     <view class="chart-footer">
       <text class="chart-total-label">本周累计</text>
       <text class="chart-total-val">{{weekTotal}} 小时</text>
-    </view>
-  </view>
-
-  <!-- 快捷功能 -->
-  <view class="section-header">
-    <text class="section-title">快捷功能</text>
-  </view>
-  <view class="quick-grid">
-    <view class="quick-item" bindtap="goCheckin">
-      <view class="quick-icon bg-green"><text>✅</text></view>
-      <text class="quick-label">每日打卡</text>
-    </view>
-    <view class="quick-item" bindtap="goPlan">
-      <view class="quick-icon bg-blue"><text>📋</text></view>
-      <text class="quick-label">学习计划</text>
-    </view>
-    <view class="quick-item" bindtap="goCourse">
-      <view class="quick-icon bg-orange"><text>📚</text></view>
-      <text class="quick-label">课程表</text>
-    </view>
-    <view class="quick-item" bindtap="goProfile">
-      <view class="quick-icon bg-purple"><text>👤</text></view>
-      <text class="quick-label">我的</text>
     </view>
   </view>
 
