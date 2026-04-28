@@ -51,7 +51,9 @@
       <view
         wx:for="{{calendarDays}}"
         wx:key="*this"
-        class="date-cell {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}} {{item.checked ? 'heat-' + item.level : ''}}">
+        data-index="{{index}}"
+        bindtap="onDateTap"
+        class="date-cell {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}} {{item.selected ? 'selected' : ''}} {{item.checked ? 'heat-' + item.level : ''}}">
         <text wx:if="{{!item.empty}}">{{item.day}}</text>
       </view>
     </view>

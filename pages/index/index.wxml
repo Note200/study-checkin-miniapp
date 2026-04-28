@@ -33,27 +33,27 @@
   </view>
   <view class="quick-grid">
     <view class="quick-item" bindtap="goCheckin">
-      <view class="quick-icon bg-green"><text>✅</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-checkin.png" mode="aspectFit"/>
       <text class="quick-label">每日打卡</text>
     </view>
     <view class="quick-item" bindtap="goRank">
-      <view class="quick-icon bg-gold"><text>🏆</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-rank.png" mode="aspectFit"/>
       <text class="quick-label">排行榜</text>
     </view>
     <view class="quick-item" bindtap="goCourse">
-      <view class="quick-icon bg-blue"><text>📚</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-course.png" mode="aspectFit"/>
       <text class="quick-label">课程表</text>
     </view>
     <view class="quick-item" bindtap="goPlan">
-      <view class="quick-icon bg-orange"><text>📋</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-plan.png" mode="aspectFit"/>
       <text class="quick-label">学习计划</text>
     </view>
     <view class="quick-item" bindtap="goCircle">
-      <view class="quick-icon bg-purple"><text>💬</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-circle.png" mode="aspectFit"/>
       <text class="quick-label">班级圈</text>
     </view>
     <view class="quick-item" bindtap="goProfile">
-      <view class="quick-icon bg-red"><text>👤</text></view>
+      <image class="quick-icon-img" src="/assets/icons/quick-profile.png" mode="aspectFit"/>
       <text class="quick-label">我的</text>
     </view>
   </view>

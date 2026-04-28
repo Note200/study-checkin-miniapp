@@ -113,21 +113,12 @@
   padding: 28rpx 0;
   gap: 12rpx;
 }
-.quick-icon {
+.quick-icon-img {
   width: 88rpx;
   height: 88rpx;
   border-radius: 24rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 38rpx;
+  display: block;
 }
-.bg-green  { background: var(--green-light); }
-.bg-blue   { background: var(--blue-light); }
-.bg-orange { background: var(--orange-light); }
-.bg-purple { background: var(--purple-light); }
-.bg-red    { background: var(--red-light); }
-.bg-gold   { background: var(--gold-light); }
 .quick-label { font-size: 24rpx; color: var(--text-2); font-weight: 600; }
 
 /* 今日课程横向滚动 */

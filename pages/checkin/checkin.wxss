@@ -138,6 +138,13 @@
   font-weight: 800;
   box-shadow: inset 0 0 0 3rpx #07C160;
 }
+.date-cell.selected {
+  background: var(--blue) !important;
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(28,176,246,0.35);
+}
+.date-cell.selected.heat-0 { color: #fff !important; }
 /* 热力图等级颜色 */
 .date-cell.heat-0 { background: #f8f9fa; }
 .date-cell.heat-1 { background: #c6f6d5; color: #276749; }

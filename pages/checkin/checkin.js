@@ -16,7 +16,8 @@ Page({
     calendarYear: new Date().getFullYear(),
     calendarMonth: new Date().getMonth() + 1,
     calendarDays: [],
-    showSuccessAnim: false
+    showSuccessAnim: false,
+    selectedDate: null   // 选中的日期高亮
   },
 
   onShow() {
@@ -77,7 +78,8 @@ Page({
         heatColor: heatColors[data.level],
         isToday: d === today,
         count: data.count,
-        empty: false
+        empty: false,
+        selected: false
       })
     }
 
@@ -189,6 +191,16 @@ Page({
         }
       }
     })
+  },
+
+  // 点击日历格子，切换选中高亮
+  onDateTap(e) {
+    const index = e.currentTarget.dataset.index
+    const days = this.data.calendarDays.map((d, i) => ({
+      ...d,
+      selected: i === index && !d.empty && !d.isToday
+    }))
+    this.setData({ calendarDays: days })
   },
 
   addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }
