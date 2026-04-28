@@ -149,9 +149,10 @@
   <view class="card chart-card" bindtap="goCheckin">
     <!-- 简易柱状图 -->
     <view class="bar-chart">
-      <view class="bar-item" wx:for="{{weekData}}" wx:key="day">
+      <view class="bar-item" wx:for="{{weekData}}" wx:key="day" bindtap="onBarTap" data-index="{{index}}">
         <view class="bar-wrap">
           <view class="bar-fill {{item.isToday ? 'today' : ''}}" style="height: {{item.height}}rpx"></view>
+          <view class="bar-tooltip" wx:if="{{tooltipIndex === index}}">{{item.hours}}h</view>
         </view>
         <text class="bar-label">{{item.day}}</text>
       </view>

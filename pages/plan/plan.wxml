@@ -10,50 +10,64 @@
     <view class="btn-add" bindtap="showAdd">+ 新增</view>
   </view>
 
-  <!-- 计划列表 -->
+  <!-- 计划列表（支持左滑删除） -->
   <view class="plan-list" wx:if="{{plans.length > 0}}">
-    <view
-      class="plan-card {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}}"
-      wx:for="{{plans}}"
-      wx:key="id">
-      <!-- 左侧彩色竖条 -->
-      <view class="plan-left-bar"></view>
+    <movable-area class="swipe-area" wx:for="{{plans}}" wx:key="id" style="height:auto;">
+      <movable-view
+        class="swipe-card"
+        direction="horizontal"
+        x="{{item._x || 0}}"
+        damping="30"
+        friction="5"
+        out-of-bounds
+        change:e.swipeChange="onSwipeChange"
+        data-index="{{index}}"
+        id="swipe-{{index}}">
+        <!-- 前景卡片 -->
+        <view
+          class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}} {{item._x < -60 ? 'swiped' : ''}}">
+          <!-- 左侧彩色竖条 -->
+          <view class="plan-left-bar"></view>
 
-      <view class="plan-body">
-        <!-- 顶部：勾选 + 标题 + 删除 -->
-        <view class="plan-top">
-          <view
-            class="check-circle {{item.status === 1 ? 'checked' : ''}}"
-            data-id="{{item.id}}"
-            data-status="{{item.status}}"
-            bindtap="togglePlan">
-            <text wx:if="{{item.status === 1}}">✓</text>
+          <view class="plan-body">
+            <!-- 顶部：勾选 + 标题 -->
+            <view class="plan-top">
+              <view
+                class="check-circle {{item.status === 1 ? 'checked' : ''}}"
+                data-id="{{item.id}}"
+                data-status="{{item.status}}"
+                bindtap="togglePlan">
+                <text wx:if="{{item.status === 1}}">✓</text>
+              </view>
+              <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
+              <view class="swipe-hint"><text>← 滑动删除</text></view>
+            </view>
+
+            <!-- 标签行：课程 + 优先级 + 日期 -->
+            <view class="plan-tags">
+              <text class="tag tag-blue" wx:if="{{item.courseName}}">{{item.courseName}}</text>
+              <text class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
+                {{item.priority === 2 ? '紧急' : item.priority === 1 ? '普通' : '宽松'}}
+              </text>
+              <text class="tag-date">⏰ {{item.planDate}}</text>
+            </view>
+
+            <!-- 进度条 -->
+            <view class="plan-progress-row">
+              <text class="progress-label">完成进度</text>
+              <text class="progress-pct {{item.status === 1 ? 'green' : ''}}">{{item.status === 1 ? '100%' : (item.progress || 0) + '%'}}</text>
+            </view>
+            <view class="progress-bar">
+              <view class="progress-fill" style="width: {{item.status === 1 ? 100 : (item.progress || 0)}}%"></view>
+            </view>
           </view>
-          <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
-          <view class="delete-btn" data-id="{{item.id}}" bindtap="deletePlan">
-            <text class="delete-icon">🗑</text>
-          </view>
         </view>
-
-        <!-- 标签行：课程 + 优先级 + 日期 -->
-        <view class="plan-tags">
-          <text class="tag tag-blue" wx:if="{{item.courseName}}">{{item.courseName}}</text>
-          <text class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
-            {{item.priority === 2 ? '紧急' : item.priority === 1 ? '普通' : '宽松'}}
-          </text>
-          <text class="tag-date">⏰ {{item.planDate}}</text>
+        <!-- 滑出后的删除按钮（底层） -->
+        <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}">
+          <text class="swipe-delete-text">删除</text>
         </view>
-
-        <!-- 进度条 -->
-        <view class="plan-progress-row">
-          <text class="progress-label">完成进度</text>
-          <text class="progress-pct {{item.status === 1 ? 'green' : ''}}">{{item.status === 1 ? '100%' : (item.progress || 0) + '%'}}</text>
-        </view>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: {{item.status === 1 ? 100 : (item.progress || 0)}}%"></view>
-        </view>
-      </view>
-    </view>
+      </movable-view>
+    </movable-area>
   </view>
 
   <!-- 空状态 -->

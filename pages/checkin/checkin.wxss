@@ -39,8 +39,8 @@
 }
 .task-icon { font-size: 40rpx; }
 
-.task-info { flex: 1; }
-.task-name { font-size: 30rpx; font-weight: 600; color: #1a1a1a; display: block; }
+.task-info { flex: 1; min-width: 0; overflow: hidden; }
+.task-name { font-size: 30rpx; font-weight: 600; color: #1a1a1a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .task-sub-row { display: flex; align-items: center; gap: 6rpx; margin-top: 6rpx; }
 .task-clock { font-size: 20rpx; }
 .task-sub { font-size: 22rpx; color: #aaa; }
@@ -66,7 +66,46 @@
   border: 2rpx solid #07C160;
 }
 
-/* 删除按钮 */
+/* ===== 左滑删除（打卡页） ===== */
+.swipe-area {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20rpx;
+}
+.swipe-card {
+  width: 100%;
+  height: auto;
+  min-height: 80rpx;
+}
+.swipe-card .task-card {
+  transition: box-shadow 0.2s, opacity 0.2s;
+}
+.swipe-card .task-card.swiped {
+  box-shadow: -4rpx 4rpx 16rpx rgba(0,0,0,0.1);
+  opacity: 0.85;
+}
+.task-del-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  background: linear-gradient(135deg, #FF4D4F, #CF1322);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 20rpx 20rpx 0;
+  z-index: 1;
+}
+.swipe-hint-small {
+  font-size: 18rpx;
+  color: #ccc;
+  flex-shrink: 0;
+  white-space: nowrap;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+/* 删除按钮（保留原样式作为备用） */
 .btn-delete {
   width: 56rpx;
   height: 56rpx;

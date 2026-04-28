@@ -47,6 +47,53 @@ page {
   color: var(--text-1);
 }
 
+/* ===== 全局按钮点击反馈动画 ===== */
+button::after {
+  border: none !important; /* 去除小程序默认边框 */
+}
+.btn-tap-scale {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-tap-scale:active {
+  transform: scale(0.93) !important;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1) !important;
+}
+/* 所有 button 默认加缩放反馈 */
+button {
+  transition: transform 0.12s ease;
+}
+button:active {
+  transform: scale(0.94);
+}
+
+/* ===== 卡片入场动画 ===== */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(24rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-animate {
+  animation: slideUpFade 0.35s ease both;
+}
+/* 列表项依次延迟 */
+.plan-list .swipe-area:nth-child(1) .plan-card { animation-delay: 0s; }
+.plan-list .swipe-area:nth-child(2) .plan-card { animation-delay: 0.06s; }
+.plan-list .swipe-area:nth-child(3) .plan-card { animation-delay: 0.12s; }
+.plan-list .swipe-area:nth-child(4) .plan-card { animation-delay: 0.18s; }
+.plan-list .swipe-area:nth-child(5) .plan-card { animation-delay: 0.24s; }
+.plan-list .swipe-area:nth-child(n+6) .plan-card { animation-delay: 0.3s; }
+
+.task-list .swipe-area:nth-child(1) .task-card { animation-delay: 0s; }
+.task-list .swipe-area:nth-child(2) .task-card { animation-delay: 0.06s; }
+.task-list .swipe-area:nth-child(3) .task-card { animation-delay: 0.12s; }
+.task-list .swipe-area:nth-child(4) .task-card { animation-delay: 0.18s; }
+.task-list .swipe-area:nth-child(n+5) .task-card { animation-delay: 0.24s; }
+
 /* ===== 通用容器 ===== */
 .container {
   min-height: 100vh;

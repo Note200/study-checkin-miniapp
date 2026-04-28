@@ -31,7 +31,8 @@ Page({
     todayCourses: [],
     touchStartX: 0,
     touchCurrentX: 0,
-    swipingIndex: -1
+    swipingIndex: -1,
+    tooltipIndex: -1
   },
 
   onShow() {
@@ -154,6 +155,21 @@ Page({
         this.setData({ todayCourses: res.data || [] })
       }
     } catch (e) {}
+  },
+
+  // 柱状图点击显示时长
+  onBarTap(e) {
+    const idx = e.currentTarget.dataset.index
+    const cur = this.data.tooltipIndex
+    // 点同一根柱：关闭；点不同柱：切换
+    this.setData({ tooltipIndex: cur === idx ? -1 : idx })
+    // 1.5s 后自动消失
+    if (this._tooltipTimer) clearTimeout(this._tooltipTimer)
+    if (cur !== idx) {
+      this._tooltipTimer = setTimeout(() => {
+        this.setData({ tooltipIndex: -1 })
+      }, 1500)
+    }
   },
 
   // 导航方法

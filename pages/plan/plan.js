@@ -115,6 +115,7 @@ Page({
 
   // 删除计划
   async deletePlan(e) {
+    const id = e.currentTarget.dataset.id
     wx.showModal({
       title: '确认删除',
       content: '确定要删除这个计划吗？',
@@ -122,10 +123,7 @@ Page({
       success: async (res) => {
         if (res.confirm) {
           try {
-            await app.request({
-              url: `/api/plan/${e.currentTarget.dataset.id}`,
-              method: 'DELETE'
-            })
+            await app.request({ url: `/api/plan/${id}`, method: 'DELETE' })
             wx.showToast({ title: '删除成功', icon: 'success' })
             this.loadPlans()
           } catch (e) {
@@ -134,5 +132,27 @@ Page({
         }
       }
     })
+  },
+
+  // 左滑删除 — 滑动事件处理
+  onSwipeChange(e) {
+    const index = e.currentTarget.dataset.index
+    let x = e.detail.x
+    // 只允许向左滑（负值）
+    if (x > 0) x = 0
+    // 滑出最大距离限制（露出删除按钮）
+    if (x < -160) x = -160
+    // 更新对应卡片的 x 偏移
+    const plans = this.data.plans.map((p, i) => ({
+      ...p,
+      _x: i === index ? x : (p._x && p._x < -80 ? -160 : 0) // 滑出一个时关闭其他
+    }))
+    this.setData({ plans })
+  },
+
+  // 重置所有卡片滑动状态
+  resetSwipes() {
+    const plans = this.data.plans.map(p => ({ ...p, _x: 0 }))
+    this.setData({ plans })
   }
 })

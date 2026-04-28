@@ -193,6 +193,22 @@ Page({
     })
   },
 
+  // 左滑删除 — 滑动事件处理
+  onSwipeChange(e) {
+    const index = e.currentTarget.dataset.index
+    let x = e.detail.x
+    if (x > 0) x = 0
+    if (x < -160) x = -160
+    const tasks = this.data.tasks.map((t, i) => ({
+      ...t,
+      _x: i === index ? x : (t._x && t._x < -80 ? -160 : 0)
+    }))
+    this.setData({ tasks })
+  },
+
+  // 防止按钮点击触发滑动（空实现，用catchtap隔离）
+  onBtnTap() {},
+
   // 点击日历格子，切换选中高亮
   onDateTap(e) {
     const index = e.currentTarget.dataset.index
