@@ -124,6 +124,82 @@
   padding: 8rpx 0;
 }
 
+/* 互动栏 */
+.post-actions {
+  display: flex;
+  gap: 32rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid var(--border);
+  margin-top: 12rpx;
+}
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 26rpx;
+  color: var(--text-3);
+  padding: 6rpx 0;
+}
+.action-icon { font-size: 30rpx; }
+.action-count { font-size: 24rpx; }
+.action-btn.liked { color: var(--red); }
+
+/* 评论列表 */
+.comments-section {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid var(--border);
+}
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 10rpx 0;
+}
+.comment-avatar {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.comment-bubble { flex: 1; }
+.comment-user { font-size: 24rpx; font-weight: 700; color: var(--text-2); }
+.comment-text { font-size: 26rpx; color: var(--text-1); margin-top: 4rpx; line-height: 1.5; }
+.comment-time { font-size: 20rpx; color: var(--text-3); margin-top: 4rpx; }
+.comment-empty {
+  font-size: 26rpx;
+  color: var(--text-3);
+  text-align: center;
+  padding: 20rpx 0;
+}
+.comment-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+.comment-input {
+  flex: 1;
+  height: 64rpx;
+  line-height: 64rpx;
+  background: var(--bg);
+  border-radius: 32rpx;
+  padding: 0 24rpx;
+  font-size: 26rpx;
+  border: 2rpx solid var(--border);
+}
+.comment-send-btn {
+  font-size: 26rpx;
+  color: var(--green);
+  font-weight: 700;
+  padding: 12rpx 20rpx;
+}
+
+/* 评论弹窗 */
+.comment-modal .circle-textarea {
+  min-height: 120rpx;
+}
+
 /* 弹窗 */
 .circle-textarea {
   width: 100%;
@@ -142,6 +218,57 @@
   margin-top: 4rpx;
   display: block;
 }
+
+/* ===== modal 弹窗基础样式 ===== */
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-height: 80vh;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx 32rpx calc(32rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-1);
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+.modal-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+.modal-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  border: none;
+  margin: 0;
+}
+.modal-btn.cancel {
+  background: var(--bg);
+  color: var(--text-2);
+}
+.modal-btn.confirm {
+  background: var(--green);
+  color: #fff;
+}
+.cancel { background: var(--bg) !important; color: var(--text-2) !important; }
+.confirm { background: var(--green) !important; color: #fff !important; }
 
 /* 空状态 */
 .empty-state {

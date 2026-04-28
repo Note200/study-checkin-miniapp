@@ -37,6 +37,37 @@
       <view class="post-content">
         <text>{{item.content}}</text>
       </view>
+      <!-- 互动栏 -->
+      <view class="post-actions">
+        <view class="action-btn {{item.liked ? 'liked' : ''}}" data-post="{{item}}" bindtap="toggleLike">
+          <text class="action-icon">{{item.liked ? '❤️' : '🤍'}}</text>
+          <text class="action-count">{{item.likeCount > 0 ? item.likeCount : ''}}</text>
+        </view>
+        <view class="action-btn {{item._showComments ? 'active' : ''}}" data-postid="{{item.id}}" data-index="{{index}}" bindtap="toggleComments">
+          <text class="action-icon">💬</text>
+          <text class="action-count">{{item.commentCount > 0 ? item.commentCount : ''}}</text>
+        </view>
+      </view>
+
+      <!-- 内嵌评论列表 -->
+      <view class="comments-section" wx:if="{{item._showComments}}">
+        <view class="comment-item" wx:for="{{commentsMap[item.id]}}" wx:key="id">
+          <image class="comment-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+          <view class="comment-bubble">
+            <text class="comment-user">{{item.nickname || '用户'}}</text>
+            <view class="comment-text"><text>{{item.content}}</text></view>
+            <text class="comment-time">{{item.createTime}}</text>
+          </view>
+        </view>
+        <view class="comment-empty" wx:if="{{!commentsMap[item.id] || commentsMap[item.id].length === 0}}">
+          <text>暂无评论，快来抢沙发</text>
+        </view>
+        <!-- 评论输入框 -->
+        <view class="comment-input-row">
+          <input class="comment-input" placeholder="写下你的评论..." value="{{commentsMap[item.id] && commentsMap[item.id]._input || ''}}" data-postid="{{item.id}}" bindinput="onCommentInput2" bindconfirm="submitComment2"/>
+          <text class="comment-send-btn" data-postid="{{item.id}}" bindtap="submitComment2">发送</text>
+        </view>
+      </view>
     </view>
   </view>
 
@@ -63,5 +94,7 @@
       </view>
     </view>
   </view>
+
+
 
 </view>
