@@ -72,11 +72,11 @@
   </scroll-view>
 
   <!-- 今日进度 -->
-  <view class="section-header">
+  <view class="section-header" bindtap="goCheckin">
     <text class="section-title">今日进度</text>
     <text class="section-right green" bindtap="goCheckin">查看详情 ›</text>
   </view>
-  <view class="card progress-card">
+  <view class="card progress-card" bindtap="goCheckin">
     <!-- 环形进度 + 学习时长 -->
     <view class="ring-row">
       <view class="ring-wrap">
@@ -142,11 +142,11 @@
   </view>
 
   <!-- 本周学习时长 -->
-  <view class="section-header">
+  <view class="section-header" bindtap="goCheckin">
     <text class="section-title">本周学习时长</text>
-    <text class="section-right green" bindtap="goCheckin">详细报告 ›</text>
+    <text class="section-right green">详细报告 ›</text>
   </view>
-  <view class="card chart-card">
+  <view class="card chart-card" bindtap="goCheckin">
     <!-- 简易柱状图 -->
     <view class="bar-chart">
       <view class="bar-item" wx:for="{{weekData}}" wx:key="day">

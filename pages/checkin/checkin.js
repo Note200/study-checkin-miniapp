@@ -198,7 +198,7 @@ Page({
     const index = e.currentTarget.dataset.index
     const days = this.data.calendarDays.map((d, i) => ({
       ...d,
-      selected: i === index && !d.empty && !d.isToday
+      selected: i === index && !d.empty
     }))
     this.setData({ calendarDays: days })
   },
