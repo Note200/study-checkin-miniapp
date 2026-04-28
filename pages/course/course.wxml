@@ -36,21 +36,21 @@
           <text class="section-num">{{item.section}}</text>
         </view>
         <!-- 7天的格子 -->
-        <view class="grid-cell" 
+        <view class="grid-cell {{cell.course ? 'has-course' : ''}}" 
           wx:for="{{item.cells}}" 
           wx:for-item="cell" 
           wx:key="index"
           wx:if="{{!cell.isContinue}}"
-          style="height: {{cell.span * 100}}rpx;"
+          style="height: {{cell.span * 140}}rpx;"
           bindtap="{{cell.course ? 'editCourse' : ''}}"
           bindlongpress="{{cell.course ? 'deleteCourse' : ''}}"
           data-id="{{cell.course.id}}">
           <view 
             class="cell-content" 
             wx:if="{{cell.course}}"
-            style="background: {{cell.course.color}}20; border-left: 6rpx solid {{cell.course.color}};">
+            style="background: {{cell.course.color}};">
             <text class="cell-name">{{cell.course.name}}</text>
-            <text class="cell-info" wx:if="{{cell.span > 1}}">📍{{cell.course.classroom}}</text>
+            <text class="cell-info">{{cell.course.classroom}}</text>
           </view>
         </view>
       </view>
