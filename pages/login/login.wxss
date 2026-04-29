@@ -112,8 +112,7 @@ page { background: var(--bg); }
   box-shadow: 0 6rpx 0 var(--green-dark);
   margin-top: 32rpx;
   text-transform: uppercase;
-  letter-spacing: 4rpx;
-}
+  }
 .btn-login:active { transform: translateY(4rpx); box-shadow: 0 2rpx 0 var(--green-dark); }
 .btn-login.disabled { opacity: 0.6; }
 

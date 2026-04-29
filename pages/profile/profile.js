@@ -216,7 +216,7 @@ Page({
           url: app.globalData.BASE_URL + '/api/user/avatar',
           filePath: tempPath,
           name: 'file',
-          header: { Authorization: wx.getStorageSync('token') || '' },
+          header: { Authorization: 'Bearer ' + (wx.getStorageSync('token') || '') },
           success: (uploadRes) => {
             wx.hideLoading()
             try {

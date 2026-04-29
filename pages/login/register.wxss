@@ -84,8 +84,7 @@ page { background: var(--bg); }
   margin-top: 12rpx;
   box-shadow: 0 6rpx 0 var(--green-dark);
   text-transform: uppercase;
-  letter-spacing: 4rpx;
-}
+  }
 .btn-register:active { transform: translateY(4rpx); box-shadow: 0 2rpx 0 var(--green-dark); }
 
 .login-link {

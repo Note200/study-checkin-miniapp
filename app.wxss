@@ -25,26 +25,27 @@ page {
   --primary-grad: var(--green-grad);
   --danger: var(--red);
   --warn: var(--orange);
-  --text-1: #3C3C3C;
-  --text-2: #777;
-  --text-3: #AFAFAF;
-  --bg: #F7F7F7;
-  --card-bg: #ffffff;
-  --border: #E5E5E5;
+  --text-1: #1A1A2E;
+  --text-2: #555;
+  --text-3: #999;
+  --bg: #F8F9FA;
+  --card-bg: #FFFFFF;
+  --border: #E9ECEF;
   --radius-sm: 12rpx;
   --radius-md: 20rpx;
   --radius-lg: 24rpx;
-  --shadow-sm: 0 2rpx 8rpx rgba(0,0,0,0.06);
-  --shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+  --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.05);
+  --shadow: 0 8rpx 24rpx rgba(0,0,0,0.08);
   --shadow-green: 0 6rpx 0 var(--green-dark);
   --shadow-blue: 0 6rpx 0 var(--blue-dark);
   --shadow-orange: 0 6rpx 0 var(--orange-dark);
   --shadow-purple: 0 6rpx 0 var(--purple-dark);
   --shadow-red: 0 6rpx 0 var(--red-dark);
   background-color: var(--bg);
-  font-family: -apple-system, 'PingFang SC', 'Nunito', 'Microsoft YaHei', sans-serif;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 28rpx;
   color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== 全局按钮点击反馈动画 ===== */
@@ -142,8 +143,7 @@ button:active {
   padding: 22rpx 48rpx;
   box-shadow: var(--shadow-green);
   text-transform: uppercase;
-  letter-spacing: 2rpx;
-  transition: all 0.1s;
+    transition: all 0.1s;
 }
 .btn-primary:active { 
   transform: translateY(4rpx); 
