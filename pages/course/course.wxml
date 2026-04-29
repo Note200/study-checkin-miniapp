@@ -14,11 +14,11 @@
   </view>
 
   <!-- ====== 格子视图 ====== -->
-  <view wx:if="{{showGrid}}">
+  <view wx:if="{{showGrid}}" class="grid-wrapper">
     <!-- 星期标题行 -->
     <view class="grid-header">
       <view class="grid-corner">
-        <text class="grid-corner-text">节次</text>
+        <text class="grid-corner-text">节/日</text>
       </view>
       <view 
         class="grid-day-header {{item === todayDay ? 'today' : ''}}" 
@@ -28,40 +28,40 @@
       </view>
     </view>
 
-    <!-- 格子主体 -->
-    <view class="grid-body">
-      <!-- 网格背景（8行x7列） -->
-      <view class="grid-bg">
-        <block wx:for="{{gridData}}" wx:key="section">
-          <view class="grid-row">
-            <view class="grid-section-label">
-              <text class="section-num">{{item.section}}</text>
+    <!-- 格子主体：每行一节课，每列一天 -->
+    <scroll-view scroll-y class="grid-body">
+      <view class="grid-table">
+        <view class="grid-table-row" wx:for="{{gridRows}}" wx:key="section">
+          <!-- 节次标签 -->
+          <view class="grid-section-cell">
+            <text class="grid-section-num">{{item.section}}</text>
+          </view>
+          <!-- 7天的格子 -->
+          <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
+            <!-- 如果这格是课程的起始节 -->
+            <view 
+              wx:if="{{cell.course}}" 
+              class="grid-day-cell course-cell-card"
+              style="background: {{cell.course.color}}; grid-row: span {{cell.course.span}};"
+              data-id="{{cell.course.id}}"
+              bindtap="editCourse">
+              <text class="cell-name">{{cell.course.name}}</text>
+              <text class="cell-info">{{cell.course.teacher}}</text>
+              <text class="cell-classroom">📍{{cell.course.classroom}}</text>
             </view>
-            <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
-              <view class="grid-cell {{cell.isContinue ? 'is-continue' : ''}}"></view>
-            </block>
-          </view>
-        </block>
+            <!-- 普通空格子 -->
+            <view 
+              wx:elif="{{!cell.isHidden}}" 
+              class="grid-day-cell">
+            </view>
+          </block>
+        </view>
       </view>
-      <!-- 课程卡片叠层（绝对定位，跨行） -->
-      <view class="course-layer">
-        <block wx:for="{{allCourses}}" wx:key="id" wx:for-item="c">
-          <view
-            class="course-card-overlay"
-            wx:if="{{c._showInGrid && c._startWeek <= currentWeek && c._endWeek >= currentWeek}}"
-            style="top: {{c._top}}%; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}%; background: {{c.color}};"
-            data-id="{{c.id}}"
-            bindtap="editCourse">
-            <text class="cell-name">{{c.name}}</text>
-            <text class="cell-info">{{c.teacher}}·{{c.classroom}}</text>
-          </view>
-        </block>
-      </view>
-    </view>
+    </scroll-view>
   </view>
 
   <!-- ====== 列表视图 ====== -->
-  <view wx:else>
+  <view wx:else class="list-wrapper">
     <!-- 星期选择 -->
     <view class="week-tabs">
       <view 
