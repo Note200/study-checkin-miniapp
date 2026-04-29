@@ -17,7 +17,7 @@
         bindchange="onSwipeChange"
         data-index="{{index}}">
         <!-- 前景卡片 -->
-        <view class="task-card card-animate {{item._x < -60 ? 'swiped' : ''}}">
+        <view class="task-card card-animate {{item._x < -60 ? 'swiped' : ''}}" data-id="{{item.id}}" bindlongtap="longPressTask">
           <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
             <text class="task-icon">{{item.icon || '📖'}}</text>
           </view>
@@ -87,8 +87,14 @@
   <!-- FAB -->
   <view class="fab" bindtap="addTask">+</view>
 
-  <!-- 打卡成功动画 -->
+  <!-- 打卡成功动画 + 撒花 -->
   <view class="success-overlay" wx:if="{{showSuccessAnim}}">
+    <!-- 撒花粒子 -->
+    <view class="confetti-container">
+      <view wx:for="{{confettiList}}" wx:key="id"
+        class="confetti confetti-{{item.shape}}"
+        style="left: {{item.x}}%; background: {{item.color}}; animation-delay: {{item.delay}}s; animation-duration: {{item.duration}}s;"></view>
+    </view>
     <view class="success-content">
       <view class="success-circle">
         <view class="success-check {{showSuccessAnim ? 'animate' : ''}}">

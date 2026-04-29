@@ -17,7 +17,8 @@ Page({
     calendarMonth: new Date().getMonth() + 1,
     calendarDays: [],
     showSuccessAnim: false,
-    selectedDate: null   // 选中的日期高亮
+    selectedDate: null,
+    confettiList: []   // 撒花粒子
   },
 
   onShow() {
@@ -109,13 +110,14 @@ Page({
       })
       if (res.code === 200) {
         this.closeModal()
-        // 播放打卡成功动画
-        this.setData({ showSuccessAnim: true })
+        // 撒花 + 打卡成功动画
+        const confettiList = this.generateConfetti()
+        this.setData({ showSuccessAnim: true, confettiList })
         setTimeout(() => {
-          this.setData({ showSuccessAnim: false })
+          this.setData({ showSuccessAnim: false, confettiList: [] })
           this.loadTasks()
           this.loadCalendar()
-        }, 1200)
+        }, 2000)
       } else {
         wx.showToast({ title: res.msg || '打卡失败', icon: 'none' })
       }
@@ -217,6 +219,37 @@ Page({
       selected: i === index && !d.empty
     }))
     this.setData({ calendarDays: days })
+  },
+
+  // 生成撒花粒子数据
+  generateConfetti() {
+    const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#A8E6CF', '#FF8A5C', '#58CC02', '#FF9FF3', '#54A0FF']
+    const shapes = ['circle', 'square', 'star']
+    const list = []
+    for (let i = 0; i < 30; i++) {
+      list.push({
+        id: i,
+        x: Math.random() * 100,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        delay: Math.random() * 0.5,
+        duration: 1 + Math.random() * 1.5
+      })
+    }
+    return list
+  },
+
+  // 长按任务弹出菜单
+  longPressTask(e) {
+    const taskId = e.currentTarget.dataset.id
+    wx.showActionSheet({
+      itemList: ['打卡', '查看历史', '删除任务'],
+      success: (res) => {
+        if (res.tapIndex === 0) this.openCheckin(e)
+        else if (res.tapIndex === 1) this.viewHistory(e)
+        else if (res.tapIndex === 2) this.deleteTask(e)
+      }
+    })
   },
 
   addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }

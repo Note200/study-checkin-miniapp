@@ -147,6 +147,18 @@ Page({
     wx.navigateTo({ url: '/pages/course/add?id=' + id })
   },
 
+  // 长按课程弹出菜单
+  longPressCourse(e) {
+    const id = e.currentTarget.dataset.id
+    wx.showActionSheet({
+      itemList: ['编辑', '删除'],
+      success: (res) => {
+        if (res.tapIndex === 0) this.editCourse(e)
+        else if (res.tapIndex === 1) this.deleteCourse(e)
+      }
+    })
+  },
+
   // 删除课程
   deleteCourse(e) {
     const id = e.currentTarget.dataset.id

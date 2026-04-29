@@ -78,7 +78,7 @@
     <view class="course-list" wx:if="{{courses.length > 0}}">
       <view class="course-card" wx:for="{{courses}}" wx:key="id">
         <view class="course-left-bar" style="background: {{item.color}}"></view>
-        <view class="course-body" data-id="{{item.id}}" bindtap="editCourse">
+        <view class="course-body" data-id="{{item.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="course-name">{{item.name}}</view>
           <view class="course-detail">
             <text>{{item.teacher}}</text>
