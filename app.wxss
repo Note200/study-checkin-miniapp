@@ -142,8 +142,8 @@ button:active {
   border: none;
   padding: 22rpx 48rpx;
   box-shadow: var(--shadow-green);
-  text-transform: uppercase;
-    transition: all 0.1s;
+  text-align: center;
+  transition: all 0.1s;
 }
 .btn-primary:active { 
   transform: translateY(4rpx); 
@@ -158,6 +158,7 @@ button:active {
   font-size: 28rpx;
   font-weight: 700;
   padding: 18rpx 40rpx;
+  text-align: center;
   transition: all 0.1s;
 }
 
@@ -309,6 +310,21 @@ button:active {
   padding: 60rpx 0;
   color: var(--text-3);
   font-size: 26rpx;
+}
+
+/* ===== 全局文字居中（独立文字块） ===== */
+.quick-label,
+.stat-val,
+.stat-label,
+.task-badge,
+.bar-label,
+.ring-label,
+.chart-total-label,
+.chart-total-val,
+.milestone-text,
+.quote-text,
+.quote-author {
+  text-align: center;
 }
 
 /* ===== 进度条 ===== */
