@@ -11,7 +11,7 @@
     </view>
     <view class="header-right">
       <!-- 连续打卡火焰徽章 -->
-      <view class="streak-badge" wx:if="{{streakDays > 0}}">
+      <view class="streak-badge pulse-fire" wx:if="{{streakDays > 0}}">
         <text class="streak-fire">🔥</text>
         <text class="streak-num">{{streakDays}}</text>
       </view>
@@ -19,6 +19,13 @@
         <text class="bell-icon">🔔</text>
       </view>
     </view>
+  </view>
+
+  <!-- 每日名言卡片 -->
+  <view class="quote-card card-enter">
+    <text class="quote-mark">"</text>
+    <text class="quote-text">{{dailyQuote.text}}</text>
+    <text class="quote-author">—— {{dailyQuote.author}}</text>
   </view>
 
   <!-- 公告横幅 -->
@@ -62,6 +69,12 @@
     </view>
   </view>
 
+  <!-- 成就里程碑 -->
+  <view class="milestone-bar card-enter" wx:if="{{milestone}}">
+    <text class="milestone-emoji">{{milestone.emoji}}</text>
+    <text class="milestone-text">已连续打卡 {{streakDays}} 天 · {{milestone.label}}</text>
+  </view>
+
   <!-- 今日课程 -->
   <view class="section-header" wx:if="{{todayCourses.length > 0}}">
     <text class="section-title">今日课程</text>
@@ -80,7 +93,7 @@
     <text class="section-title">今日进度</text>
     <text class="section-right green" bindtap="goCheckin">查看详情 ›</text>
   </view>
-  <view class="card progress-card" bindtap="goCheckin">
+  <view class="card progress-card card-enter" bindtap="goCheckin">
     <!-- 环形进度 + 学习时长 -->
     <view class="ring-row">
       <view class="ring-wrap">
@@ -151,7 +164,7 @@
     <text class="section-title">本周学习时长</text>
     <text class="section-right green">详细报告 ›</text>
   </view>
-  <view class="card chart-card" bindtap="goStats">
+  <view class="card chart-card card-enter" bindtap="goStats">
     <!-- 简易柱状图 -->
     <view class="bar-chart">
       <view class="bar-item" wx:for="{{weekData}}" wx:key="day" catchtap="onBarTap" data-index="{{index}}">

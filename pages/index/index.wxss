@@ -409,3 +409,78 @@
 }
 .chart-total-label { font-size: 24rpx; color: var(--text-3); }
 .chart-total-val { font-size: 34rpx; font-weight: 800; color: var(--green); }
+
+/* 每日名言卡片 */
+.quote-card {
+  margin: -20rpx 24rpx 0;
+  padding: 28rpx 32rpx;
+  background: linear-gradient(135deg, #f8fff8 0%, #e8f5e9 100%);
+  border-radius: var(--radius-lg);
+  border: 2rpx solid #c8e6c9;
+  position: relative;
+  overflow: hidden;
+}
+.quote-mark {
+  position: absolute;
+  top: -8rpx;
+  left: 16rpx;
+  font-size: 80rpx;
+  color: rgba(88,204,2,0.15);
+  font-weight: 800;
+  line-height: 1;
+}
+.quote-text {
+  font-size: 28rpx;
+  color: var(--text-1);
+  font-weight: 600;
+  line-height: 1.6;
+  display: block;
+  text-align: center;
+  padding: 0 16rpx;
+}
+.quote-author {
+  font-size: 22rpx;
+  color: var(--text-3);
+  display: block;
+  text-align: center;
+  margin-top: 12rpx;
+}
+
+/* 成就里程碑 */
+.milestone-bar {
+  margin: 16rpx 24rpx 0;
+  padding: 20rpx 28rpx;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #ffe082;
+}
+.milestone-emoji { font-size: 36rpx; margin-right: 12rpx; }
+.milestone-text {
+  font-size: 26rpx;
+  color: #e65100;
+  font-weight: 700;
+}
+
+/* 火焰脉冲动画 */
+.pulse-fire {
+  animation: firePulse 2s ease-in-out infinite;
+}
+@keyframes firePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); box-shadow: 0 0 16rpx rgba(255,152,0,0.4); }
+}
+
+/* 卡片入场动画 */
+.card-enter {
+  animation: cardSlideIn 0.5s ease-out both;
+}
+@keyframes cardSlideIn {
+  from { opacity: 0; transform: translateY(30rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card-enter:nth-child(2) { animation-delay: 0.1s; }
+.card-enter:nth-child(3) { animation-delay: 0.2s; }
+.card-enter:nth-child(4) { animation-delay: 0.3s; }

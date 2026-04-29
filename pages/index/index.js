@@ -1,18 +1,37 @@
 // pages/index/index.js
 const app = getApp()
 
-// 每日激励语
-const MOTIVATIONS = [
-  '坚持就是胜利 💪',
-  '今天也要元气满满！✨',
-  '学无止境，砥砺前行 📖',
-  '每一次打卡都是进步 🚀',
-  '积少成多，聚沙成塔 🌟',
-  '今天的努力是明天的收获 🌱',
-  '比你优秀的人还在努力 ⚡',
-  '学习让未来更有底气 💎',
-  '日拱一卒，功不唐捐 📚',
-  '越努力越幸运 🍀'
+// 每日名言（按日期固定，每天不同）
+const DAILY_QUOTES = [
+  { text: '学而不思则罔，思而不学则殆', author: '孔子' },
+  { text: '业精于勤，荒于嬉；行成于思，毁于随', author: '韩愈' },
+  { text: '书山有路勤为径，学海无涯苦作舟', author: '韩愈' },
+  { text: '千里之行，始于足下', author: '老子' },
+  { text: '不积跬步，无以至千里', author: '荀子' },
+  { text: '吾生也有涯，而知也无涯', author: '庄子' },
+  { text: '三人行，必有我师焉', author: '孔子' },
+  { text: '温故而知新，可以为师矣', author: '孔子' },
+  { text: '知之者不如好之者，好之者不如乐之者', author: '孔子' },
+  { text: '读书破万卷，下笔如有神', author: '杜甫' },
+  { text: '黑发不知勤学早，白首方悔读书迟', author: '颜真卿' },
+  { text: '宝剑锋从磨砺出，梅花香自苦寒来', author: '佚名' },
+  { text: '天行健，君子以自强不息', author: '《周易》' },
+  { text: '路漫漫其修远兮，吾将上下而求索', author: '屈原' },
+  { text: '少壮不努力，老大徒伤悲', author: '《长歌行》' },
+  { text: '博学之，审问之，慎思之，明辨之，笃行之', author: '《中庸》' },
+  { text: '纸上得来终觉浅，绝知此事要躬行', author: '陆游' },
+  { text: '问渠那得清如许，为有源头活水来', author: '朱熹' },
+  { text: '千磨万击还坚劲，任尔东西南北风', author: '郑燮' },
+  { text: '苟日新，日日新，又日新', author: '《大学》' }
+]
+
+// 成就里程碑
+const MILESTONES = [
+  { days: 3,  emoji: '🌱', label: '萌芽' },
+  { days: 7,  emoji: '🌿', label: '一周达人' },
+  { days: 14, emoji: '🌳', label: '两周坚持' },
+  { days: 30, emoji: '🏆', label: '月度冠军' },
+  { days: 100, emoji: '💎', label: '百日学霸' }
 ]
 
 Page({
@@ -21,6 +40,8 @@ Page({
     isAdmin: false,
     greeting: '早上好',
     motivation: '',
+    dailyQuote: { text: '', author: '' },
+    motivation: '',
     notice: '',
     todayRate: 0,
     studyHours: { done: 0, target: 4, rate: 0 },
@@ -28,6 +49,7 @@ Page({
     weekData: [],
     weekTotal: 0,
     streakDays: 0,
+    milestone: null,
     todayCourses: [],
     touchStartX: 0,
     touchCurrentX: 0,
@@ -37,11 +59,16 @@ Page({
 
   onShow() {
     const info = app.globalData.userInfo
+    // 每日名言（按日期固定）
+    const now = new Date()
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000)
+    const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length]
     this.setData({
       userInfo: info,
       isAdmin: info && info.role === 1,
       greeting: this._getGreeting(),
-      motivation: MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)]
+      motivation: MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)],
+      dailyQuote: quote
     })
     this.loadData()
   },
@@ -140,8 +167,18 @@ Page({
     try {
       const res = await app.request({ url: '/api/checkin/stats' })
       if (res.code === 200 && res.data) {
+        const streak = res.data.streakDays || 0
+        // 匹配成就里程碑
+        let milestone = null
+        for (let i = MILESTONES.length - 1; i >= 0; i--) {
+          if (streak >= MILESTONES[i].days) {
+            milestone = MILESTONES[i]
+            break
+          }
+        }
         this.setData({
-          streakDays: res.data.streakDays || 0
+          streakDays: streak,
+          milestone: milestone
         })
       }
     } catch (e) {}
