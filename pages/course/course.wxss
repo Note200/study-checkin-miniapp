@@ -102,6 +102,34 @@
   overflow: visible;
 }
 
+/* 周次切换动画 */
+.grid-body.slide-left {
+  animation: slideLeft 0.3s ease-in-out;
+}
+.grid-body.slide-right {
+  animation: slideRight 0.3s ease-in-out;
+}
+.grid-body.fade {
+  animation: fadeSwitch 0.3s ease-in-out;
+}
+@keyframes slideLeft {
+  0% { opacity: 1; transform: translateX(0); }
+  40% { opacity: 0.3; transform: translateX(-60rpx); }
+  60% { opacity: 0.3; transform: translateX(60rpx); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  0% { opacity: 1; transform: translateX(0); }
+  40% { opacity: 0.3; transform: translateX(60rpx); }
+  60% { opacity: 0.3; transform: translateX(-60rpx); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeSwitch {
+  0% { opacity: 1; }
+  40% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
 /* 网格背景 */
 .grid-bg {
   position: absolute;
