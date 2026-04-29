@@ -25,6 +25,20 @@ const DAILY_QUOTES = [
   { text: '苟日新，日日新，又日新', author: '《大学》' }
 ]
 
+// 每日激励语（随机显示）
+const MOTIVATIONS = [
+  '坚持就是胜利 💪',
+  '今天也要元气满满！✨',
+  '学无止境，砥砺前行 📖',
+  '每一次打卡都是进步 🚀',
+  '积少成多，聚沙成塔 🌟',
+  '今天的努力是明天的收获 🌱',
+  '比你优秀的人还在努力 ⚡',
+  '学习让未来更有底气 💎',
+  '日拱一卒，功不唐捐 📚',
+  '越努力越幸运 🍀'
+]
+
 // 成就里程碑
 const MILESTONES = [
   { days: 3,  emoji: '🌱', label: '萌芽' },
@@ -41,7 +55,6 @@ Page({
     greeting: '早上好',
     motivation: '',
     dailyQuote: { text: '', author: '' },
-    motivation: '',
     notice: '',
     todayRate: 0,
     studyHours: { done: 0, target: 4, rate: 0 },
