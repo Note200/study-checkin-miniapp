@@ -92,7 +92,7 @@
 .grid-body {
   flex: 1;
   position: relative;
-  min-height: 0;
+  height: 0; /* 触发flex计算高度，否则绝对定位子元素不撑高 */
 }
 
 /* 网格背景 */
