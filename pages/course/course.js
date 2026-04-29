@@ -233,9 +233,20 @@ Page({
     const newSection = ghostRow + 1
     const origDay = dragCourse.weekDay
     const origSection = dragCourse.startSection
-    // 没变位置→直接取消
+    // 没变位置→弹出菜单（编辑/删除）
     if (newDay === origDay && newSection === origSection) {
       this.setData({ dragging: false, dragCourse: null })
+      const id = dragCourse.id
+      wx.showActionSheet({
+        itemList: ['编辑课程', '删除课程'],
+        success: (res) => {
+          if (res.tapIndex === 0) {
+            wx.navigateTo({ url: '/pages/course/add?id=' + id })
+          } else if (res.tapIndex === 1) {
+            this.deleteCourse({ currentTarget: { dataset: { id } } })
+          }
+        }
+      })
       return
     }
     // 计算目标rpx位置

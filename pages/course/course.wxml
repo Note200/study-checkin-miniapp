@@ -42,7 +42,7 @@
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
           class="course-card-overlay {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
           style="top: {{c._top}}rpx; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}rpx; background: {{c.color}};"
-          data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
+          data-id="{{c.id}}" bindtap="editCourse">
           <text class="cell-name">{{c.name}}</text>
           <text class="cell-info">{{c.teacher}}</text>
           <text class="cell-classroom">{{c.classroom}}</text>

@@ -54,12 +54,18 @@
   font-weight: 600;
   padding: 0 28rpx;
   height: 64rpx;
+  line-height: 64rpx;
   border: none;
   box-shadow: 0 4rpx 12rpx rgba(7,193,96,0.3);
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+}
+.btn-checkin-text {
+  display: block;
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
 }
 .btn-checkin:active { transform: scale(0.95); }
 .btn-checkin.checked {
