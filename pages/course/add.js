@@ -52,10 +52,35 @@ Page({
           weekTypeIndex: c.weekType || 0,
           color: c.color || '#07C160'
         })
+        return
       }
     } catch (e) {
-      wx.showToast({ title: '加载课程信息失败', icon: 'none' })
+      // 详情接口失败，尝试从列表接口取
     }
+    // 兜底：从课程列表中查找
+    try {
+      const listRes = await app.request({ url: '/api/course/list' })
+      if (listRes.code === 200 && listRes.data) {
+        const c = listRes.data.find(item => item.id == id)
+        if (c) {
+          this.setData({
+            name: c.name || '',
+            teacher: c.teacher || '',
+            classroom: c.classroom || '',
+            weekDay: c.weekDay || 1,
+            startSection: c.startSection || 1,
+            endSection: c.endSection || 2,
+            startWeek: c.startWeek || 1,
+            endWeek: c.endWeek || 18,
+            weekType: c.weekType || 0,
+            weekTypeIndex: c.weekType || 0,
+            color: c.color || '#07C160'
+          })
+          return
+        }
+      }
+    } catch (e2) {}
+    wx.showToast({ title: '加载课程信息失败', icon: 'none' })
   },
 
   onNameInput(e) { this.setData({ name: e.detail.value }) },
