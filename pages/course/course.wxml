@@ -6,7 +6,7 @@
       <picker mode="selector" range="{{weeks}}" bindchange="onWeekChange">
         <text class="week-selector-value">{{currentWeek}}</text>
       </picker>
-      <text class="week-selector-label">周</text>
+      <text class="week-selector-label">{{currentWeek >= 17 ? '周（考试周）' : '周'}}</text>
     </view>
     <view class="view-toggle" bindtap="switchView">
       <text>{{showGrid ? '📋 列表' : '📊 表格'}}</text>

@@ -12,10 +12,13 @@ Page({
     endSection: 2,
     startWeek: 1,
     endWeek: 18,
+    weekType: 0,
     color: '#07C160',
     weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
     sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    weeks: Array.from({ length: 20 }, (_, i) => i + 1),
+    weeks: Array.from({ length: 18 }, (_, i) => i + 1),
+    weekTypes: ['全周', '单周', '双周', '前8周', '后8周'],
+    weekTypeIndex: 0,
     colors: ['#07C160', '#2ECC71', '#E6A23C', '#F56C6C', '#9B59B6', '#1ABC9C', '#FF6B6B']
   },
 
@@ -45,6 +48,8 @@ Page({
           endSection: c.endSection || 2,
           startWeek: c.startWeek || 1,
           endWeek: c.endWeek || 18,
+          weekType: c.weekType || 0,
+          weekTypeIndex: c.weekType || 0,
           color: c.color || '#07C160'
         })
       }
@@ -77,6 +82,10 @@ Page({
     this.setData({ endWeek: parseInt(e.detail.value) + 1 })
   },
 
+  onWeekTypeChange(e) {
+    this.setData({ weekType: parseInt(e.detail.value), weekTypeIndex: parseInt(e.detail.value) })
+  },
+
   onColorChange(e) {
     const index = e.currentTarget.dataset.index
     this.setData({ color: this.data.colors[index] })
@@ -100,6 +109,7 @@ Page({
       endSection: this.data.endSection,
       startWeek: this.data.startWeek,
       endWeek: this.data.endWeek,
+      weekType: this.data.weekType,
       color: this.data.color
     }
 

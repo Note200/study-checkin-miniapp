@@ -14,6 +14,7 @@ Page({
     weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
     weeks: [],
     currentWeek: 1,
+    weekLabel: '第1周',
     courses: [],       // 列表视图数据
     gridData: [],      // 格子视图数据 (8行 x 7列)
     maxSection: 8,     // 固定8节课
@@ -67,7 +68,7 @@ Page({
 
   initWeeks() {
     const weeks = []
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 18; i++) {
       weeks.push(i)
     }
     this.setData({ weeks })
@@ -83,7 +84,8 @@ Page({
   // 选择周次
   onWeekChange(e) {
     const week = this.data.weeks[e.detail.value]
-    this.setData({ currentWeek: week })
+    const label = week >= 17 ? '第' + week + '周（考试周）' : '第' + week + '周'
+    this.setData({ currentWeek: week, weekLabel: label })
     this.loadAllCourses()
   },
 
@@ -130,7 +132,17 @@ Page({
 
     // 筛选当前周可见课程，计算rpx定位
     const visible = allCourses
-      .filter(c => (c.startWeek || 1) <= currentWeek && (c.endWeek || 20) >= currentWeek)
+      .filter(c => {
+        // 周次范围筛选
+        if (currentWeek < (c.startWeek || 1) || currentWeek > (c.endWeek || 18)) return false
+        // 周类型筛选
+        const wt = c.weekType || 0
+        if (wt === 1 && currentWeek % 2 === 0) return false  // 单周
+        if (wt === 2 && currentWeek % 2 === 1) return false  // 双周
+        if (wt === 3 && currentWeek > 8) return false        // 前8周
+        if (wt === 4 && currentWeek <= 8) return false       // 后8周
+        return true
+      })
       .map(c => {
         const span = (c.endSection || c.startSection) - c.startSection + 1
         return {
@@ -272,9 +284,10 @@ Page({
           newWeek = currentWeek - 1
         }
         if (newWeek !== currentWeek) {
-          this.setData({ currentWeek: newWeek })
+          const label = newWeek >= 17 ? '第' + newWeek + '周（考试周）' : '第' + newWeek + '周'
+          this.setData({ currentWeek: newWeek, weekLabel: label })
           this.loadAllCourses()
-          wx.showToast({ title: '第' + newWeek + '周', icon: 'none', duration: 800 })
+          wx.showToast({ title: label, icon: 'none', duration: 800 })
         }
       }
       return

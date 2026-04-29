@@ -74,6 +74,15 @@
     </view>
 
     <view class="form-item">
+      <text class="label">上课周次</text>
+      <view class="picker-wrap">
+        <picker mode="selector" range="{{weekTypes}}" bindchange="onWeekTypeChange">
+          <view class="picker">{{weekTypes[weekTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-item">
       <text class="label">课程颜色</text>
       <view class="color-list">
         <view
