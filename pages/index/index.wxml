@@ -3,7 +3,7 @@
   <!-- 顶部绿色渐变头部 -->
   <view class="header">
     <view class="header-left">
-      <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+      <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill" bindtap="goProfile"/>
       <view class="header-text">
         <text class="nickname">{{userInfo.nickname || '同学'}}，{{greeting}}！</text>
         <text class="slogan">{{motivation}}</text>
@@ -146,11 +146,11 @@
   </view>
 
   <!-- 本周学习时长 -->
-  <view class="section-header" bindtap="goCheckin">
+  <view class="section-header" bindtap="goStats">
     <text class="section-title">本周学习时长</text>
     <text class="section-right green">详细报告 ›</text>
   </view>
-  <view class="card chart-card" bindtap="goCheckin">
+  <view class="card chart-card" bindtap="goStats">
     <!-- 简易柱状图 -->
     <view class="bar-chart">
       <view class="bar-item" wx:for="{{weekData}}" wx:key="day" bindtap="onBarTap" data-index="{{index}}">

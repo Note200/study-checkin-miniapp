@@ -2,7 +2,8 @@
 
   <!-- 绿色渐变头部 -->
   <view class="profile-header">
-    <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
+    <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill" bindtap="changeAvatar"/>
+    <view class="avatar-edit-hint"><text>📷</text></view>
     <view class="name-row">
       <text class="nickname">{{userInfo.nickname || '同学'}}</text>
       <view class="edit-icon" bindtap="editProfile"><text>✏️</text></view>

@@ -221,6 +221,30 @@ Page({
     this.setData({ calendarDays: days })
   },
 
+  // 长按日历格子，显示日期详情（不跳转）
+  longPressDate(e) {
+    const index = e.currentTarget.dataset.index
+    const cell = this.data.calendarDays[index]
+    if (!cell || cell.empty) return
+    const { calendarYear, calendarMonth } = this.data
+    const dateStr = `${calendarYear}年${calendarMonth}月${cell.day}日`
+    const count = cell.count || 0
+    const levelText = ['', '较少', '一般', '较多', '很多'][cell.level] || ''
+    let msg = `${dateStr}`
+    if (count > 0) {
+      msg += `\n打卡 ${count} 次` + (levelText ? `（${levelText}）` : '')
+    } else {
+      msg += '\n未打卡'
+    }
+    wx.showModal({
+      title: '📅 日期详情',
+      content: msg,
+      showCancel: false,
+      confirmText: '知道了',
+      confirmColor: '#58CC02'
+    })
+  },
+
   // 生成撒花粒子数据
   generateConfetti() {
     const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#A8E6CF', '#FF8A5C', '#58CC02', '#FF9FF3', '#54A0FF']

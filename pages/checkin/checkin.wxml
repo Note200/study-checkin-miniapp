@@ -68,6 +68,7 @@
         wx:key="*this"
         data-index="{{index}}"
         bindtap="onDateTap"
+        bindlongpress="longPressDate"
         class="date-cell {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}} {{item.selected ? 'selected' : ''}} {{item.checked ? 'heat-' + item.level : ''}}">
         <text wx:if="{{!item.empty}}">{{item.day}}</text>
       </view>

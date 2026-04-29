@@ -202,6 +202,48 @@ Page({
     wx.navigateTo({ url: '/pages/admin/admin' })
   },
 
+  // 更换头像
+  changeAvatar() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      sizeType: ['compressed'],
+      success: (res) => {
+        const tempPath = res.tempFiles[0].tempFilePath
+        wx.showLoading({ title: '上传中...' })
+        wx.uploadFile({
+          url: app.globalData.baseUrl + '/api/user/avatar',
+          filePath: tempPath,
+          name: 'file',
+          header: { Authorization: wx.getStorageSync('token') || '' },
+          success: (uploadRes) => {
+            wx.hideLoading()
+            try {
+              const data = JSON.parse(uploadRes.data)
+              if (data.code === 200) {
+                const avatarUrl = data.data
+                const userInfo = { ...this.data.userInfo, avatar: avatarUrl }
+                app.globalData.userInfo = userInfo
+                wx.setStorageSync('userInfo', userInfo)
+                this.setData({ userInfo })
+                wx.showToast({ title: '头像更新成功', icon: 'success' })
+              } else {
+                wx.showToast({ title: data.msg || '上传失败', icon: 'none' })
+              }
+            } catch (e) {
+              wx.showToast({ title: '上传失败', icon: 'none' })
+            }
+          },
+          fail: () => {
+            wx.hideLoading()
+            wx.showToast({ title: '上传失败', icon: 'none' })
+          }
+        })
+      }
+    })
+  },
+
   // 退出登录
   logout() {
     wx.showModal({
