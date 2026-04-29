@@ -24,7 +24,10 @@
     </view>
 
     <!-- 格子主体 -->
-    <scroll-view scroll-y class="grid-body">
+    <scroll-view scroll-y class="grid-body"
+      bindtouchstart="onGridTouchStart"
+      bindtouchmove="onGridTouchMove"
+      bindtouchend="onGridTouchEnd">
       <view class="grid-bg">
         <view class="grid-bg-row" wx:for="{{gridRows}}" wx:key="section">
           <view class="grid-bg-cell section-label">
@@ -37,15 +40,22 @@
       <view class="course-layer">
         <view 
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
-          class="course-card-overlay"
+          class="course-card-overlay {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
           style="top: {{c._top}}rpx; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}rpx; background: {{c.color}};"
-          data-id="{{c.id}}" bindtap="editCourse">
+          data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <text class="cell-name">{{c.name}}</text>
           <text class="cell-info">{{c.teacher}}</text>
           <text class="cell-classroom">{{c.classroom}}</text>
         </view>
       </view>
     </scroll-view>
+    <!-- 拖拽幽灵卡片 -->
+    <view wx:if="{{dragging}}" class="drag-ghost"
+      style="left: {{dragLeft}}px; top: {{dragTop}}px; width: {{_cellPx || 96}}px; height: {{_rowPx || 128}}px; background: {{dragCourse.color}};">
+      <text class="cell-name">{{dragCourse.name}}</text>
+      <text class="cell-info">{{dragCourse.teacher}}</text>
+      <text class="cell-classroom">{{dragCourse.classroom}}</text>
+    </view>
   </view>
 
   <!-- ====== 列表视图 ====== -->
@@ -65,9 +75,6 @@
             <text>{{item.teacher}}</text><text> · </text><text>{{item.classroom}}</text>
           </view>
           <view class="course-detail">第{{item.startSection}}-{{item.endSection}}节</view>
-        </view>
-        <view class="course-actions">
-          <button class="btn-del" data-id="{{item.id}}" bindtap="deleteCourse">删除</button>
         </view>
       </view>
     </view>

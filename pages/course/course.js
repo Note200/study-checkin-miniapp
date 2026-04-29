@@ -19,7 +19,22 @@ Page({
     maxSection: 8,     // 固定8节课
     allCourses: [],    // 当周所有课程
     showGrid: true,    // 默认显示格子视图
-    todayDay: 1        // 今天星期几
+    todayDay: 1,       // 今天星期几
+    // 拖拽状态
+    dragging: false,
+    dragCourse: null,
+    dragLeft: 0,
+    dragTop: 0,
+    ghostCol: 0,
+    ghostRow: 0,
+    _touchStartX: 0,
+    _touchStartY: 0,
+    _dragTimer: null,
+    _cellPx: 0,
+    _rowPx: 0,
+    _scrollY: 0,
+    _headerPx: 0,
+    _gridLeftPx: 0
   },
 
   onLoad() {
@@ -27,6 +42,14 @@ Page({
     const today = new Date().getDay()
     const todayDay = today === 0 ? 7 : today
     this.setData({ todayDay, weekDay: todayDay })
+    // 计算格子像素尺寸（rpx→px）
+    const sysInfo = wx.getSystemInfoSync()
+    const pxPerRpx = sysInfo.windowWidth / 750
+    this._pxPerRpx = pxPerRpx
+    this._gridLeftPx = 70 * pxPerRpx
+    this._cellPx = (sysInfo.windowWidth - 70 * pxPerRpx) / 7
+    this._rowPx = 160 * pxPerRpx
+    this._headerPx = 72 * pxPerRpx
   },
 
   onShow() {
@@ -154,6 +177,134 @@ Page({
         if (res.tapIndex === 0) this.editCourse(e)
         else if (res.tapIndex === 1) this.deleteCourse(e)
       }
+    })
+  },
+
+  // ===== 格子视图触摸事件 =====
+  onGridTouchStart(e) {
+    if (this.data.dragging) return
+    const touch = e.touches[0]
+    this._touchStartX = touch.clientX
+    this._touchStartY = touch.clientY
+    this._scrollY = e.currentTarget.scrollTop || 0
+    // 500ms长按触发拖拽
+    this._dragTimer = setTimeout(() => {
+      const course = this._findCourseAt(touch.clientX, touch.clientY)
+      if (!course) return
+      this.setData({
+        dragging: true,
+        dragCourse: course,
+        dragLeft: touch.clientX - this._cellPx / 2,
+        dragTop: touch.clientY - this._rowPx / 2,
+        ghostCol: course.weekDay - 1,
+        ghostRow: course.startSection - 1
+      })
+      wx.vibrateShort({ type: 'medium' })
+    }, 500)
+  },
+
+  onGridTouchMove(e) {
+    if (!this.data.dragging) {
+      // 未进入拖拽，检查是否移动过远则取消
+      const touch = e.touches[0]
+      const dx = Math.abs(touch.clientX - this._touchStartX)
+      const dy = Math.abs(touch.clientY - this._touchStartY)
+      if (dx > 10 || dy > 10) {
+        clearTimeout(this._dragTimer)
+      }
+      return
+    }
+    const touch = e.touches[0]
+    const col = Math.max(0, Math.min(6, Math.round((touch.clientX - this._gridLeftPx) / this._cellPx)))
+    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.round((touch.clientY + this._scrollY - this._headerPx) / this._rowPx)))
+    this.setData({
+      dragLeft: touch.clientX - this._cellPx / 2,
+      dragTop: touch.clientY - this._rowPx / 2,
+      ghostCol: col,
+      ghostRow: row
+    })
+  },
+
+  onGridTouchEnd(e) {
+    clearTimeout(this._dragTimer)
+    if (!this.data.dragging) return
+    const { dragCourse, ghostCol, ghostRow } = this.data
+    const newDay = ghostCol + 1
+    const newSection = ghostRow + 1
+    const origDay = dragCourse.weekDay
+    const origSection = dragCourse.startSection
+    // 没变位置→直接取消
+    if (newDay === origDay && newSection === origSection) {
+      this.setData({ dragging: false, dragCourse: null })
+      return
+    }
+    // 计算目标rpx位置
+    const COL_W = 100 / 7
+    const ROW_H = 160
+    const GAP = 4
+    const span = (dragCourse.endSection || dragCourse.startSection) - dragCourse.startSection + 1
+    const targetLeft = (newDay - 1) * COL_W + 0.5
+    const targetTop = newSection * ROW_H + GAP
+    // 更新allCourses
+    const allCourses = this.data.allCourses.map(c => {
+      if (c.id === dragCourse.id) {
+        return { ...c, weekDay: newDay, startSection: newSection, endSection: newSection + span - 1 }
+      }
+      return c
+    })
+    this.setData({ allCourses })
+    this.generateGrid(allCourses)
+    this.loadCourses()
+    // 调用后端更新
+    app.request({
+      url: '/api/course/update',
+      method: 'POST',
+      data: {
+        id: dragCourse.id,
+        weekDay: newDay,
+        startSection: newSection,
+        endSection: newSection + span - 1
+      }
+    }).then(res => {
+      if (res.code === 200) {
+        wx.showToast({ title: '移动成功', icon: 'success' })
+      } else {
+        wx.showToast({ title: res.msg || '移动失败', icon: 'none' })
+        // 回滚
+        const rollback = allCourses.map(c => {
+          if (c.id === dragCourse.id) {
+            return { ...c, weekDay: origDay, startSection: origSection, endSection: origSection + span - 1 }
+          }
+          return c
+        })
+        this.setData({ allCourses })
+        this.generateGrid(rollback)
+        this.loadCourses()
+      }
+    }).catch(() => {
+      wx.showToast({ title: '网络错误', icon: 'none' })
+      const rollback = allCourses.map(c => {
+        if (c.id === dragCourse.id) {
+          return { ...c, weekDay: origDay, startSection: origSection, endSection: origSection + span - 1 }
+        }
+        return c
+      })
+      this.setData({ allCourses })
+      this.generateGrid(rollback)
+      this.loadCourses()
+    })
+    this.setData({ dragging: false, dragCourse: null })
+  },
+
+  // 根据屏幕坐标查找课程
+  _findCourseAt(clientX, clientY) {
+    const col = Math.max(0, Math.min(6, Math.round((clientX - this._gridLeftPx) / this._cellPx)))
+    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.round((clientY + this._scrollY - this._headerPx) / this._rowPx)))
+    return this.data.visibleCourses.find(c => {
+      const day = c.weekDay - 1
+      const startRow = c.startSection - 1
+      const endRow = (c.endSection || c.startSection) - 1
+      return col === day && row >= startRow && row <= endRow
     })
   },
 

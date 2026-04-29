@@ -28,12 +28,12 @@
               <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
             </view>
           </view>
-          <button
+          <view
             class="btn-checkin {{item.todayChecked ? 'checked' : ''}}"
             data-id="{{item.id}}"
-            bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}" catchtap="onBtnTap">
-            {{item.todayChecked ? '撤销' : '打卡'}}
-          </button>
+            bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}">
+            {{item.todayChecked ? '已完成' : '打卡'}}
+          </view>
           <text class="swipe-hint-small">← 滑动</text>
         </view>
         <!-- 底层删除按钮 -->

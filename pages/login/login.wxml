@@ -11,7 +11,7 @@
     <text class="card-title">账号登录</text>
 
     <view class="input-group">
-      <image class="input-icon" src="/assets/icons/user.png" mode="aspectFit"/>
+      <text class="input-icon-text">👤</text>
       <input
         class="input"
         type="text"
@@ -21,7 +21,7 @@
     </view>
 
     <view class="input-group">
-      <image class="input-icon" src="/assets/icons/lock.png" mode="aspectFit"/>
+      <text class="input-icon-text">🔒</text>
       <input
         class="input"
         type="password"

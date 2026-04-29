@@ -151,6 +151,11 @@
   z-index: 2;
   box-shadow: 0 3rpx 10rpx rgba(0,0,0,0.15);
   pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.course-card-overlay.dragging-card {
+  opacity: 0.3;
+  transform: scale(0.95);
 }
 .cell-name {
   font-size: 22rpx;
@@ -233,15 +238,6 @@
 }
 .course-name { font-size: 30rpx; font-weight: 700; color: #1a1a1a; }
 .course-detail { font-size: 24rpx; color: #aaa; }
-.course-actions { display: flex; align-items: center; gap: 12rpx; padding-right: 16rpx; }
-.btn-del {
-  background: #FEF0F0;
-  color: #F56C6C;
-  border: none;
-  border-radius: 12rpx;
-  font-size: 22rpx;
-  padding: 10rpx 20rpx;
-}
 
 /* 空状态 */
 .empty-state {
@@ -261,4 +257,22 @@
   padding: 18rpx 48rpx;
   border: none;
   margin-top: 20rpx;
+}
+
+/* 拖拽幽灵卡片 */
+.drag-ghost {
+  position: fixed;
+  border-radius: 12rpx;
+  padding: 8rpx 12rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 999;
+  opacity: 0.85;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.3);
+  pointer-events: none;
+  transform: scale(1.05);
+  transition: none;
 }
