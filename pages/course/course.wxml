@@ -1,5 +1,5 @@
 <view class="container">
-  <!-- 顶部栏：周次 + 视图切换 -->
+  <!-- 顶部栏 -->
   <view class="top-bar">
     <view class="week-selector">
       <text class="week-selector-label">第</text>
@@ -17,44 +17,32 @@
   <view wx:if="{{showGrid}}" class="grid-wrapper">
     <!-- 星期标题行 -->
     <view class="grid-header">
-      <view class="grid-corner">
-        <text class="grid-corner-text">节/日</text>
-      </view>
-      <view 
-        class="grid-day-header {{item === todayDay ? 'today' : ''}}" 
-        wx:for="{{weekDays}}" 
-        wx:key="index">
+      <view class="grid-corner"><text class="grid-corner-text">节/日</text></view>
+      <view class="grid-day-header {{index + 1 === todayDay ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
         <text class="grid-day-name">{{item}}</text>
       </view>
     </view>
 
-    <!-- 格子主体：每行一节课，每列一天 -->
+    <!-- 格子主体 -->
     <scroll-view scroll-y class="grid-body">
-      <view class="grid-table">
-        <view class="grid-table-row" wx:for="{{gridRows}}" wx:key="section">
-          <!-- 节次标签 -->
-          <view class="grid-section-cell">
-            <text class="grid-section-num">{{item.section}}</text>
+      <view class="grid-bg">
+        <view class="grid-bg-row" wx:for="{{gridRows}}" wx:key="section">
+          <view class="grid-bg-cell section-label">
+            <text class="grid-bg-section">{{item.section}}</text>
           </view>
-          <!-- 7天的格子 -->
-          <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
-            <!-- 如果这格是课程的起始节 -->
-            <view 
-              wx:if="{{cell.course}}" 
-              class="grid-day-cell course-cell-card"
-              style="background: {{cell.course.color}}; grid-row: span {{cell.course.span}};"
-              data-id="{{cell.course.id}}"
-              bindtap="editCourse">
-              <text class="cell-name">{{cell.course.name}}</text>
-              <text class="cell-info">{{cell.course.teacher}}</text>
-              <text class="cell-classroom">📍{{cell.course.classroom}}</text>
-            </view>
-            <!-- 普通空格子 -->
-            <view 
-              wx:elif="{{!cell.isHidden}}" 
-              class="grid-day-cell">
-            </view>
-          </block>
+          <view class="grid-bg-cell" wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell"></view>
+        </view>
+      </view>
+      <!-- 课程卡片叠层 -->
+      <view class="course-layer">
+        <view 
+          wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
+          class="course-card-overlay"
+          style="top: {{c._top}}rpx; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}rpx; background: {{c.color}};"
+          data-id="{{c.id}}" bindtap="editCourse">
+          <text class="cell-name">{{c.name}}</text>
+          <text class="cell-info">{{c.teacher}}</text>
+          <text class="cell-classroom">{{c.classroom}}</text>
         </view>
       </view>
     </scroll-view>
@@ -62,28 +50,19 @@
 
   <!-- ====== 列表视图 ====== -->
   <view wx:else class="list-wrapper">
-    <!-- 星期选择 -->
     <view class="week-tabs">
-      <view 
-        class="week-tab {{weekDay === index + 1 ? 'active' : ''}}" 
-        wx:for="{{weekDays}}" 
-        wx:key="index"
-        data-index="{{index}}"
-        bindtap="switchWeekDay">
+      <view class="week-tab {{weekDay === index + 1 ? 'active' : ''}}" wx:for="{{weekDays}}" wx:key="index"
+        data-index="{{index}}" bindtap="switchWeekDay">
         <text class="week-name">{{item}}</text>
       </view>
     </view>
-
-    <!-- 课程列表 -->
     <view class="course-list" wx:if="{{courses.length > 0}}">
       <view class="course-card" wx:for="{{courses}}" wx:key="id">
         <view class="course-left-bar" style="background: {{item.color}}"></view>
         <view class="course-body" data-id="{{item.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="course-name">{{item.name}}</view>
           <view class="course-detail">
-            <text>{{item.teacher}}</text>
-            <text> · </text>
-            <text>{{item.classroom}}</text>
+            <text>{{item.teacher}}</text><text> · </text><text>{{item.classroom}}</text>
           </view>
           <view class="course-detail">第{{item.startSection}}-{{item.endSection}}节</view>
         </view>
@@ -92,8 +71,6 @@
         </view>
       </view>
     </view>
-
-    <!-- 空状态 -->
     <view class="empty-state" wx:else>
       <text class="empty-emoji">📚</text>
       <text class="empty-text">暂无课程安排</text>
@@ -101,6 +78,5 @@
     </view>
   </view>
 
-  <!-- 添加按钮（FAB） -->
   <view class="fab" bindtap="addCourse">+</view>
 </view>

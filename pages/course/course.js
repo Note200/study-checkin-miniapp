@@ -78,42 +78,39 @@ Page({
     }
   },
 
-  // 生成格子数据（每行=一节课，课程卡片直接放在起始格子里，跨行用绝对定位）
+  // 生成格子数据 + 课程叠层定位（用rpx固定值，不依赖百分比）
   generateGrid(allCourses) {
     const { currentWeek } = this.data
     const maxSection = 8
+    const ROW_H = 160  // 每行160rpx
+    const COL_W_PERCENT = 100 / 7  // 每列宽度百分比（相对course-layer）
+    const GAP = 4  // 间隙rpx
 
-    // 先建一个 8x7 的空网格，标记哪些格子被跨行课程占用
+    // 构建 8行 x 7列网格背景
     const grid = []
-    for (let s = 1; s <= maxSection; s++) {
-      const row = { section: s, cells: [] }
-      for (let d = 1; d <= 7; d++) {
-        row.cells.push({ day: d, section: s, course: null, isHidden: false })
+    for (let section = 1; section <= maxSection; section++) {
+      const row = { section, cells: [] }
+      for (let day = 1; day <= 7; day++) {
+        row.cells.push({ day, section })
       }
       grid.push(row)
     }
 
-    // 把课程放入网格（只放起始节，跨行的标记占用格子）
-    const visibleCourses = allCourses.filter(c =>
-      c._showInGrid && (c.startWeek || 1) <= currentWeek && (c.endWeek || 20) >= currentWeek
-    )
-
-    visibleCourses.forEach(c => {
-      const s = c.startSection
-      const d = c.weekDay
-      const span = (c.endSection || c.startSection) - c.startSection + 1
-      if (s >= 1 && s <= maxSection && d >= 1 && d <= 7) {
-        grid[s - 1].cells[d - 1].course = { ...c, span }
-        // 标记被跨行占用的格子为隐藏
-        for (let i = 1; i < span; i++) {
-          if (s - 1 + i < maxSection) {
-            grid[s - 1 + i].cells[d - 1].isHidden = true
-          }
+    // 筛选当前周可见课程，计算rpx定位
+    const visible = allCourses
+      .filter(c => (c.startWeek || 1) <= currentWeek && (c.endWeek || 20) >= currentWeek)
+      .map(c => {
+        const span = (c.endSection || c.startSection) - c.startSection + 1
+        return {
+          ...c,
+          _top: (c.startSection - 1) * ROW_H + GAP,
+          _left: (c.weekDay - 1) * COL_W_PERCENT + 0.5,
+          _width: COL_W_PERCENT - 1,
+          _height: span * ROW_H - GAP * 2
         }
-      }
-    })
+      })
 
-    this.setData({ gridRows: grid, maxSection, allCourses: visibleCourses })
+    this.setData({ gridRows: grid, maxSection, visibleCourses: visible })
   },
 
   // 加载课程（列表视图）
