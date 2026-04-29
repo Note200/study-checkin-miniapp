@@ -261,3 +261,25 @@
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: #aaa; }
+
+/* 内容预览 */
+.content-preview {
+  margin-bottom: 12rpx;
+  padding: 12rpx 16rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.5;
+  max-height: 72rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* 长按反馈 */
+.plan-card:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}

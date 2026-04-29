@@ -10,7 +10,7 @@
     <view class="btn-add" bindtap="showAdd">+ 新增</view>
   </view>
 
-  <!-- 计划列表（支持左滑删除） -->
+  <!-- 计划列表 -->
   <view class="plan-list" wx:if="{{plans.length > 0}}">
     <movable-area class="swipe-area" wx:for="{{plans}}" wx:key="id" style="height:auto;">
       <movable-view
@@ -25,7 +25,14 @@
         id="swipe-{{index}}">
         <!-- 前景卡片 -->
         <view
-          class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}} {{item._x < -60 ? 'swiped' : ''}}">
+          class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}} {{item._x < -60 ? 'swiped' : ''}}"
+          bindlongpress="onLongPress"
+          data-id="{{item.id}}"
+          data-title="{{item.title}}"
+          data-content="{{item.content}}"
+          data-plan-date="{{item.planDate}}"
+          data-priority="{{item.priority}}"
+          data-status="{{item.status}}">
           <!-- 左侧彩色竖条 -->
           <view class="plan-left-bar"></view>
 
@@ -40,16 +47,20 @@
                 <text wx:if="{{item.status === 1}}">✓</text>
               </view>
               <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
-              <view class="swipe-hint"><text>← 滑动删除</text></view>
+              <view class="swipe-hint"><text>← 滑动</text></view>
             </view>
 
-            <!-- 标签行：课程 + 优先级 + 日期 -->
+            <!-- 标签行：优先级 + 日期 -->
             <view class="plan-tags">
-              <text class="tag tag-blue" wx:if="{{item.courseName}}">{{item.courseName}}</text>
               <text class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
                 {{item.priority === 2 ? '紧急' : item.priority === 1 ? '普通' : '宽松'}}
               </text>
               <text class="tag-date">⏰ {{item.planDate}}</text>
+            </view>
+
+            <!-- 内容预览 -->
+            <view class="content-preview" wx:if="{{item.content}}">
+              <text>{{item.content}}</text>
             </view>
 
             <!-- 进度条 -->
@@ -62,7 +73,7 @@
             </view>
           </view>
         </view>
-        <!-- 滑出后的删除按钮（底层） -->
+        <!-- 滑出后的删除按钮 -->
         <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}">
           <text class="swipe-delete-text">删除</text>
         </view>
@@ -106,6 +117,37 @@
       <view class="modal-actions">
         <button class="modal-btn cancel" bindtap="closeModal">取消</button>
         <button class="modal-btn confirm" bindtap="submitPlan">确认添加</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑弹窗 -->
+  <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">
+    <view class="modal-content" catchtap="preventClose">
+      <view class="modal-title">编辑计划</view>
+      <view class="form-input-group">
+        <input class="input" placeholder="计划标题" data-field="title" bindinput="onEditInput" value="{{editPlan.title}}"/>
+      </view>
+      <view class="modal-textarea-wrap">
+        <textarea class="modal-textarea" placeholder="计划详情（可选）" data-field="content" bindinput="onEditInput" value="{{editPlan.content}}"/>
+      </view>
+      <view class="modal-row">
+        <text class="modal-label">优先级</text>
+        <view class="priority-row">
+          <view class="pri-btn {{editPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setEditPriority">宽松</view>
+          <view class="pri-btn {{editPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setEditPriority">普通</view>
+          <view class="pri-btn {{editPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setEditPriority">紧急</view>
+        </view>
+      </view>
+      <view class="modal-row">
+        <text class="modal-label">计划日期</text>
+        <picker mode="date" value="{{editPlan.planDate}}" bindchange="onEditDateChange">
+          <view class="date-picker">{{editPlan.planDate || '选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeEditModal">取消</button>
+        <button class="modal-btn confirm" bindtap="submitEditPlan">保存修改</button>
       </view>
     </view>
   </view>

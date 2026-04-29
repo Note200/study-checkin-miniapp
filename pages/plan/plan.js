@@ -1,12 +1,28 @@
 // pages/plan/plan.js
 const app = getApp()
 
+function fmtLocal(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return y + '-' + m + '-' + day
+}
+
 Page({
   data: {
     plans: [],
-    activeTab: 0, // 0-全部 1-进行中 2-已完成
+    allPlans: [],
+    activeTab: 0,
     showAddModal: false,
+    showEditModal: false,
     newPlan: {
+      title: '',
+      content: '',
+      planDate: '',
+      priority: 1
+    },
+    editPlan: {
+      id: 0,
       title: '',
       content: '',
       planDate: '',
@@ -21,68 +37,88 @@ Page({
   async loadPlans() {
     try {
       const res = await app.request({
-        url: '/api/plan/list',
-        data: { type: this.data.activeTab }
+        url: '/api/plan/list'
       })
       if (res.code === 200) {
-        this.setData({ plans: res.data || [] })
+        const allPlans = res.data || []
+        this.setData({ allPlans })
+        this._filterPlans()
       }
     } catch (e) {
       console.log('加载计划失败')
     }
   },
 
-  // 切换标签
-  switchTab(e) {
-    this.setData({ activeTab: parseInt(e.currentTarget.dataset.index) })
-    this.loadPlans()
+  _filterPlans() {
+    const { allPlans, activeTab } = this.data
+    let filtered = allPlans
+    if (activeTab === 1) {
+      filtered = allPlans.filter(p => p.status !== 1)
+    } else if (activeTab === 2) {
+      filtered = allPlans.filter(p => p.status === 1)
+    }
+    this.setData({ plans: filtered })
   },
 
-  // 显示添加弹窗
+  switchTab(e) {
+    this.setData({ activeTab: parseInt(e.currentTarget.dataset.index) })
+    this._filterPlans()
+  },
+
   showAdd() {
-    const today = new Date().toISOString().split('T')[0]
+    const today = fmtLocal(new Date())
     this.setData({
       showAddModal: true,
       newPlan: { title: '', content: '', planDate: today, priority: 1 }
     })
   },
 
-  // 关闭弹窗
   closeModal() {
     this.setData({ showAddModal: false })
   },
 
-  // 阻止弹窗内部点击冒泡到遮罩层
+  closeEditModal() {
+    this.setData({ showEditModal: false })
+  },
+
   preventClose() {},
 
-  // 输入监听
   onInput(e) {
     const field = e.currentTarget.dataset.field
     this.setData({
-      [`newPlan.${field}`]: e.detail.value
+      ['newPlan.' + field]: e.detail.value
     })
   },
 
-  // 设置优先级
+  onEditInput(e) {
+    const field = e.currentTarget.dataset.field
+    this.setData({
+      ['editPlan.' + field]: e.detail.value
+    })
+  },
+
   setPriority(e) {
     this.setData({ 'newPlan.priority': parseInt(e.currentTarget.dataset.val) })
   },
 
-  // 日期选择
-  onDateChange(e) {
-    this.setData({
-      'newPlan.planDate': e.detail.value
-    })
+  setEditPriority(e) {
+    this.setData({ 'editPlan.priority': parseInt(e.currentTarget.dataset.val) })
   },
 
-  // 添加计划
+  onDateChange(e) {
+    this.setData({ 'newPlan.planDate': e.detail.value })
+  },
+
+  onEditDateChange(e) {
+    this.setData({ 'editPlan.planDate': e.detail.value })
+  },
+
   async submitPlan() {
     const { title, content, planDate, priority } = this.data.newPlan
     if (!title) {
       wx.showToast({ title: '请输入计划标题', icon: 'none' })
       return
     }
-
     try {
       const res = await app.request({
         url: '/api/plan/add',
@@ -99,12 +135,57 @@ Page({
     }
   },
 
-  // 切换完成状态
+  async submitEditPlan() {
+    const { id, title, content, planDate, priority } = this.data.editPlan
+    if (!title) {
+      wx.showToast({ title: '请输入计划标题', icon: 'none' })
+      return
+    }
+    try {
+      const res = await app.request({
+        url: '/api/plan/' + id,
+        method: 'PUT',
+        data: { title, content, planDate, priority }
+      })
+      if (res.code === 200) {
+        wx.showToast({ title: '修改成功', icon: 'success' })
+        this.closeEditModal()
+        this.loadPlans()
+      }
+    } catch (e) {
+      wx.showToast({ title: '修改失败', icon: 'none' })
+    }
+  },
+
+  onLongPress(e) {
+    const ds = e.currentTarget.dataset
+    const that = this
+    wx.showActionSheet({
+      itemList: ['编辑计划', '删除计划'],
+      success(res) {
+        if (res.tapIndex === 0) {
+          that.setData({
+            showEditModal: true,
+            editPlan: {
+              id: ds.id,
+              title: ds.title || '',
+              content: ds.content || '',
+              planDate: ds.planDate || '',
+              priority: ds.priority !== undefined ? ds.priority : 1
+            }
+          })
+        } else if (res.tapIndex === 1) {
+          that.deletePlan(e)
+        }
+      }
+    })
+  },
+
   async togglePlan(e) {
     const id = e.currentTarget.dataset.id
     try {
       await app.request({
-        url: `/api/plan/${id}/toggle`,
+        url: '/api/plan/' + id + '/toggle',
         method: 'PUT'
       })
       this.loadPlans()
@@ -113,7 +194,6 @@ Page({
     }
   },
 
-  // 删除计划
   async deletePlan(e) {
     const id = e.currentTarget.dataset.id
     wx.showModal({
@@ -123,7 +203,7 @@ Page({
       success: async (res) => {
         if (res.confirm) {
           try {
-            await app.request({ url: `/api/plan/${id}`, method: 'DELETE' })
+            await app.request({ url: '/api/plan/' + id, method: 'DELETE' })
             wx.showToast({ title: '删除成功', icon: 'success' })
             this.loadPlans()
           } catch (e) {
@@ -134,23 +214,18 @@ Page({
     })
   },
 
-  // 左滑删除 — 滑动事件处理
   onSwipeChange(e) {
     const index = e.currentTarget.dataset.index
     let x = e.detail.x
-    // 只允许向左滑（负值）
     if (x > 0) x = 0
-    // 滑出最大距离限制（露出删除按钮）
     if (x < -160) x = -160
-    // 更新对应卡片的 x 偏移
     const plans = this.data.plans.map((p, i) => ({
       ...p,
-      _x: i === index ? x : (p._x && p._x < -80 ? -160 : 0) // 滑出一个时关闭其他
+      _x: i === index ? x : (p._x && p._x < -80 ? -160 : 0)
     }))
     this.setData({ plans })
   },
 
-  // 重置所有卡片滑动状态
   resetSwipes() {
     const plans = this.data.plans.map(p => ({ ...p, _x: 0 }))
     this.setData({ plans })
