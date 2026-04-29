@@ -78,37 +78,41 @@ Page({
     }
   },
 
-  // 生成格子数据（8行 x 7列网格）
+  // 生成格子数据 + 课程叠层定位
   generateGrid(allCourses) {
     const { currentWeek } = this.data
     const maxSection = 8  // 固定8节课
 
-    // 筛选当前周有课的课程
-    const weekCourses = allCourses.filter(c => {
-      return c.startWeek <= currentWeek && c.endWeek >= currentWeek
-    })
-
-    // 构建 8行 x 7列网格
+    // 构建 8行 x 7列网格（纯背景）
     const grid = []
     for (let section = 1; section <= maxSection; section++) {
       const row = { section, cells: [] }
       for (let day = 1; day <= 7; day++) {
-        // 找到该节次该天的课程
-        const course = weekCourses.find(c =>
-          c.weekDay === day && c.startSection <= section && c.endSection >= section
-        )
-        row.cells.push({
-          day,
-          section,
-          course: course && course.startSection === section ? course : null,
-          span: course && course.startSection === section ? (course.endSection - course.startSection + 1) : 1,
-          isContinue: course && course.startSection < section  // 非起始行标记
-        })
+        row.cells.push({ day, section })
       }
       grid.push(row)
     }
 
-    this.setData({ gridData: grid, maxSection })
+    // 计算每个课程的叠层定位（百分比）
+    const colW = 100 / 7  // 每列宽度 ~14.28%
+    const rowH = 100 / maxSection  // 每行高度 12.5%
+    const gap = 0.4  // 间隙百分比
+
+    const overlayCourses = allCourses.map(c => {
+      const span = c.endSection - c.startSection + 1
+      return {
+        ...c,
+        _showInGrid: true,
+        _startWeek: c.startWeek || 1,
+        _endWeek: c.endWeek || 20,
+        _top: (c.startSection - 1) * rowH + gap,
+        _left: (c.weekDay - 1) * colW + gap,
+        _width: colW - gap * 2,
+        _height: span * rowH - gap * 2
+      }
+    })
+
+    this.setData({ gridData: grid, maxSection, allCourses: overlayCourses })
   },
 
   // 加载课程（列表视图）

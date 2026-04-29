@@ -28,29 +28,36 @@
       </view>
     </view>
 
-    <!-- 格子主体：flex 行布局 -->
-    <scroll-view scroll-y class="grid-body" style="flex: 1; height: auto;">
-      <block wx:for="{{gridData}}" wx:key="section">
-        <view class="grid-row">
-          <!-- 节次标签 -->
-          <view class="grid-section-label">
-            <text class="section-num">{{item.section}}</text>
-          </view>
-          <!-- 7天格子 -->
-          <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
-            <view class="grid-cell {{cell.course && !cell.isContinue ? 'has-course' : ''}} {{cell.isContinue ? 'is-continue' : ''}}">
-              <!-- 只有起始格子才显示课程内容，跨行课程向下撑满 -->
-              <view wx:if="{{cell.course && !cell.isContinue}}"
-                class="cell-content"
-                style="background: {{cell.course.color}}; height: {{cell.span * 100 - 6}}rpx; margin-top: 3rpx;">
-                <text class="cell-name">{{cell.course.name}}</text>
-                <text class="cell-info">{{cell.course.teacher}}·{{cell.course.classroom}}</text>
-              </view>
+    <!-- 格子主体 -->
+    <view class="grid-body">
+      <!-- 网格背景（8行x7列） -->
+      <view class="grid-bg">
+        <block wx:for="{{gridData}}" wx:key="section">
+          <view class="grid-row">
+            <view class="grid-section-label">
+              <text class="section-num">{{item.section}}</text>
             </view>
-          </block>
-        </view>
-      </block>
-    </scroll-view>
+            <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
+              <view class="grid-cell {{cell.isContinue ? 'is-continue' : ''}}"></view>
+            </block>
+          </view>
+        </block>
+      </view>
+      <!-- 课程卡片叠层（绝对定位，跨行） -->
+      <view class="course-layer">
+        <block wx:for="{{allCourses}}" wx:key="id" wx:for-item="c">
+          <view
+            class="course-card-overlay"
+            wx:if="{{c._showInGrid && c._startWeek <= currentWeek && c._endWeek >= currentWeek}}"
+            style="top: {{c._top}}%; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}%; background: {{c.color}};"
+            data-id="{{c.id}}"
+            bindtap="editCourse">
+            <text class="cell-name">{{c.name}}</text>
+            <text class="cell-info">{{c.teacher}}·{{c.classroom}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
   </view>
 
   <!-- ====== 列表视图 ====== -->

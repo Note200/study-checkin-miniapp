@@ -1,7 +1,7 @@
 /* ===== 课程表页 ===== */
 .container {
   background: var(--bg);
-  height: calc(100vh - 120rpx);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -90,22 +90,25 @@
 .grid-day-header.today .grid-day-name { color: var(--green); }
 
 .grid-body {
-  background: #fff;
   flex: 1;
-  overflow: auto;
+  position: relative;
+  min-height: 0;
 }
 
-/* 每行（一节课）—— 固定高度 */
+/* 网格背景 */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
 .grid-row {
   display: flex;
-  height: 100rpx;
+  flex: 1;
   border-bottom: 1rpx solid #f0f0f0;
 }
-
-/* 节次标签列 */
 .grid-section-label {
   width: 70rpx;
-  height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,30 +117,24 @@
   background: #fafafa;
 }
 .section-num { font-size: 24rpx; color: #888; font-weight: 600; }
-
-/* 单个格子 */
 .grid-cell {
   flex: 1;
-  height: 100rpx;
   border-right: 1rpx solid #f0f0f0;
-  position: relative;
   box-sizing: border-box;
-  padding: 3rpx;
 }
 .grid-cell:last-child { border-right: none; }
+.grid-cell.is-continue { background: transparent; }
 
-/* 跨行课程的后续格子（被课程遮挡，显示空白）*/
-.grid-cell.is-continue {
-  visibility: hidden;
-}
-
-/* 课程内容块 */
-.cell-content {
+/* 课程卡片叠层 */
+.course-layer {
   position: absolute;
-  top: 3rpx;
-  left: 3rpx;
-  right: 3rpx;
-  bottom: 3rpx;
+  left: 70rpx;  /* 跳过节次标签列 */
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.course-card-overlay {
+  position: absolute;
   border-radius: 10rpx;
   padding: 6rpx 8rpx;
   display: flex;
@@ -146,6 +143,7 @@
   overflow: hidden;
   box-sizing: border-box;
   z-index: 2;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
 }
 .cell-name {
   font-size: 20rpx;
