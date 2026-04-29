@@ -1,11 +1,11 @@
-/* ===== 计划页 ===== */
+﻿/* ===== 璁″垝椤?===== */
 .container {
   background: var(--bg);
   min-height: 100vh;
   padding-bottom: 160rpx;
 }
 
-/* 顶部栏：标签 + 新增按钮 */
+/* 椤堕儴鏍忥細鏍囩 + 鏂板鎸夐挳 */
 .top-bar {
   display: flex;
   align-items: center;
@@ -17,7 +17,7 @@
   background: #f0f0f0;
   border-radius: 50rpx;
   padding: 6rpx;
-  gap: 4rpx;
+  /* gap: 4rpx; */
 }
 .tab {
   padding: 12rpx 32rpx;
@@ -44,15 +44,15 @@
   white-space: nowrap;
 }
 
-/* 计划列表 */
+/* 璁″垝鍒楄〃 */
 .plan-list {
   padding: 0 24rpx;
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 
-/* 计划卡片 */
+/* 璁″垝鍗＄墖 */
 .plan-card {
   background: #fff;
   border-radius: 20rpx;
@@ -61,7 +61,7 @@
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
 }
 
-/* 左侧竖条（颜色按优先级）*/
+/* 宸︿晶绔栨潯锛堥鑹叉寜浼樺厛绾э級*/
 .plan-left-bar {
   width: 8rpx;
   background: var(--green);
@@ -73,11 +73,11 @@
 
 .plan-body { flex: 1; padding: 24rpx 20rpx 20rpx 20rpx; }
 
-/* 顶行 */
+/* 椤惰 */
 .plan-top {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  /* gap: 16rpx; */
   margin-bottom: 16rpx;
 }
 .check-circle {
@@ -110,11 +110,11 @@
 .delete-btn { flex-shrink: 0; }
 .delete-icon { font-size: 34rpx; }
 
-/* 标签行 */
+/* 鏍囩琛?*/
 .plan-tags {
   display: flex;
   align-items: center;
-  gap: 10rpx;
+  /* gap: 10rpx; */
   flex-wrap: wrap;
   margin-bottom: 16rpx;
 }
@@ -131,7 +131,7 @@
 .tag-blue   { background: var(--blue-light); color: var(--blue); }
 .tag-date { font-size: 22rpx; color: #aaa; }
 
-/* 进度条 */
+/* 杩涘害鏉?*/
 .plan-progress-row {
   display: flex;
   justify-content: space-between;
@@ -155,7 +155,7 @@
 }
 .plan-card.urgent .progress-fill { background: linear-gradient(90deg, var(--red), var(--red)); }
 
-/* 优先级选择 */
+/* 浼樺厛绾ч€夋嫨 */
 .modal-row {
   display: flex;
   align-items: center;
@@ -163,7 +163,7 @@
   margin-bottom: 20rpx;
 }
 .modal-label { font-size: 28rpx; color: #555; }
-.priority-row { display: flex; gap: 12rpx; }
+.priority-row { display: flex; /* gap: 12rpx; */ }
 .pri-btn {
   padding: 10rpx 24rpx;
   border-radius: 40rpx;
@@ -186,9 +186,9 @@
   text-align: center;
 }
 
-/* 弹窗内的输入框 — 已由全局 app.wxss 统一设置 */
+/* 寮圭獥鍐呯殑杈撳叆妗?鈥?宸茬敱鍏ㄥ眬 app.wxss 缁熶竴璁剧疆 */
 
-/* 弹窗内的文本域 */
+/* 寮圭獥鍐呯殑鏂囨湰鍩?*/
 .modal-textarea-wrap {
   margin-bottom: 20rpx;
 }
@@ -202,7 +202,7 @@
   box-sizing: border-box;
 }
 
-/* ===== 左滑删除（计划页） ===== */
+/* ===== 宸︽粦鍒犻櫎锛堣鍒掗〉锛?===== */
 .swipe-area {
   position: relative;
   overflow: hidden;
@@ -251,13 +251,15 @@
   50% { opacity: 1; }
 }
 
-/* 空状态 */
+/* 绌虹姸鎬?*/
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 80rpx 0;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: #aaa; }
+
+

@@ -1,4 +1,4 @@
-/* ===== 课程表页 ===== */
+﻿/* ===== 璇剧▼琛ㄩ〉 ===== */
 .container {
   background: #f5f7fa;
   height: 100vh;
@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-/* 顶部栏 */
+/* 椤堕儴鏍?*/
 .top-bar {
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@
 .week-selector {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  margin-right: 12rpx;
 }
 .week-selector-label { font-size: 28rpx; color: rgba(255,255,255,0.85); }
 .week-selector-value {
@@ -58,7 +58,7 @@
   font-weight: 700;
 }
 
-/* ===== 格子视图 ===== */
+/* ===== 鏍煎瓙瑙嗗浘 ===== */
 .grid-wrapper {
   flex: 1;
   display: flex;
@@ -99,7 +99,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rpx;
+  margin-bottom: 2rpx;
 }
 .grid-day-date {
   font-size: 20rpx;
@@ -113,12 +113,12 @@
 
 .grid-body {
   width: 100%;
-  height: 1024rpx; /* 8行 x 160rpx，固定高度 */
+  height: 1024rpx; /* 8琛?x 160rpx锛屽浐瀹氶珮搴?*/
   position: relative;
   overflow: visible;
 }
 
-/* 周次切换动画（两阶段：旧内容滑出→新内容滑入） */
+/* 鍛ㄦ鍒囨崲鍔ㄧ敾锛堜袱闃舵锛氭棫鍐呭婊戝嚭鈫掓柊鍐呭婊戝叆锛?*/
 .grid-body.slide-left.slide-out {
   animation: slideOutLeft 0.15s ease-in forwards;
 }
@@ -148,7 +148,7 @@
   100% { opacity: 1; transform: translateX(0); }
 }
 
-/* 网格背景 */
+/* 缃戞牸鑳屾櫙 */
 .grid-bg {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -176,7 +176,7 @@
 }
 .grid-bg-section { font-size: 22rpx; color: #999; font-weight: 600; }
 
-/* 课程卡片叠层 */
+/* 璇剧▼鍗＄墖鍙犲眰 */
 .course-layer {
   position: absolute;
   top: 0;
@@ -235,7 +235,7 @@
   margin-top: 2rpx;
 }
 
-/* ===== 列表视图 ===== */
+/* ===== 鍒楄〃瑙嗗浘 ===== */
 .list-wrapper {
   flex: 1;
   display: flex;
@@ -274,7 +274,7 @@
   padding: 16rpx 24rpx;
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
+  margin-bottom: 16rpx;
   overflow-y: auto;
 }
 .course-card {
@@ -290,18 +290,18 @@
   padding: 24rpx 20rpx;
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  margin-bottom: 8rpx;
 }
 .course-name { font-size: 30rpx; font-weight: 700; color: #1a1a1a; }
 .course-detail { font-size: 24rpx; color: #aaa; }
 
-/* 空状态 */
+/* 绌虹姸鎬?*/
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 120rpx 0;
-  gap: 20rpx;
+  margin-bottom: 20rpx;
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: #aaa; }
@@ -315,7 +315,7 @@
   margin-top: 20rpx;
 }
 
-/* 拖拽幽灵卡片 */
+/* 鎷栨嫿骞界伒鍗＄墖 */
 .drag-ghost {
   position: fixed;
   border-radius: 12rpx;
@@ -333,7 +333,7 @@
   transition: none;
 }
 
-/* 视图切换动画 */
+/* 瑙嗗浘鍒囨崲鍔ㄧ敾 */
 .view-hidden {
   display: none !important;
 }
@@ -345,7 +345,7 @@
   100% { opacity: 1; transform: scale(1); }
 }
 
-/* 列表切天滑动 */
+/* 鍒楄〃鍒囧ぉ婊戝姩 */
 .course-list.list-slide-left {
   animation: listSlideLeft 0.25s ease-out;
 }
@@ -360,3 +360,5 @@
   0% { opacity: 0; transform: translateX(-60rpx); }
   100% { opacity: 1; transform: translateX(0); }
 }
+
+

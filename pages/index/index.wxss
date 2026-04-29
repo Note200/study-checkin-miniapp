@@ -1,10 +1,10 @@
-/* ===== 首页 — 多邻国风格 ===== */
+﻿/* ===== 棣栭〉 鈥?澶氶偦鍥介鏍?===== */
 .container {
   background: var(--bg);
   min-height: 100vh;
 }
 
-/* 绿色渐变头部 */
+/* 缁胯壊娓愬彉澶撮儴 */
 .header {
   background: linear-gradient(135deg, #58CC02 0%, #46a302 100%);
   padding: 40rpx 32rpx 48rpx;
@@ -15,7 +15,7 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 20rpx;
+  /* gap: 20rpx; */
 }
 .avatar {
   width: 88rpx;
@@ -23,7 +23,7 @@
   border-radius: 50%;
   border: 4rpx solid rgba(255,255,255,0.6);
 }
-.header-text { display: flex; flex-direction: column; gap: 6rpx; }
+.header-text { display: flex; flex-direction: column; /* gap: 6rpx; */ }
 .nickname {
   font-size: 34rpx;
   font-weight: 800;
@@ -48,17 +48,17 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  /* gap: 12rpx; */
 }
 
-/* 连续打卡火焰徽章 */
+/* 杩炵画鎵撳崱鐏劙寰界珷 */
 .streak-badge {
   background: rgba(255,255,255,0.3);
   border-radius: 40rpx;
   padding: 8rpx 20rpx;
   display: flex;
   align-items: center;
-  gap: 6rpx;
+  /* gap: 6rpx; */
 }
 .streak-fire { font-size: 28rpx; }
 .streak-num {
@@ -67,7 +67,7 @@
   color: #fff;
 }
 
-/* 公告横幅 */
+/* 鍏憡妯箙 */
 .notice-bar {
   background: var(--gold-light);
   margin: 0 24rpx;
@@ -76,13 +76,13 @@
   padding: 20rpx 24rpx;
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  /* gap: 12rpx; */
   border: 2rpx solid var(--gold);
 }
 .notice-icon { font-size: 32rpx; }
 .notice-text { font-size: 26rpx; color: var(--gold-dark); flex: 1; font-weight: 600; }
 
-/* 段落标题 */
+/* 娈佃惤鏍囬 */
 .section-header {
   display: flex;
   align-items: center;
@@ -93,11 +93,11 @@
 .section-right { font-size: 26rpx; color: var(--text-3); }
 .section-right.green { color: var(--green); font-weight: 700; }
 
-/* 快捷功能 — 6宫格 */
+/* 蹇嵎鍔熻兘 鈥?6瀹牸 */
 .quick-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
+  /* gap: 0; */
   padding: 16rpx 24rpx 0;
   background: #fff;
   margin: 0 24rpx;
@@ -111,7 +111,7 @@
   flex-direction: column;
   align-items: center;
   padding: 28rpx 0;
-  gap: 12rpx;
+  /* gap: 12rpx; */
   transition: transform 0.15s ease;
 }
 .quick-item:active {
@@ -130,7 +130,7 @@
 }
 .quick-label { font-size: 24rpx; color: var(--text-2); font-weight: 600; }
 
-/* 今日课程横向滚动 */
+/* 浠婃棩璇剧▼妯悜婊氬姩 */
 .course-scroll {
   white-space: nowrap;
   padding: 0 32rpx 0;
@@ -170,7 +170,7 @@
   padding-left: 12rpx;
 }
 
-/* 今日进度卡片 */
+/* 浠婃棩杩涘害鍗＄墖 */
 .progress-card {
   margin-top: 20rpx;
   padding: 32rpx;
@@ -178,14 +178,14 @@
 .ring-row {
   display: flex;
   align-items: center;
-  gap: 40rpx;
+  /* gap: 40rpx; */
   margin-bottom: 28rpx;
 }
 .ring-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8rpx;
+  /* gap: 8rpx; */
 }
 .ring-bg {
   width: 160rpx;
@@ -230,12 +230,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  /* gap: 20rpx; */
 }
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  /* gap: 12rpx; */
 }
 .stat-val {
   font-size: 32rpx;
@@ -249,10 +249,10 @@
   color: var(--text-3);
 }
 
-/* 任务列表 */
-.task-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+/* 浠诲姟鍒楄〃 */
+.task-list { display: flex; flex-direction: column; /* gap: 0; */ position: relative; }
 
-/* 左滑容器 */
+/* 宸︽粦瀹瑰櫒 */
 .swipe-wrap {
   position: relative;
   overflow: hidden;
@@ -263,7 +263,7 @@
   display: flex;
   align-items: center;
   padding: 20rpx 0;
-  gap: 20rpx;
+  /* gap: 20rpx; */
   position: relative;
   background: #fff;
   z-index: 2;
@@ -290,7 +290,7 @@
 .btn-do { background: var(--green); }
 .btn-undo { background: var(--orange); }
 
-/* 勾选圆 */
+/* 鍕鹃€夊渾 */
 .task-check {
   width: 44rpx;
   height: 44rpx;
@@ -314,7 +314,7 @@
 .task-name.done-text { color: var(--text-3); text-decoration: line-through; }
 .task-sub { font-size: 22rpx; color: var(--text-3); margin-top: 4rpx; display: block; line-height: 1.4; }
 
-/* 状态标签 */
+/* 鐘舵€佹爣绛?*/
 .task-badge {
   font-size: 22rpx;
   font-weight: 700;
@@ -331,7 +331,7 @@
   color: var(--orange-dark);
 }
 
-/* 柱状图 */
+/* 鏌辩姸鍥?*/
 .chart-card {
   padding: 28rpx 20rpx;
   margin-top: 20rpx;
@@ -350,7 +350,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  gap: 8rpx;
+  /* gap: 8rpx; */
   position: relative;
   z-index: 1;
 }
@@ -371,7 +371,7 @@
 .bar-fill.today { background: var(--green); }
 .bar-label { font-size: 20rpx; color: var(--text-3); font-weight: 600; }
 
-/* 柱状图浮层提示 */
+/* 鏌辩姸鍥炬诞灞傛彁绀?*/
 .bar-tooltip {
   position: absolute;
   left: 50%;
@@ -409,3 +409,5 @@
 }
 .chart-total-label { font-size: 24rpx; color: var(--text-3); }
 .chart-total-val { font-size: 34rpx; font-weight: 800; color: var(--green); }
+
+

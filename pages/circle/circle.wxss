@@ -1,11 +1,11 @@
-/* ===== 班级圈页面 ===== */
+﻿/* ===== 鐝骇鍦堥〉闈?===== */
 .container {
   background: var(--bg);
   min-height: 100vh;
   padding-bottom: 40rpx;
 }
 
-/* 发布区 */
+/* 鍙戝竷鍖?*/
 .publish-card {
   background: #fff;
   margin: 24rpx;
@@ -17,7 +17,7 @@
 .publish-row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 .publish-avatar {
   width: 72rpx;
@@ -37,10 +37,10 @@
   color: var(--text-3);
 }
 
-/* 类型标签 */
+/* 绫诲瀷鏍囩 */
 .type-tags {
   display: flex;
-  gap: 12rpx;
+  /* gap: 12rpx; */
   margin-top: 20rpx;
 }
 .modal-types {
@@ -61,7 +61,7 @@
 .type-tag.active-blue { background: var(--blue-light); color: var(--blue-dark); border-color: var(--blue); }
 .type-tag.active-orange { background: var(--orange-light); color: var(--orange-dark); border-color: var(--orange); }
 
-/* 动态列表 */
+/* 鍔ㄦ€佸垪琛?*/
 .post-list {
   padding: 0 24rpx;
 }
@@ -76,7 +76,7 @@
 .post-header {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  /* gap: 16rpx; */
   margin-bottom: 16rpx;
 }
 .post-avatar {
@@ -95,7 +95,7 @@
 .post-meta-row {
   display: flex;
   align-items: center;
-  gap: 8rpx;
+  /* gap: 8rpx; */
   margin-top: 4rpx;
 }
 .post-time {
@@ -124,10 +124,10 @@
   padding: 8rpx 0;
 }
 
-/* 互动栏 */
+/* 浜掑姩鏍?*/
 .post-actions {
   display: flex;
-  gap: 32rpx;
+  /* gap: 32rpx; */
   padding-top: 16rpx;
   border-top: 2rpx solid var(--border);
   margin-top: 12rpx;
@@ -135,7 +135,7 @@
 .action-btn {
   display: flex;
   align-items: center;
-  gap: 6rpx;
+  /* gap: 6rpx; */
   font-size: 26rpx;
   color: var(--text-3);
   padding: 6rpx 0;
@@ -144,7 +144,7 @@
 .action-count { font-size: 24rpx; }
 .action-btn.liked { color: var(--red); }
 
-/* 评论列表 */
+/* 璇勮鍒楄〃 */
 .comments-section {
   margin-top: 16rpx;
   padding-top: 16rpx;
@@ -153,7 +153,7 @@
 .comment-item {
   display: flex;
   align-items: flex-start;
-  gap: 12rpx;
+  /* gap: 12rpx; */
   padding: 10rpx 0;
 }
 .comment-avatar {
@@ -175,7 +175,7 @@
 .comment-input-row {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  /* gap: 12rpx; */
   margin-top: 16rpx;
 }
 .comment-input {
@@ -195,12 +195,12 @@
   padding: 12rpx 20rpx;
 }
 
-/* 评论弹窗 */
+/* 璇勮寮圭獥 */
 .comment-modal .circle-textarea {
   min-height: 120rpx;
 }
 
-/* 弹窗 */
+/* 寮圭獥 */
 .circle-textarea {
   width: 100%;
   min-height: 200rpx;
@@ -219,7 +219,7 @@
   display: block;
 }
 
-/* ===== modal 弹窗基础样式 ===== */
+/* ===== modal 寮圭獥鍩虹鏍峰紡 ===== */
 .modal-mask {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -246,7 +246,7 @@
 }
 .modal-actions {
   display: flex;
-  gap: 20rpx;
+  /* gap: 20rpx; */
   margin-top: 20rpx;
 }
 .modal-btn {
@@ -270,13 +270,15 @@
 .cancel { background: var(--bg) !important; color: var(--text-2) !important; }
 .confirm { background: var(--green) !important; color: #fff !important; }
 
-/* 空状态 */
+/* 绌虹姸鎬?*/
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 80rpx 0;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: var(--text-3); }
+
+

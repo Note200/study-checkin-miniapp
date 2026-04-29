@@ -1,4 +1,4 @@
-/* ===== 注册页 — 多邻国风格 ===== */
+﻿/* ===== 娉ㄥ唽椤?鈥?澶氶偦鍥介鏍?===== */
 page { background: var(--bg); }
 .container {
   min-height: 100vh;
@@ -37,7 +37,7 @@ page { background: var(--bg); }
   flex-direction: column;
   align-items: center;
   margin-bottom: 48rpx;
-  gap: 12rpx;
+  /* gap: 12rpx; */
 }
 .logo { width: 140rpx; height: 140rpx; border-radius: 36rpx; }
 .app-name { font-size: 40rpx; font-weight: 800; color: #fff; }
@@ -94,3 +94,5 @@ page { background: var(--bg); }
   color: var(--text-3);
 }
 .login-link text:last-child { color: var(--green); font-weight: 700; }
+
+

@@ -1,12 +1,12 @@
-/* ===== 添加课程页 ===== */
+﻿/* ===== 娣诲姞璇剧▼椤?===== */
 page { background: #f4f6f8; }
 .container { padding: 32rpx 24rpx; }
 .page-title { margin-bottom: 36rpx; }
 .page-title text:first-child { font-size: 40rpx; font-weight: 700; color: #1a1a1a; display: block; }
 .page-subtitle { font-size: 26rpx; color: #aaa; }
 
-/* 表单 */
-.form { display: flex; flex-direction: column; gap: 0; }
+/* 琛ㄥ崟 */
+.form { display: flex; flex-direction: column; /* gap: 0; */ }
 .form-item {
   background: #fff;
   border-radius: 20rpx;
@@ -16,7 +16,7 @@ page { background: #f4f6f8; }
 }
 .form-row {
   display: flex;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 .form-row .form-item.half {
   flex: 1;
@@ -29,7 +29,7 @@ page { background: #f4f6f8; }
   font-weight: 600;
 }
 
-/* 输入框 */
+/* 杈撳叆妗?*/
 .input-wrap {
   background: #f7f8fa;
   border-radius: 14rpx;
@@ -48,7 +48,7 @@ page { background: #f4f6f8; }
   width: 100%;
 }
 
-/* 选择器 */
+/* 閫夋嫨鍣?*/
 .picker-wrap { margin-top: 4rpx; }
 .picker {
   background: #f7f8fa;
@@ -60,10 +60,10 @@ page { background: #f4f6f8; }
   transition: border 0.2s;
 }
 
-/* 颜色选择 */
+/* 棰滆壊閫夋嫨 */
 .color-list {
   display: flex;
-  gap: 20rpx;
+  /* gap: 20rpx; */
   margin-top: 8rpx;
   flex-wrap: wrap;
 }
@@ -80,7 +80,7 @@ page { background: #f4f6f8; }
   box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.2);
 }
 
-/* 提交按钮 */
+/* 鎻愪氦鎸夐挳 */
 .btn-submit {
   width: 100%;
   background: #07C160;
@@ -94,3 +94,5 @@ page { background: #f4f6f8; }
   box-shadow: 0 6rpx 20rpx rgba(7,193,96,0.3);
 }
 .btn-submit:active { transform: scale(0.97); }
+
+

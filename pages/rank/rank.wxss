@@ -1,10 +1,10 @@
-/* ===== 排行榜页面 ===== */
+﻿/* ===== 鎺掕姒滈〉闈?===== */
 .container {
   background: var(--bg);
   min-height: 100vh;
 }
 
-/* 标题栏 */
+/* 鏍囬鏍?*/
 .page-header {
   background: linear-gradient(135deg, var(--gold) 0%, #FF9600 100%);
   padding: 40rpx 32rpx 48rpx;
@@ -24,13 +24,13 @@
   font-weight: 600;
 }
 
-/* 前三名奖台 */
+/* 鍓嶄笁鍚嶅鍙?*/
 .podium {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: 32rpx 24rpx;
-  gap: 16rpx;
+  /* gap: 16rpx; */
   margin: -20rpx 24rpx 0;
   position: relative;
   z-index: 2;
@@ -40,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  gap: 8rpx;
+  /* gap: 8rpx; */
 }
 .podium-avatar-wrap {
   position: relative;
@@ -88,7 +88,7 @@
   color: #fff;
 }
 
-/* 排名列表 */
+/* 鎺掑悕鍒楄〃 */
 .rank-list {
   padding: 16rpx 24rpx;
 }
@@ -99,7 +99,7 @@
   background: #fff;
   border-radius: 16rpx;
   margin-bottom: 12rpx;
-  gap: 20rpx;
+  /* gap: 20rpx; */
   border: 2rpx solid var(--border);
 }
 .rank-item.me {
@@ -145,7 +145,7 @@
 .rank-score {
   display: flex;
   align-items: baseline;
-  gap: 4rpx;
+  /* gap: 4rpx; */
 }
 .rank-count {
   font-size: 36rpx;
@@ -157,13 +157,15 @@
   color: var(--text-3);
 }
 
-/* 空状态 */
+/* 绌虹姸鎬?*/
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 80rpx 0;
-  gap: 16rpx;
+  /* gap: 16rpx; */
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: var(--text-3); }
+
+

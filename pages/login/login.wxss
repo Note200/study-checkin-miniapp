@@ -1,4 +1,4 @@
-/* ===== 登录页 — 多邻国风格 ===== */
+﻿/* ===== 鐧诲綍椤?鈥?澶氶偦鍥介鏍?===== */
 page { background: var(--bg); }
 .container {
   min-height: 100vh;
@@ -11,7 +11,7 @@ page { background: var(--bg); }
   position: relative;
   overflow: hidden;
 }
-/* 浮动装饰元素 — 差异化 */
+/* 娴姩瑁呴グ鍏冪礌 鈥?宸紓鍖?*/
 .container::before {
   content: '';
   position: absolute;
@@ -33,13 +33,13 @@ page { background: var(--bg); }
   background: rgba(255,255,255,0.06);
 }
 
-/* Logo — 差异化发光效果 */
+/* Logo 鈥?宸紓鍖栧彂鍏夋晥鏋?*/
 .logo-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 56rpx;
-  gap: 16rpx;
+  /* gap: 16rpx; */
   position: relative;
   z-index: 1;
 }
@@ -57,7 +57,7 @@ page { background: var(--bg); }
 .app-name { font-size: 44rpx; font-weight: 800; color: #fff; letter-spacing: 2rpx; }
 .app-slogan { font-size: 26rpx; color: rgba(255,255,255,0.9); font-weight: 600; }
 
-/* 卡片 — 差异化玻璃效果 */
+/* 鍗＄墖 鈥?宸紓鍖栫幓鐠冩晥鏋?*/
 .login-card {
   background: #fff;
   border-radius: 32rpx;
@@ -76,7 +76,7 @@ page { background: var(--bg); }
   margin-bottom: 40rpx;
 }
 
-/* 输入框 */
+/* 杈撳叆妗?*/
 .input-group {
   display: flex;
   align-items: center;
@@ -99,7 +99,7 @@ page { background: var(--bg); }
   display: block;
 }
 
-/* 登录按钮 — 多邻国立体 */
+/* 鐧诲綍鎸夐挳 鈥?澶氶偦鍥界珛浣?*/
 .btn-login {
   width: 100%;
   background: var(--green);
@@ -116,7 +116,7 @@ page { background: var(--bg); }
 .btn-login:active { transform: translateY(4rpx); box-shadow: 0 2rpx 0 var(--green-dark); }
 .btn-login.disabled { opacity: 0.6; }
 
-/* 注册链接 */
+/* 娉ㄥ唽閾炬帴 */
 .register-link {
   text-align: center;
   margin-top: 28rpx;
@@ -128,7 +128,7 @@ page { background: var(--bg); }
 }
 .register-link .link { color: var(--green); font-weight: 700; margin-left: 8rpx; }
 
-/* 协议 */
+/* 鍗忚 */
 .agreement {
   margin-top: 40rpx;
   text-align: center;
@@ -139,3 +139,5 @@ page { background: var(--bg); }
   justify-content: center;
 }
 .agreement-link { color: #fff; font-weight: 600; }
+
+
