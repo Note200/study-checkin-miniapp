@@ -392,7 +392,7 @@ Page({
     // 调用后端更新
     app.request({
       url: '/api/course/update',
-      method: 'POST',
+      method: 'PUT',
       data: {
         id: dragCourse.id,
         weekDay: newDay,
