@@ -196,6 +196,7 @@ Page({
     const touch = e.touches[0]
     this._touchStartX = touch.clientX
     this._touchStartY = touch.clientY
+    this._swipeDetected = false
     this._scrollY = e.currentTarget.scrollTop || 0
     const startX = touch.clientX
     const startY = touch.clientY
@@ -225,13 +226,20 @@ Page({
 
   onGridTouchMove(e) {
     if (!this.data.dragging) {
-      // 未进入拖拽，检查是否移动过远则取消
+      // 未进入拖拽，检查是否移动过远则取消长按
       const touch = e.touches[0]
-      const dx = Math.abs(touch.clientX - this._touchStartX)
-      const dy = Math.abs(touch.clientY - this._touchStartY)
-      if (dx > 10 || dy > 10) {
+      const dx = touch.clientX - this._touchStartX
+      const dy = touch.clientY - this._touchStartY
+      const adx = Math.abs(dx)
+      const ady = Math.abs(dy)
+      if (adx > 10 || ady > 10) {
         clearTimeout(this._dragTimer)
         this.setData({ _dragStarted: false })
+      }
+      // 检测水平滑动（切换周次）
+      if (adx > 60 && adx > ady * 1.5) {
+        this._swipeDetected = true
+        this._swipeDir = dx < 0 ? 'left' : 'right'
       }
       return
     }
@@ -253,6 +261,22 @@ Page({
     clearTimeout(this._dragTimer)
     if (!this.data.dragging) {
       this.setData({ _dragStarted: false })
+      // 滑动切换周次
+      if (this._swipeDetected) {
+        this._swipeDetected = false
+        const { currentWeek, weeks } = this.data
+        let newWeek = currentWeek
+        if (this._swipeDir === 'left' && currentWeek < weeks.length) {
+          newWeek = currentWeek + 1
+        } else if (this._swipeDir === 'right' && currentWeek > 1) {
+          newWeek = currentWeek - 1
+        }
+        if (newWeek !== currentWeek) {
+          this.setData({ currentWeek: newWeek })
+          this.loadAllCourses()
+          wx.showToast({ title: '第' + newWeek + '周', icon: 'none', duration: 800 })
+        }
+      }
       return
     }
     const { dragCourse, ghostCol, ghostRow } = this.data
