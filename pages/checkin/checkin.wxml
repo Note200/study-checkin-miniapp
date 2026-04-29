@@ -32,7 +32,7 @@
             class="btn-checkin {{item.todayChecked ? 'checked' : ''}}"
             data-id="{{item.id}}"
             bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}">
-            {{item.todayChecked ? '已完成' : '打卡'}}
+            <text>{{item.todayChecked ? '已完成' : '打卡'}}</text>
           </view>
           <text class="swipe-hint-small">← 滑动</text>
         </view>
