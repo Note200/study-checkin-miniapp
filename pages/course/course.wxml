@@ -18,8 +18,11 @@
     <!-- 星期标题行 -->
     <view class="grid-header">
       <view class="grid-corner"><text class="grid-corner-text">节/日</text></view>
-      <view class="grid-day-header {{index + 1 === todayDay ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
-        <text class="grid-day-name">{{item}}</text>
+      <view class="grid-day-header {{todayDateStr === weekDates[index] ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
+        <view class="day-header-content">
+          <text class="grid-day-name">{{item}}</text>
+          <text class="grid-day-date">{{weekDates[index]}}</text>
+        </view>
       </view>
     </view>
 
@@ -61,9 +64,10 @@
   <!-- ====== 列表视图 ====== -->
   <view wx:else class="list-wrapper">
     <view class="week-tabs">
-      <view class="week-tab {{weekDay === index + 1 ? 'active' : ''}}" wx:for="{{weekDays}}" wx:key="index"
+      <view class="week-tab {{weekDay === index + 1 ? 'active' : ''}} {{todayDateStr === weekDates[index] ? 'today-tab' : ''}}" wx:for="{{weekDays}}" wx:key="index"
         data-index="{{index}}" bindtap="switchWeekDay">
         <text class="week-name">{{item}}</text>
+        <text class="week-date">{{weekDates[index]}}</text>
       </view>
     </view>
     <view class="course-list" wx:if="{{courses.length > 0}}">

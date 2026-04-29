@@ -8,10 +8,15 @@ const COURSE_COLORS = [
   '#FF99C3', '#FF7875'
 ]
 
+// 学期开学日期（第1周的周一），修改这里适配你的学校
+const SEMESTER_START = '2026-02-23'
+
 Page({
   data: {
     weekDay: 1,
     weekDays: ['周一', '周二', '周三', '周四', '周五'],
+    weekDates: ['', '', '', '', ''],  // 每天日期字符串
+    todayDateStr: '',  // 今天的日期（如 '4/29'）
     weeks: [],
     currentWeek: 1,
     weekLabel: '第1周',
@@ -73,6 +78,30 @@ Page({
       weeks.push(i)
     }
     this.setData({ weeks })
+    this.calcWeekDates(1)
+  },
+
+  // 计算某一周每天的具体日期
+  calcWeekDates(weekNum) {
+    const start = new Date(SEMESTER_START)
+    // 第weekNum周的周一 = 开学周一 + (weekNum-1)*7
+    const monday = new Date(start.getTime() + (weekNum - 1) * 7 * 86400000)
+    const dates = []
+    const today = new Date()
+    const todayStr = (today.getMonth() + 1) + '/' + today.getDate()
+    let todayDateStr = ''
+    for (let i = 0; i < 5; i++) {
+      const d = new Date(monday.getTime() + i * 86400000)
+      const str = (d.getMonth() + 1) + '/' + d.getDate()
+      dates.push(str)
+      // 检查是否是今天
+      if (d.getFullYear() === today.getFullYear() &&
+          d.getMonth() === today.getMonth() &&
+          d.getDate() === today.getDate()) {
+        todayDateStr = str
+      }
+    }
+    this.setData({ weekDates: dates, todayDateStr })
   },
 
   // 切换星期
@@ -86,6 +115,7 @@ Page({
   onWeekChange(e) {
     const week = this.data.weeks[e.detail.value]
     const label = week >= 17 ? '第' + week + '周（考试周）' : '第' + week + '周'
+    this.calcWeekDates(week)
     this.setData({ currentWeek: week, weekLabel: label, slideDir: 'fade' })
     setTimeout(() => this.setData({ slideDir: '' }), 300)
     this.loadAllCourses()
@@ -288,6 +318,7 @@ Page({
         if (newWeek !== currentWeek) {
           const label = newWeek >= 17 ? '第' + newWeek + '周（考试周）' : '第' + newWeek + '周'
           const dir = this._swipeDir === 'left' ? 'slide-left' : 'slide-right'
+          this.calcWeekDates(newWeek)
           this.setData({ currentWeek: newWeek, weekLabel: label, slideDir: dir })
           setTimeout(() => this.setData({ slideDir: '' }), 300)
           this.loadAllCourses()

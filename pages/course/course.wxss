@@ -94,6 +94,22 @@
 .grid-day-header.today { background: #E8F5E9; }
 .grid-day-name { font-size: 24rpx; color: #666; font-weight: 600; }
 .grid-day-header.today .grid-day-name { color: #58CC02; font-weight: 700; }
+.day-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rpx;
+}
+.grid-day-date {
+  font-size: 20rpx;
+  color: #bbb;
+  font-weight: 400;
+}
+.grid-day-header.today .grid-day-date {
+  color: #58CC02;
+  font-weight: 600;
+}
 
 .grid-body {
   width: 100%;
@@ -241,8 +257,14 @@
   transition: all 0.2s;
 }
 .week-tab.active { background: #58CC02; }
+.week-tab.today-tab { border: 2rpx solid #58CC02; }
+.week-tab.active.today-tab { border: none; }
 .week-name { font-size: 24rpx; color: #aaa; }
 .week-tab.active .week-name { color: #fff; font-weight: 600; }
+.week-date { font-size: 20rpx; color: #ccc; margin-top: 2rpx; }
+.week-tab.active .week-date { color: rgba(255,255,255,0.8); }
+.week-tab.today-tab .week-name { color: #58CC02; }
+.week-tab.today-tab .week-date { color: #58CC02; }
 
 .course-list {
   flex: 1;
