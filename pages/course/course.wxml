@@ -27,7 +27,7 @@
     </view>
 
     <!-- 格子主体 -->
-    <scroll-view scroll-y class="grid-body {{slideDir || ''}}"
+    <scroll-view scroll-y class="grid-body {{slideDir ? 'slide-' + slideDir + (slidePhase === 'out' ? ' slide-out' : ' slide-in') : ''}}"
       bindtouchstart="onGridTouchStart"
       bindtouchmove="onGridTouchMove"
       bindtouchend="onGridTouchEnd">

@@ -113,44 +113,46 @@
 
 .grid-body {
   width: 100%;
-  height: 1280rpx; /* 8行 x 160rpx，固定高度 */
+  height: 1024rpx; /* 8行 x 160rpx，固定高度 */
   position: relative;
   overflow: visible;
 }
 
-/* 周次切换动画 */
-.grid-body.slide-left {
-  animation: slideLeft 0.3s ease-in-out;
+/* 周次切换动画（两阶段：旧内容滑出→新内容滑入） */
+.grid-body.slide-left.slide-out {
+  animation: slideOutLeft 0.15s ease-in forwards;
 }
-.grid-body.slide-right {
-  animation: slideRight 0.3s ease-in-out;
+.grid-body.slide-left.slide-in {
+  animation: slideInRight 0.3s ease-out forwards;
 }
-.grid-body.fade {
-  animation: fadeSwitch 0.3s ease-in-out;
+.grid-body.slide-right.slide-out {
+  animation: slideOutRight 0.15s ease-in forwards;
 }
-@keyframes slideLeft {
+.grid-body.slide-right.slide-in {
+  animation: slideInLeft 0.3s ease-out forwards;
+}
+@keyframes slideOutLeft {
   0% { opacity: 1; transform: translateX(0); }
-  40% { opacity: 0.3; transform: translateX(-60rpx); }
-  60% { opacity: 0.3; transform: translateX(60rpx); }
+  100% { opacity: 0; transform: translateX(-80%); }
+}
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(80%); }
   100% { opacity: 1; transform: translateX(0); }
 }
-@keyframes slideRight {
+@keyframes slideOutRight {
   0% { opacity: 1; transform: translateX(0); }
-  40% { opacity: 0.3; transform: translateX(60rpx); }
-  60% { opacity: 0.3; transform: translateX(-60rpx); }
-  100% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(80%); }
 }
-@keyframes fadeSwitch {
-  0% { opacity: 1; }
-  40% { opacity: 0.2; }
-  100% { opacity: 1; }
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-80%); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 /* 网格背景 */
 .grid-bg {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 1280rpx;
+  height: 1024rpx;
 }
 .grid-bg-row {
   display: flex;
@@ -180,7 +182,7 @@
   top: 0;
   left: 70rpx;
   right: 0;
-  height: 1280rpx;
+  height: 1024rpx;
   pointer-events: none;
 }
 .course-card-overlay {
