@@ -117,6 +117,7 @@
           data-id="{{item.id}}" 
           data-index="{{index}}"
           bindtap="goCheckin"
+          bindlongpress="longPressTask"
           bindtouchstart="onSwipeStart"
           bindtouchmove="onSwipeMove"
           bindtouchend="onSwipeEnd">
@@ -153,7 +154,7 @@
   <view class="card chart-card" bindtap="goStats">
     <!-- 简易柱状图 -->
     <view class="bar-chart">
-      <view class="bar-item" wx:for="{{weekData}}" wx:key="day" bindtap="onBarTap" data-index="{{index}}">
+      <view class="bar-item" wx:for="{{weekData}}" wx:key="day" catchtap="onBarTap" data-index="{{index}}">
         <view class="bar-wrap">
           <view class="bar-fill {{item.isToday ? 'today' : ''}}" style="height: {{item.height}}rpx"></view>
           <view class="bar-tooltip" wx:if="{{tooltipIndex === index}}">{{item.hours}}h</view>

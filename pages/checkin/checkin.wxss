@@ -76,43 +76,44 @@
 }
 
 /* ===== 左滑删除（打卡页） ===== */
-.swipe-area {
+.swipe-wrap {
   position: relative;
   overflow: hidden;
   border-radius: 20rpx;
+  margin-bottom: 16rpx;
 }
-.swipe-card {
-  width: 100%;
-  height: auto;
-  min-height: 80rpx;
+.swipe-wrap .task-card {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.25s ease;
+  margin-bottom: 0;
 }
-.swipe-card .task-card {
-  transition: box-shadow 0.2s, opacity 0.2s;
-}
-.swipe-card .task-card.swiped {
+.swipe-wrap .task-card.swiped {
   box-shadow: -4rpx 4rpx 16rpx rgba(0,0,0,0.1);
-  opacity: 0.85;
 }
-.task-del-btn {
+.swipe-actions {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 160rpx;
-  background: linear-gradient(135deg, #FF4D4F, #CF1322);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+.swipe-btn {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0 20rpx 20rpx 0;
-  z-index: 1;
+  padding: 0 28rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #fff;
 }
-.swipe-hint-small {
-  font-size: 18rpx;
-  color: #ccc;
-  flex-shrink: 0;
-  white-space: nowrap;
-  animation: hintPulse 2s ease-in-out infinite;
-}
+.swipe-btn.btn-do { background: #07C160; }
+.swipe-btn.btn-undo { background: #FF9600; }
+.swipe-btn.btn-delete { background: #FF4D4F; }
 
 /* 删除按钮（保留原样式作为备用） */
 .btn-delete {

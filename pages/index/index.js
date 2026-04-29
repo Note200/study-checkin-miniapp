@@ -252,5 +252,38 @@ Page({
         }
       })
     }
+  },
+
+  // 长按任务弹出菜单
+  longPressTask(e) {
+    const taskId = e.currentTarget.dataset.id
+    const task = this.data.todayTasks.find(t => t.id === taskId)
+    wx.showActionSheet({
+      itemList: ['删除任务'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          wx.showModal({
+            title: '确认删除',
+            content: `删除「${task ? task.title : ''}」将同时删除所有打卡记录，不可恢复`,
+            confirmColor: '#F56C6C',
+            success: (modalRes) => {
+              if (modalRes.confirm) {
+                app.request({
+                  url: `/api/checkin/task/${taskId}`,
+                  method: 'DELETE'
+                }).then(r => {
+                  if (r.code === 200) {
+                    wx.showToast({ title: '已删除', icon: 'success' })
+                    this.loadTodayTasks()
+                  } else {
+                    wx.showToast({ title: r.msg || '删除失败', icon: 'none' })
+                  }
+                }).catch(() => wx.showToast({ title: '删除失败', icon: 'none' }))
+              }
+            }
+          })
+        }
+      }
+    })
   }
 })

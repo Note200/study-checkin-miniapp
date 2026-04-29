@@ -195,21 +195,28 @@ Page({
     })
   },
 
-  // 左滑删除 — 滑动事件处理
-  onSwipeChange(e) {
-    const index = e.currentTarget.dataset.index
-    let x = e.detail.x
-    if (x > 0) x = 0
-    if (x < -160) x = -160
-    const tasks = this.data.tasks.map((t, i) => ({
-      ...t,
-      _x: i === index ? x : (t._x && t._x < -80 ? -160 : 0)
-    }))
-    this.setData({ tasks })
+  // 左滑删除 — 触摸事件
+  onSwipeStart(e) {
+    this._touchStartX = e.touches[0].clientX
+    this._swipeIndex = e.currentTarget.dataset.index
   },
-
-  // 防止按钮点击触发滑动（空实现，用catchtap隔离）
-  onBtnTap() {},
+  onSwipeMove(e) {
+    this._touchCurrentX = e.touches[0].clientX
+  },
+  onSwipeEnd(e) {
+    const deltaX = (this._touchCurrentX || 0) - (this._touchStartX || 0)
+    const index = this._swipeIndex
+    const tasks = this.data.tasks
+    // 关闭其他已滑开的
+    tasks.forEach((t, i) => { if (i !== index && t.swiped) t.swiped = false })
+    if (index >= 0 && index < tasks.length) {
+      tasks[index].swiped = deltaX < -30
+    }
+    this.setData({ tasks: [...tasks] })
+    this._touchStartX = 0
+    this._touchCurrentX = 0
+    this._swipeIndex = -1
+  },
 
   // 点击日历格子，切换选中高亮
   onDateTap(e) {

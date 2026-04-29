@@ -6,42 +6,45 @@
   </view>
 
   <view class="task-list" wx:if="{{tasks.length > 0}}">
-    <movable-area class="swipe-area" wx:for="{{tasks}}" wx:key="id" style="height:auto;">
-      <movable-view
-        class="swipe-card"
-        direction="horizontal"
-        x="{{item._x || 0}}"
-        damping="30"
-        friction="5"
-        out-of-bounds
-        bindchange="onSwipeChange"
-        data-index="{{index}}">
-        <!-- 前景卡片 -->
-        <view class="task-card card-animate {{item._x < -60 ? 'swiped' : ''}}" data-id="{{item.id}}" bindlongtap="longPressTask">
-          <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
-            <text class="task-icon">{{item.icon || '📖'}}</text>
-          </view>
-          <view class="task-info">
-            <text class="task-name">{{item.title}}</text>
-            <view class="task-sub-row">
-              <text class="task-clock">⏱</text>
-              <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
-            </view>
-          </view>
-          <view
-            class="btn-checkin {{item.todayChecked ? 'checked' : ''}}"
-            data-id="{{item.id}}"
-            bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}">
-            <text class="btn-checkin-text">{{item.todayChecked ? '已完成' : '打卡'}}</text>
-          </view>
-          <text class="swipe-hint-small">← 滑动</text>
+    <view class="swipe-wrap" wx:for="{{tasks}}" wx:key="id">
+      <!-- 前景卡片 -->
+      <view
+        class="task-card card-animate {{item.swiped ? 'swiped' : ''}}"
+        style="transform: translateX({{item.swiped ? -160 : 0}}rpx)"
+        data-id="{{item.id}}"
+        data-index="{{index}}"
+        bindtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}"
+        bindlongpress="longPressTask"
+        bindtouchstart="onSwipeStart"
+        bindtouchmove="onSwipeMove"
+        bindtouchend="onSwipeEnd">
+        <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
+          <text class="task-icon">{{item.icon || '📖'}}</text>
         </view>
-        <!-- 底层删除按钮 -->
-        <view class="swipe-delete-btn task-del-btn" catchtap="deleteTask" data-id="{{item.id}}">
-          <text class="swipe-delete-text">删除</text>
+        <view class="task-info">
+          <text class="task-name">{{item.title}}</text>
+          <view class="task-sub-row">
+            <text class="task-clock">⏱</text>
+            <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
+          </view>
         </view>
-      </movable-view>
-    </movable-area>
+        <view class="btn-checkin {{item.todayChecked ? 'checked' : ''}}" catchtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}" data-id="{{item.id}}">
+          <text class="btn-checkin-text">{{item.todayChecked ? '已完成' : '打卡'}}</text>
+        </view>
+      </view>
+      <!-- 底层操作按钮 -->
+      <view class="swipe-actions" style="opacity:{{item.swiped ? 1 : 0}}">
+        <view class="swipe-btn btn-do" catchtap="openCheckin" data-id="{{item.id}}" wx:if="{{!item.todayChecked}}">
+          <text>打卡</text>
+        </view>
+        <view class="swipe-btn btn-undo" catchtap="undoCheckin" data-id="{{item.id}}" wx:if="{{item.todayChecked}}">
+          <text>撤销</text>
+        </view>
+        <view class="swipe-btn btn-delete" catchtap="deleteTask" data-id="{{item.id}}">
+          <text>删除</text>
+        </view>
+      </view>
+    </view>
   </view>
 
   <!-- 空状态 -->
