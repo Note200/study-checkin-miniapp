@@ -206,15 +206,16 @@
 }
 .cell-name {
   font-size: 30rpx;
-  font-weight: 700;
+  font-weight: 500;
   color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  line-height: 1.3;
-  text-shadow: 0 1rpx 3rpx rgba(0,0,0,0.25);
+  line-height: 1.4;
+  letter-spacing: 1rpx;
+  text-shadow: 0 2rpx 6rpx rgba(0,0,0,0.35);
 }
 .cell-info {
   font-size: 24rpx;
