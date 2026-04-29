@@ -213,7 +213,7 @@ Page({
         const tempPath = res.tempFiles[0].tempFilePath
         wx.showLoading({ title: '上传中...' })
         wx.uploadFile({
-          url: app.globalData.baseUrl + '/api/user/avatar',
+          url: app.globalData.BASE_URL + '/api/user/avatar',
           filePath: tempPath,
           name: 'file',
           header: { Authorization: wx.getStorageSync('token') || '' },
