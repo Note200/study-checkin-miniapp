@@ -21,12 +21,15 @@ Page({
     currentWeek: 1,
     weekLabel: '第1周',
     courses: [],       // 列表视图数据
-    gridData: [],      // 格子视图数据 (8行 x 5列)
+    gridData: [],      // 格子视图数据 (8行 x 7列)
     maxSection: 8,     // 固定8节课
     allCourses: [],    // 当周所有课程
     showGrid: true,    // 默认显示格子视图
     todayDay: 1,       // 今天星期几
     slideDir: '',      // 周次切换动画方向
+    slidePhase: '',    // 滑动阶段 (out/in)
+    viewAnim: false,   // 视图切换动画
+    listSlideDir: '',  // 列表切天动画方向
     // 拖拽状态
     dragging: false,
     dragCourse: null,
@@ -113,8 +116,12 @@ Page({
   // 切换星期
   switchWeekDay(e) {
     const index = parseInt(e.currentTarget.dataset.index)
-    this.setData({ weekDay: index + 1 })
-    this.loadCourses()
+    const dir = index + 1 > this.data.weekDay ? 'left' : 'right'
+    this.setData({ listSlideDir: dir })
+    setTimeout(() => {
+      this.setData({ weekDay: index + 1, listSlideDir: '' })
+      this.loadCourses()
+    }, 200)
   },
 
   // 选择周次
@@ -133,7 +140,8 @@ Page({
 
   // 切换视图模式
   switchView() {
-    this.setData({ showGrid: !this.data.showGrid })
+    this.setData({ showGrid: !this.data.showGrid, viewAnim: true })
+    setTimeout(() => this.setData({ viewAnim: false }), 400)
   },
 
   // 加载所有课程（用于格子视图）

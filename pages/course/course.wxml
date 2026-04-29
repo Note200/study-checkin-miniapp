@@ -14,7 +14,7 @@
   </view>
 
   <!-- ====== 格子视图 ====== -->
-  <view wx:if="{{showGrid}}" class="grid-wrapper">
+  <view class="grid-wrapper {{showGrid ? (viewAnim ? 'view-fade-in' : '') : 'view-hidden'}}">
     <!-- 星期标题行 -->
     <view class="grid-header">
       <view class="grid-corner"><text class="grid-corner-text">节/日</text></view>
@@ -62,7 +62,7 @@
   </view>
 
   <!-- ====== 列表视图 ====== -->
-  <view wx:else class="list-wrapper">
+  <view class="list-wrapper {{!showGrid ? (viewAnim ? 'view-fade-in' : '') : 'view-hidden'}}">
     <view class="week-tabs">
       <view class="week-tab {{weekDay === index + 1 ? 'active' : ''}} {{todayDateStr === weekDates[index] ? 'today-tab' : ''}}" wx:for="{{weekDays}}" wx:key="index"
         data-index="{{index}}" bindtap="switchWeekDay">
@@ -70,7 +70,7 @@
         <text class="week-date">{{weekDates[index]}}</text>
       </view>
     </view>
-    <view class="course-list" wx:if="{{courses.length > 0}}">
+    <view class="course-list {{listSlideDir ? 'list-slide-' + listSlideDir : ''}}" wx:if="{{courses.length > 0}}">
       <view class="course-card" wx:for="{{courses}}" wx:key="id">
         <view class="course-left-bar" style="background: {{item.color}}"></view>
         <view class="course-body" data-id="{{item.id}}" bindtap="editCourse" bindlongtap="longPressCourse">

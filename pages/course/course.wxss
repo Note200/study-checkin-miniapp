@@ -331,3 +331,31 @@
   transform: scale(1.05);
   transition: none;
 }
+
+/* 视图切换动画 */
+.view-hidden {
+  display: none !important;
+}
+.view-fade-in {
+  animation: viewFadeIn 0.35s ease-out;
+}
+@keyframes viewFadeIn {
+  0% { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 列表切天滑动 */
+.course-list.list-slide-left {
+  animation: listSlideLeft 0.25s ease-out;
+}
+.course-list.list-slide-right {
+  animation: listSlideRight 0.25s ease-out;
+}
+@keyframes listSlideLeft {
+  0% { opacity: 0; transform: translateX(60rpx); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes listSlideRight {
+  0% { opacity: 0; transform: translateX(-60rpx); }
+  100% { opacity: 1; transform: translateX(0); }
+}
