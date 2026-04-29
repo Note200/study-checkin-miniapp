@@ -1,4 +1,4 @@
-﻿/* ===== 鍏ㄥ眬鍙橀噺 鈥?澶氶偦鍥介鏍奸厤鑹?===== */
+/* ===== 全局变量 — 多邻国风格配色 ===== */
 page {
   --green: #58CC02;
   --green-dark: #46a302;
@@ -48,9 +48,9 @@ page {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ===== 鍏ㄥ眬鎸夐挳鐐瑰嚮鍙嶉鍔ㄧ敾 ===== */
+/* ===== 全局按钮点击反馈动画 ===== */
 button::after {
-  border: none !important; /* 鍘婚櫎灏忕▼搴忛粯璁よ竟妗?*/
+  border: none !important; /* 去除小程序默认边框 */
 }
 .btn-tap-scale {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -59,7 +59,7 @@ button::after {
   transform: scale(0.93) !important;
   box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1) !important;
 }
-/* 鎵€鏈?button 榛樿鍔犵缉鏀惧弽棣?*/
+/* 所有 button 默认加缩放反馈 */
 button {
   transition: transform 0.12s ease;
 }
@@ -67,7 +67,7 @@ button:active {
   transform: scale(0.94);
 }
 
-/* ===== 鍗＄墖鍏ュ満鍔ㄧ敾 ===== */
+/* ===== 卡片入场动画 ===== */
 @keyframes slideUpFade {
   from {
     opacity: 0;
@@ -81,7 +81,7 @@ button:active {
 .card-animate {
   animation: slideUpFade 0.35s ease both;
 }
-/* 鍒楄〃椤逛緷娆″欢杩?*/
+/* 列表项依次延迟 */
 .plan-list .swipe-area:nth-child(1) .plan-card { animation-delay: 0s; }
 .plan-list .swipe-area:nth-child(2) .plan-card { animation-delay: 0.06s; }
 .plan-list .swipe-area:nth-child(3) .plan-card { animation-delay: 0.12s; }
@@ -95,14 +95,14 @@ button:active {
 .task-list .swipe-area:nth-child(4) .task-card { animation-delay: 0.18s; }
 .task-list .swipe-area:nth-child(n+5) .task-card { animation-delay: 0.24s; }
 
-/* ===== 閫氱敤瀹瑰櫒 ===== */
+/* ===== 通用容器 ===== */
 .container {
   min-height: 100vh;
   background: var(--bg);
   padding-bottom: 40rpx;
 }
 
-/* ===== 鍗＄墖 ===== */
+/* ===== 卡片 ===== */
 .card {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
@@ -132,7 +132,7 @@ button:active {
   color: var(--text-3);
 }
 
-/* ===== 鎸夐挳 鈥?澶氶偦鍥界珛浣撻鏍?===== */
+/* ===== 按钮 — 多邻国立体风格 ===== */
 .btn-primary {
   background: var(--green);
   color: #fff;
@@ -193,7 +193,7 @@ button:active {
 }
 .fab:active { transform: translateY(4rpx); box-shadow: 0 2rpx 0 var(--green-dark); }
 
-/* ===== 琛ㄥ崟杈撳叆妗?===== */
+/* ===== 表单输入框 ===== */
 .form-input-group {
   background: #fff;
   border-radius: 16rpx;
@@ -216,7 +216,7 @@ button:active {
   line-height: 88rpx;
 }
 
-/* ===== 寮圭獥 ===== */
+/* ===== 弹窗 ===== */
 .modal-mask {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -256,7 +256,7 @@ button:active {
 }
 .modal-actions {
   display: flex;
-  /* gap: 20rpx; */
+  gap: 20rpx;
   margin-top: 24rpx;
 }
 .modal-btn {
@@ -271,7 +271,7 @@ button:active {
   color: #fff;
   box-shadow: 0 4rpx 0 var(--green-dark);
 }
-/* .cancel 鍜?.confirm 鐙珛鍐欐硶锛屼緵鍚勯〉闈?class="cancel"/"confirm" 鐩存帴浣跨敤 */
+/* .cancel 和 .confirm 独立写法，供各页面 class="cancel"/"confirm" 直接使用 */
 .modal-btn.cancel, .cancel {
   background: var(--bg);
   color: var(--text-2);
@@ -288,7 +288,7 @@ button:active {
   box-shadow: 0 1rpx 0 var(--green-dark);
 }
 
-/* 閫氱敤杈撳叆妗嗭紙渚?class="input" 鐩存帴浣跨敤锛?*/
+/* 通用输入框（供 class="input" 直接使用） */
 .input {
   height: 88rpx;
   padding: 0 28rpx;
@@ -300,10 +300,10 @@ button:active {
   background: #fff;
 }
 
-/* 閾炬帴鏂囧瓧 */
+/* 链接文字 */
 .link { color: var(--green); font-weight: 700; }
 
-/* ===== 绌虹姸鎬?===== */
+/* ===== 空状态 ===== */
 .empty-state, .empty-tip {
   text-align: center;
   padding: 60rpx 0;
@@ -311,7 +311,7 @@ button:active {
   font-size: 26rpx;
 }
 
-/* ===== 杩涘害鏉?===== */
+/* ===== 进度条 ===== */
 .progress-bar {
   height: 12rpx;
   background: var(--border);
@@ -325,7 +325,7 @@ button:active {
   transition: width 0.4s ease;
 }
 
-/* ===== 鏍囩 ===== */
+/* ===== 标签 ===== */
 .tag {
   display: inline-block;
   padding: 6rpx 16rpx;
@@ -339,4 +339,3 @@ button:active {
 .tag-purple { background: var(--purple-light); color: var(--purple-dark); }
 .tag-blue   { background: var(--blue-light); color: var(--blue-dark); }
 .tag-gold   { background: var(--gold-light); color: var(--gold-dark); }
-

@@ -1,16 +1,16 @@
-﻿/* ===== 绠＄悊椤?===== */
+/* ===== 管理页 ===== */
 .container {
   background: var(--bg);
   min-height: 100vh;
   padding-bottom: 40rpx;
 }
 
-/* 椤堕儴鏍囩 */
+/* 顶部标签 */
 .tabs {
   background: #fff;
   display: flex;
   padding: 20rpx 24rpx;
-  /* gap: 16rpx; */
+  gap: 16rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
 }
 .tab {
@@ -26,7 +26,7 @@
 
 .tab-content { padding: 16rpx 0; }
 
-/* 鍗＄墖 */
+/* 卡片 */
 .card {
   background: #fff;
   border-radius: 20rpx;
@@ -43,20 +43,20 @@
 .card-title { font-size: 30rpx; font-weight: 700; color: #1a1a1a; }
 .card-count { font-size: 24rpx; color: #aaa; }
 
-/* 鐝骇淇℃伅 */
-.class-info { display: flex; flex-direction: column; /* gap: 16rpx; */ }
+/* 班级信息 */
+.class-info { display: flex; flex-direction: column; gap: 16rpx; }
 .info-row { display: flex; justify-content: space-between; align-items: center; }
 .info-label { font-size: 26rpx; color: #aaa; }
 .info-value { font-size: 28rpx; color: #1a1a1a; }
 .code { font-family: monospace; font-size: 32rpx; color: var(--green); font-weight: 700; letter-spacing: 4rpx; }
-.code-wrap { display: flex; align-items: center; /* gap: 16rpx; */ }
+.code-wrap { display: flex; align-items: center; gap: 16rpx; }
 .copy-btn {
   background: var(--green-light); color: var(--green); font-size: 22rpx;
   border-radius: 10rpx; padding: 6rpx 16rpx;
 }
 
-/* 缁熻鍗＄墖 */
-.stats-grid { display: flex; flex-wrap: wrap; /* gap: 20rpx; */ padding: 20rpx 24rpx; }
+/* 统计卡片 */
+.stats-grid { display: flex; flex-wrap: wrap; gap: 20rpx; padding: 20rpx 24rpx; }
 .stats-card {
   width: 48%;
   background: #fff;
@@ -66,7 +66,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 10rpx; */
+  gap: 10rpx;
   box-sizing: border-box;
 }
 .stats-icon-wrap {
@@ -90,11 +90,11 @@
   color: #aaa;
 }
 
-/* 鎴愬憳鍒楄〃 */
-.member-list { display: flex; flex-direction: column; /* gap: 0; */ }
+/* 成员列表 */
+.member-list { display: flex; flex-direction: column; gap: 0; }
 .member-item {
   display: flex; align-items: center; padding: 20rpx 0;
-  border-bottom: 1rpx solid #f5f5f5; /* gap: 16rpx; */
+  border-bottom: 1rpx solid #f5f5f5; gap: 16rpx;
 }
 .member-item:last-child { border-bottom: none; }
 .member-avatar { width: 72rpx; height: 72rpx; border-radius: 50%; flex-shrink: 0; }
@@ -107,15 +107,15 @@
 }
 .member-badge.admin { background: var(--green-light); color: var(--green); }
 
-/* 鍏憡 */
-.notice-list { padding: 0 24rpx; display: flex; flex-direction: column; /* gap: 16rpx; */ }
+/* 公告 */
+.notice-list { padding: 0 24rpx; display: flex; flex-direction: column; gap: 16rpx; }
 .notice-item {
   background: #fff;
   border-radius: 16rpx;
   padding: 24rpx;
   display: flex;
   align-items: center;
-  /* gap: 16rpx; */
+  gap: 16rpx;
   box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
 }
 .notice-dot {
@@ -125,7 +125,7 @@
   background: var(--orange);
   flex-shrink: 0;
 }
-.notice-content { flex: 1; display: flex; flex-direction: column; /* gap: 6rpx; */ }
+.notice-content { flex: 1; display: flex; flex-direction: column; gap: 6rpx; }
 .notice-title { font-size: 28rpx; font-weight: 600; color: #333; }
 .notice-date { font-size: 22rpx; color: #aaa; }
 .notice-action {
@@ -136,7 +136,7 @@
   padding: 8rpx 16rpx;
 }
 
-/* 鍙戝竷鍏憡鎸夐挳 */
+/* 发布公告按钮 */
 .btn-publish {
   display: flex;
   align-items: center;
@@ -152,7 +152,7 @@
   box-shadow: 0 4rpx 12rpx rgba(7,193,96,0.3);
 }
 
-/* 鍏憡寮圭獥杈撳叆 */
+/* 公告弹窗输入 */
 .notice-textarea-wrap { margin-bottom: 20rpx; }
 .notice-textarea {
   width: 100%;
@@ -169,7 +169,5 @@
   font-size: 24rpx; padding: 12rpx 24rpx; line-height: 1.4;
 }
 
-/* 绌虹姸鎬?*/
+/* 空状态 */
 .empty-tip { text-align: center; padding: 40rpx 0; font-size: 26rpx; color: #aaa; }
-
-

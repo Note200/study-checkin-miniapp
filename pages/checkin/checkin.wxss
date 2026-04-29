@@ -1,4 +1,4 @@
-﻿/* ===== 鎵撳崱椤?===== */
+/* ===== 打卡页 ===== */
 .container {
   background: #f4f6f8;
   min-height: 100vh;
@@ -14,8 +14,8 @@
 .section-title { font-size: 32rpx; font-weight: 700; color: #1a1a1a; }
 .section-month { font-size: 26rpx; color: #999; }
 
-/* 浠诲姟鍒楄〃 */
-.task-list { padding: 0 24rpx; display: flex; flex-direction: column; /* gap: 16rpx; */ }
+/* 任务列表 */
+.task-list { padding: 0 24rpx; display: flex; flex-direction: column; gap: 16rpx; }
 
 .task-card {
   background: #fff;
@@ -23,11 +23,11 @@
   padding: 24rpx;
   display: flex;
   align-items: center;
-  /* gap: 20rpx; */
+  gap: 20rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
 }
 
-/* 璇剧▼鍥炬爣 */
+/* 课程图标 */
 .task-icon-wrap {
   width: 88rpx;
   height: 88rpx;
@@ -41,11 +41,11 @@
 
 .task-info { flex: 1; min-width: 0; overflow: hidden; }
 .task-name { font-size: 30rpx; font-weight: 600; color: #1a1a1a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.task-sub-row { display: flex; align-items: center; /* gap: 6rpx; */ margin-top: 6rpx; }
+.task-sub-row { display: flex; align-items: center; gap: 6rpx; margin-top: 6rpx; }
 .task-clock { font-size: 20rpx; }
 .task-sub { font-size: 22rpx; color: #aaa; }
 
-/* 鎵撳崱鎸夐挳 */
+/* 打卡按钮 */
 .btn-checkin {
   background: #07C160;
   color: #fff;
@@ -75,7 +75,7 @@
   border: 2rpx solid #07C160;
 }
 
-/* ===== 宸︽粦鍒犻櫎锛堟墦鍗￠〉锛?===== */
+/* ===== 左滑删除（打卡页） ===== */
 .swipe-wrap {
   position: relative;
   overflow: hidden;
@@ -115,7 +115,7 @@
 .swipe-btn.btn-undo { background: #FF9600; }
 .swipe-btn.btn-delete { background: #FF4D4F; }
 
-/* 鍒犻櫎鎸夐挳锛堜繚鐣欏師鏍峰紡浣滀负澶囩敤锛?*/
+/* 删除按钮（保留原样式作为备用） */
 .btn-delete {
   width: 56rpx;
   height: 56rpx;
@@ -129,13 +129,13 @@
 .btn-delete:active { background: #e8e8e8; }
 .delete-icon { font-size: 28rpx; }
 
-/* 绌虹姸鎬?*/
+/* 空状态 */
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 80rpx 0;
-  /* gap: 20rpx; */
+  gap: 20rpx;
 }
 .empty-emoji { font-size: 80rpx; }
 .empty-text { font-size: 28rpx; color: #999; }
@@ -149,7 +149,7 @@
   margin-top: 10rpx;
 }
 
-/* 鏃ュ巻鍗＄墖 */
+/* 日历卡片 */
 .calendar-card {
   margin: 0 24rpx;
   margin-top: 0;
@@ -194,19 +194,19 @@
   box-shadow: 0 4rpx 12rpx rgba(28,176,246,0.35);
 }
 .date-cell.selected.heat-0 { color: #fff !important; }
-/* 鐑姏鍥剧瓑绾ч鑹?*/
+/* 热力图等级颜色 */
 .date-cell.heat-0 { background: #f8f9fa; }
 .date-cell.heat-1 { background: #c6f6d5; color: #276749; }
 .date-cell.heat-2 { background: #68d391; color: #fff; font-weight: 600; }
 .date-cell.heat-3 { background: #38a169; color: #fff; font-weight: 700; }
 .date-cell.heat-4 { background: #07C160; color: #fff; font-weight: 800; }
 
-/* 鐑姏鍥惧浘渚?*/
+/* 热力图图例 */
 .heat-legend {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  /* gap: 6rpx; */
+  gap: 6rpx;
   margin-top: 16rpx;
   padding-top: 12rpx;
   border-top: 1rpx solid #f2f3f5;
@@ -223,7 +223,7 @@
 .legend-dot.heat-3 { background: #38a169; }
 .legend-dot.heat-4 { background: #07C160; }
 
-/* 鍘嗗彶寮圭獥 */
+/* 历史弹窗 */
 .modal-task-name {
   text-align: center;
   font-size: 30rpx;
@@ -244,7 +244,7 @@
 .history-date { color: #07C160; font-weight: 600; }
 .history-remark { color: #999; flex: 1; text-align: right; padding-left: 20rpx; }
 
-/* 鎵撳崱鎴愬姛鍔ㄧ敾 */
+/* 打卡成功动画 */
 .success-overlay {
   position: fixed;
   top: 0;
@@ -266,7 +266,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 24rpx; */
+  gap: 24rpx;
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 @keyframes popIn {
@@ -306,7 +306,7 @@
   color: rgba(255,255,255,0.8);
 }
 
-/* 鎾掕姳绮掑瓙 */
+/* 撒花粒子 */
 .confetti-container {
   position: absolute;
   top: 0;
@@ -333,5 +333,3 @@
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
-
-
