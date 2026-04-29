@@ -241,9 +241,11 @@ button:active {
 .modal-title {
   font-size: 34rpx;
   font-weight: 800;
-  text-align: center;
   margin-bottom: 32rpx;
   color: var(--text-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modal-textarea {
   width: 100%;
@@ -267,7 +269,9 @@ button:active {
   font-weight: 800;
   border: none;
   padding: 22rpx 0;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--green);
   color: #fff;
   box-shadow: 0 4rpx 0 var(--green-dark);
@@ -306,26 +310,21 @@ button:active {
 
 /* ===== 空状态 ===== */
 .empty-state, .empty-tip {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 60rpx 0;
   color: var(--text-3);
   font-size: 26rpx;
 }
 
-/* ===== 全局文字居中（独立文字块） ===== */
-.quick-label,
-.stat-val,
-.stat-label,
-.task-badge,
-.bar-label,
-.ring-label,
-.chart-total-label,
-.chart-total-val,
-.milestone-text,
-.quote-text,
-.quote-author {
-  text-align: center;
-}
+/* ===== 全局文字居中（flex方式） ===== */
+/* 通过父容器 display:flex + align-items:center + justify-content:center 实现 */
+/* 以下元素已确认使用flex居中：*/
+/* .quick-item, .stat-item, .bar-item, .task-badge, .btn-checkin */
+/* .tab, .pri-btn, .menu-item, .achievement-item, .btn-add */
+/* .modal-btn, .input, .fab, .empty-state, .date-cell */
 
 /* ===== 进度条 ===== */
 .progress-bar {

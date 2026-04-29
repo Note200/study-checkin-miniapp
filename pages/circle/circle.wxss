@@ -181,7 +181,8 @@
 .comment-input {
   flex: 1;
   height: 64rpx;
-  line-height: 64rpx;
+  display: flex;
+  align-items: center;
   background: var(--bg);
   border-radius: 32rpx;
   padding: 0 24rpx;
@@ -252,7 +253,9 @@
 .modal-btn {
   flex: 1;
   height: 88rpx;
-  line-height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 44rpx;
   font-size: 30rpx;
   font-weight: 700;

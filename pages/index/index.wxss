@@ -110,6 +110,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 28rpx 0;
   gap: 12rpx;
   transition: transform 0.15s ease;
@@ -235,6 +236,7 @@
 .stat-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 12rpx;
 }
 .stat-val {
@@ -321,6 +323,10 @@
   padding: 6rpx 16rpx;
   border-radius: 20rpx;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40rpx;
 }
 .badge-done {
   background: var(--green-light);
@@ -349,6 +355,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   flex: 1;
   gap: 8rpx;
   position: relative;

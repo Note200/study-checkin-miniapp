@@ -223,7 +223,9 @@
 .logout-btn {
   background: #fff;
   border-radius: 50rpx;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 28rpx 0;
   font-size: 30rpx;
   color: var(--red);
@@ -233,7 +235,9 @@
 .logout-btn:active { opacity: 0.75; }
 
 .version {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 32rpx 0 0;
   font-size: 22rpx;
   color: #ccc;

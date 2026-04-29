@@ -25,6 +25,10 @@
   font-size: 26rpx;
   color: #666;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rpx;
 }
 .tab.active {
   background: var(--green);
@@ -39,7 +43,10 @@
   padding: 14rpx 28rpx;
   font-size: 26rpx;
   font-weight: 600;
-  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rpx;
   box-shadow: 0 4rpx 12rpx rgba(7,193,96,0.3);
   white-space: nowrap;
 }
@@ -171,6 +178,10 @@
   background: #f0f0f0;
   color: #666;
   border: 2rpx solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48rpx;
 }
 .pri-btn.active-green  { background: var(--green-light); color: var(--green); border-color: var(--green); }
 .pri-btn.active-orange { background: var(--orange-light); color: var(--orange); border-color: var(--orange); }
