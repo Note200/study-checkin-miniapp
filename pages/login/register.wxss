@@ -8,6 +8,28 @@ page { background: var(--bg); }
   align-items: center;
   justify-content: center;
   padding: 60rpx 0;
+  position: relative;
+  overflow: hidden;
+}
+.container::before {
+  content: '';
+  position: absolute;
+  top: -80rpx;
+  right: -60rpx;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.container::after {
+  content: '';
+  position: absolute;
+  bottom: 120rpx;
+  left: -100rpx;
+  width: 400rpx;
+  height: 400rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
 }
 
 .logo-wrap {
