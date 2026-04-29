@@ -1,11 +1,11 @@
 // pages/course/course.js
 const app = getApp()
 
-// 预定义课程配色
+// 预定义课程配色（参考用户原图风格）
 const COURSE_COLORS = [
-  '#07C160', '#FF6B6B', '#4ECDC4', '#45B7D1',
-  '#96CEB4', '#FFEAA7', '#DDA0DD', '#FF9FF3',
-  '#54A0FF', '#5F27CD'
+  '#5B8FF9', '#5AD8A6', '#F6BD16', '#E8684A',
+  '#6DC8EC', '#9270CA', '#FF9D4D', '#269A99',
+  '#FF99C3', '#FF7875'
 ]
 
 Page({
@@ -15,8 +15,8 @@ Page({
     weeks: [],
     currentWeek: 1,
     courses: [],       // 列表视图数据
-    gridData: [],      // 格子视图数据 (7 x 节次)
-    maxSection: 12,    // 最大节数
+    gridData: [],      // 格子视图数据 (8行 x 7列)
+    maxSection: 8,     // 固定8节课
     allCourses: [],    // 当周所有课程
     showGrid: true,    // 默认显示格子视图
     todayDay: 1        // 今天星期几
@@ -78,22 +78,17 @@ Page({
     }
   },
 
-  // 生成格子数据
+  // 生成格子数据（8行 x 7列网格）
   generateGrid(allCourses) {
     const { currentWeek } = this.data
-    let maxSection = 12
+    const maxSection = 8  // 固定8节课
 
     // 筛选当前周有课的课程
     const weekCourses = allCourses.filter(c => {
       return c.startWeek <= currentWeek && c.endWeek >= currentWeek
     })
 
-    // 计算最大节数
-    weekCourses.forEach(c => {
-      if (c.endSection > maxSection) maxSection = c.endSection
-    })
-
-    // 构建 7 x maxSection 网格
+    // 构建 8行 x 7列网格
     const grid = []
     for (let section = 1; section <= maxSection; section++) {
       const row = { section, cells: [] }
@@ -107,7 +102,7 @@ Page({
           section,
           course: course && course.startSection === section ? course : null,
           span: course && course.startSection === section ? (course.endSection - course.startSection + 1) : 1,
-          isContinue: course && course.startSection < section // 不是课程的起始行
+          isContinue: course && course.startSection < section  // 非起始行标记
         })
       }
       grid.push(row)

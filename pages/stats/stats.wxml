@@ -1,0 +1,69 @@
+<!-- pages/stats/stats.wxml -->
+<view class="stats-page">
+  <!-- 顶部概览 -->
+  <view class="overview">
+    <view class="stat-card">
+      <text class="stat-value">{{totalDays}}</text>
+      <text class="stat-label">打卡天数</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-value">{{totalHours}}</text>
+      <text class="stat-label">学习时长(h)</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-value">{{totalTasks}}</text>
+      <text class="stat-label">完成任务</text>
+    </view>
+  </view>
+
+  <!-- 本周学习时长柱状图 -->
+  <view class="section">
+    <view class="section-title">本周学习时长</view>
+    <view class="bar-chart">
+      <view class="bar-item" wx:for="{{weekData}}" wx:key="day">
+        <view class="bar-wrapper">
+          <view class="bar" style="height: {{item.height}}rpx; background: {{item.isToday ? '#58CC02' : '#E5E5E5'}}">
+            <text class="bar-value" wx:if="{{item.hours > 0}}">{{item.hours}}</text>
+          </view>
+        </view>
+        <text class="bar-label {{item.isToday ? 'today' : ''}}">{{item.day}}</text>
+      </view>
+    </view>
+    <view class="week-total">本周累计 {{weekTotal}} 小时</view>
+  </view>
+
+  <!-- 本月打卡热力图 -->
+  <view class="section">
+    <view class="section-title">本月打卡日历</view>
+    <view class="calendar-header">
+      <text class="calendar-month">{{calendarYear}}年{{calendarMonth}}月</text>
+    </view>
+    <view class="calendar-weekdays">
+      <text wx:for="{{weekdays}}" wx:key="*this" class="weekday">{{item}}</text>
+    </view>
+    <view class="calendar-grid">
+      <view class="calendar-day {{item.isToday ? 'today' : ''}} {{item.checked ? 'checked' : ''}} {{item.isEmpty ? 'empty' : ''}}"
+            wx:for="{{calendarDays}}" wx:key="date">
+        <text class="day-text">{{item.day}}</text>
+        <view class="check-dot" wx:if="{{item.checked}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡任务完成率 -->
+  <view class="section">
+    <view class="section-title">任务完成情况</view>
+    <view class="task-stats">
+      <view class="task-stat-item" wx:for="{{taskStats}}" wx:key="id">
+        <view class="task-info">
+          <text class="task-name">{{item.title}}</text>
+          <text class="task-progress">{{item.checkedDays}}/{{item.targetDays}}天</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.rate}}%"></view>
+        </view>
+      </view>
+      <view class="empty-tip" wx:if="{{taskStats.length === 0}}">暂无打卡任务</view>
+    </view>
+  </view>
+</view>

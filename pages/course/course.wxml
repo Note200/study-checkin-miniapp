@@ -28,32 +28,28 @@
       </view>
     </view>
 
-    <!-- 格子主体 -->
-    <scroll-view scroll-y class="grid-body" style="max-height: 80vh;">
-      <view class="grid-row" wx:for="{{gridData}}" wx:key="section">
-        <!-- 节次标签 -->
-        <view class="grid-section-label">
-          <text class="section-num">{{item.section}}</text>
-        </view>
-        <!-- 7天的格子 -->
-        <view class="grid-cell {{cell.course ? 'has-course' : ''}}" 
-          wx:for="{{item.cells}}" 
-          wx:for-item="cell" 
-          wx:key="index"
-          wx:if="{{!cell.isContinue}}"
-          style="height: {{cell.span * 140}}rpx;"
-          bindtap="{{cell.course ? 'editCourse' : ''}}"
-          bindlongpress="{{cell.course ? 'deleteCourse' : ''}}"
-          data-id="{{cell.course.id}}">
-          <view 
-            class="cell-content" 
-            wx:if="{{cell.course}}"
-            style="background: {{cell.course.color}};">
-            <text class="cell-name">{{cell.course.name}}</text>
-            <text class="cell-info">{{cell.course.classroom}}</text>
+    <!-- 格子主体：flex 行布局 -->
+    <scroll-view scroll-y class="grid-body" style="flex: 1; height: auto;">
+      <block wx:for="{{gridData}}" wx:key="section">
+        <view class="grid-row">
+          <!-- 节次标签 -->
+          <view class="grid-section-label">
+            <text class="section-num">{{item.section}}</text>
           </view>
+          <!-- 7天格子 -->
+          <block wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell">
+            <view class="grid-cell {{cell.course && !cell.isContinue ? 'has-course' : ''}} {{cell.isContinue ? 'is-continue' : ''}}">
+              <!-- 只有起始格子才显示课程内容，跨行课程向下撑满 -->
+              <view wx:if="{{cell.course && !cell.isContinue}}"
+                class="cell-content"
+                style="background: {{cell.course.color}}; height: {{cell.span * 100 - 6}}rpx; margin-top: 3rpx;">
+                <text class="cell-name">{{cell.course.name}}</text>
+                <text class="cell-info">{{cell.course.teacher}}·{{cell.course.classroom}}</text>
+              </view>
+            </view>
+          </block>
         </view>
-      </view>
+      </block>
     </scroll-view>
   </view>
 

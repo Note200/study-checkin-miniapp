@@ -180,6 +180,7 @@ Page({
   goAdmin()   { wx.navigateTo({ url: '/pages/admin/admin' }) },
   goRank()    { wx.navigateTo({ url: '/pages/rank/rank' }) },
   goCircle()  { wx.navigateTo({ url: '/pages/circle/circle' }) },
+  goStats()   { wx.navigateTo({ url: '/pages/stats/stats' }) },
 
   // 左滑手势
   onSwipeStart(e) {

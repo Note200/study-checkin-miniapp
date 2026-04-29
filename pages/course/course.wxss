@@ -1,8 +1,10 @@
 /* ===== 课程表页 ===== */
 .container {
   background: var(--bg);
-  min-height: 100vh;
-  padding-bottom: 160rpx;
+  height: calc(100vh - 120rpx);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* 顶部栏 */
@@ -50,6 +52,8 @@
   justify-content: center;
   box-shadow: 0 4rpx 16rpx rgba(7,193,96,0.4);
   z-index: 100;
+  color: #fff;
+  font-size: 48rpx;
 }
 
 /* ===== 格子视图 ===== */
@@ -87,65 +91,80 @@
 
 .grid-body {
   background: #fff;
+  flex: 1;
+  overflow: auto;
 }
+
+/* 每行（一节课）—— 固定高度 */
 .grid-row {
   display: flex;
-  min-height: 140rpx;
+  height: 100rpx;
+  border-bottom: 1rpx solid #f0f0f0;
 }
+
+/* 节次标签列 */
 .grid-section-label {
   width: 70rpx;
+  height: 100rpx;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding-top: 16rpx;
   border-right: 1rpx solid #f0f0f0;
-  border-bottom: 1rpx solid #f5f5f5;
   flex-shrink: 0;
   background: #fafafa;
 }
-.section-num { font-size: 24rpx; color: #666; font-weight: 600; }
+.section-num { font-size: 24rpx; color: #888; font-weight: 600; }
+
+/* 单个格子 */
 .grid-cell {
   flex: 1;
-  border-right: 1rpx solid #f5f5f5;
-  border-bottom: 1rpx solid #f5f5f5;
-  padding: 4rpx;
-  min-height: 140rpx;
-  background: #fff;
+  height: 100rpx;
+  border-right: 1rpx solid #f0f0f0;
+  position: relative;
+  box-sizing: border-box;
+  padding: 3rpx;
 }
 .grid-cell:last-child { border-right: none; }
-.grid-cell.has-course {
-  padding: 2rpx;
+
+/* 跨行课程的后续格子（被课程遮挡，显示空白）*/
+.grid-cell.is-continue {
+  visibility: hidden;
 }
 
+/* 课程内容块 */
 .cell-content {
-  height: 100%;
-  border-radius: 12rpx;
-  padding: 12rpx 10rpx;
+  position: absolute;
+  top: 3rpx;
+  left: 3rpx;
+  right: 3rpx;
+  bottom: 3rpx;
+  border-radius: 10rpx;
+  padding: 6rpx 8rpx;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 8rpx;
+  justify-content: center;
   overflow: hidden;
+  box-sizing: border-box;
+  z-index: 2;
 }
 .cell-name {
-  font-size: 22rpx;
+  font-size: 20rpx;
   font-weight: 600;
   color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
   line-height: 1.3;
   text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.15);
 }
 .cell-info {
-  font-size: 18rpx;
-  color: rgba(255,255,255,0.9);
+  font-size: 16rpx;
+  color: rgba(255,255,255,0.85);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.15);
+  margin-top: 2rpx;
 }
 
 /* ===== 列表视图 ===== */

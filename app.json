@@ -11,7 +11,8 @@
     "pages/profile/profile",
     "pages/admin/admin",
     "pages/rank/rank",
-    "pages/circle/circle"
+    "pages/circle/circle",
+    "pages/stats/stats"
   ],
   "window": {
     "backgroundTextStyle": "light",

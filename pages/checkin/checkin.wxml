@@ -14,7 +14,7 @@
         damping="30"
         friction="5"
         out-of-bounds
-        change:e.swipeChange="onSwipeChange"
+        bindchange="onSwipeChange"
         data-index="{{index}}">
         <!-- 前景卡片 -->
         <view class="task-card card-animate {{item._x < -60 ? 'swiped' : ''}}">

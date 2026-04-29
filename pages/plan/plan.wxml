@@ -20,7 +20,7 @@
         damping="30"
         friction="5"
         out-of-bounds
-        change:e.swipeChange="onSwipeChange"
+        bindchange="onSwipeChange"
         data-index="{{index}}"
         id="swipe-{{index}}">
         <!-- 前景卡片 -->

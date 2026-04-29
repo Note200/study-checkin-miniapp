@@ -52,6 +52,10 @@
       <image class="quick-icon-img" src="/assets/icons/quick-circle.png" mode="aspectFit"/>
       <text class="quick-label">班级圈</text>
     </view>
+    <view class="quick-item" bindtap="goStats">
+      <image class="quick-icon-img" src="/assets/icons/quick-stats.png" mode="aspectFit"/>
+      <text class="quick-label">学习统计</text>
+    </view>
     <view class="quick-item" bindtap="goProfile">
       <image class="quick-icon-img" src="/assets/icons/quick-profile.png" mode="aspectFit"/>
       <text class="quick-label">我的</text>
