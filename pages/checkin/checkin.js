@@ -11,6 +11,7 @@ Page({
     currentTask: null,
     showCheckinModal: false,
     checkinRemark: '',
+    checkinDate: '',
     showHistory: false,
     historyList: [],
     calendarYear: new Date().getFullYear(),
@@ -90,7 +91,19 @@ Page({
   openCheckin(e) {
     const taskId = e.currentTarget.dataset.id
     const task = this.data.tasks.find(t => t.id === taskId)
-    this.setData({ currentTask: task, showCheckinModal: true, checkinRemark: '' })
+    const today = this._fmtDate(new Date())
+    this.setData({ currentTask: task, showCheckinModal: true, checkinRemark: '', checkinDate: today })
+  },
+
+  _fmtDate(d) {
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return y + '-' + m + '-' + day
+  },
+
+  onDateChange(e) {
+    this.setData({ checkinDate: e.detail.value })
   },
 
   closeModal() { this.setData({ showCheckinModal: false }) },
@@ -101,12 +114,12 @@ Page({
   onRemarkInput(e) { this.setData({ checkinRemark: e.detail.value }) },
 
   async doCheckin() {
-    const { currentTask, checkinRemark } = this.data
+    const { currentTask, checkinRemark, checkinDate } = this.data
     try {
       const res = await app.request({
         url: '/api/checkin/do',
         method: 'POST',
-        data: { taskId: currentTask.id, remark: checkinRemark }
+        data: { taskId: currentTask.id, remark: checkinRemark, checkinDate: checkinDate }
       })
       if (res.code === 200) {
         this.closeModal()

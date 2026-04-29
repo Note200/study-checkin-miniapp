@@ -115,6 +115,12 @@
     <view class="modal-content" catchtap="preventClose">
       <view class="modal-title">今日打卡</view>
       <view class="modal-task-name">{{currentTask.title}}</view>
+      <view class="modal-date-row">
+        <text class="modal-date-label">打卡日期</text>
+        <picker mode="date" value="{{checkinDate}}" bindchange="onDateChange">
+          <view class="date-picker-btn">{{checkinDate || '选择日期'}}</view>
+        </picker>
+      </view>
       <view class="modal-textarea-wrap">
         <textarea class="modal-textarea" placeholder="说点什么吧（可选）" bindinput="onRemarkInput" value="{{checkinRemark}}" style="width:100%;box-sizing:border-box;" />
       </view>
