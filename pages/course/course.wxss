@@ -40,7 +40,19 @@ page {
   margin-left: 10rpx;
 }
 
-/* ===== 课表滚动区（微信文档：scroll-view 需固定高度） ===== */
+/* 滑动提示条 */
+.swipe-hint {
+  text-align: center;
+  padding: 6rpx 0;
+  background: var(--card-bg, #fff);
+  border-bottom: 1rpx solid var(--border, #eee);
+}
+.hint-text {
+  font-size: 20rpx;
+  color: var(--text-3, #bbb);
+}
+
+/* ===== 课表滚动区 ===== */
 .timetable-scroll {
   flex: 1;
   height: 0;
@@ -137,6 +149,7 @@ page {
   position: relative;
   width: calc(750rpx - 70rpx);
   min-height: calc(12 * 120rpx + 5rpx);
+  background: #fff;
 }
 
 /* 水平分隔线 */
@@ -148,24 +161,15 @@ page {
   background: rgba(200, 200, 200, 0.3);
 }
 
-/* 竖直分隔线 */
-.v-line {
-  position: absolute;
-  top: 0;
-  width: 1rpx;
-  height: 100%;
-  background: rgba(200, 200, 200, 0.3);
-}
-
-/* 课程卡片（rpx 固定定位） */
+/* 课程卡片 — top/left 绝对定位 */
 .course-card {
   position: absolute;
-  width: calc(100% / 7 - 10rpx);
   box-sizing: border-box;
-  border-radius: 16rpx;
+  border-radius: 14rpx;
   padding: 8rpx 8rpx;
   overflow: hidden;
   z-index: 2;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.12);
 }
 .card-name {
   font-size: 20rpx;

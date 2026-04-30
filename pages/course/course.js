@@ -8,11 +8,9 @@ const COURSE_COLORS = [
 ]
 
 const SEMESTER_START = '2026-02-23'
-
-// 行高（rpx）
 const ROW_H = 120
+const LEFT_W = 70 // 左侧节次列宽度 rpx
 
-// 节次时间表
 const TIME_MAP = [
   { start: '8:00', end: '8:45' },
   { start: '8:55', end: '9:40' },
@@ -29,20 +27,21 @@ const TIME_MAP = [
 
 Page({
   data: {
-    weekDay: 1,
     weekDays: ['一', '二', '三', '四', '五', '六', '日'],
     weekDates: ['', '', '', '', '', '', ''],
     monthStr: '',
     weeks: [],
     currentWeek: 1,
-    courses: [],
-    maxSection: 12,
-    allCourses: [],
     todayDay: 1,
     gridRows: [],
     visibleCourses: [],
-    vLinePositions: [],
-    ROW_H: ROW_H
+    maxSection: 12,
+    ROW_H: ROW_H,
+    LEFT_W: LEFT_W,
+    // 滑动切周
+    touchStartX: 0,
+    touchStartY: 0,
+    swiping: false
   },
 
   onLoad() {
@@ -53,7 +52,7 @@ Page({
     const diffDays = Math.floor((new Date().getTime() - semesterStart.getTime()) / 86400000)
     const autoWeek = Math.max(1, Math.min(18, Math.floor(diffDays / 7) + 1))
     this.calcWeekDates(autoWeek)
-    this.setData({ todayDay, weekDay: todayDay, currentWeek: autoWeek })
+    this.setData({ todayDay, currentWeek: autoWeek })
   },
 
   onShow() { this.loadAllCourses() },
@@ -68,22 +67,56 @@ Page({
     const start = new Date(SEMESTER_START)
     const monday = new Date(start.getTime() + (weekNum - 1) * 7 * 86400000)
     const dates = []
-    const today = new Date()
     for (let i = 0; i < 7; i++) {
       const d = new Date(monday.getTime() + i * 86400000)
       dates.push((d.getMonth() + 1) + '/' + d.getDate())
     }
-    // 月份
-    const m = new Date(monday.getTime())
-    const monthStr = (m.getMonth() + 1) + '月'
+    const monthStr = (monday.getMonth() + 1) + '月'
     this.setData({ weekDates: dates, monthStr })
   },
 
+  // picker 切周
   onWeekChange(e) {
     const week = this.data.weeks[e.detail.value]
+    this.switchToWeek(week)
+  },
+
+  // 滑动手势切周
+  onGridTouchStart(e) {
+    const t = e.touches[0]
+    this.setData({ touchStartX: t.clientX, touchStartY: t.clientY, swiping: false })
+  },
+
+  onGridTouchMove(e) {
+    const t = e.touches[0]
+    const dx = t.clientX - this.data.touchStartX
+    const dy = t.clientY - this.data.touchStartY
+    // 水平滑动超过40px且水平位移>垂直位移
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      this.setData({ swiping: true })
+    }
+  },
+
+  onGridTouchEnd(e) {
+    if (!this.data.swiping) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - this.data.touchStartX
+    if (dx < -40) {
+      // 左滑 → 下一周
+      this.switchToWeek(Math.min(18, this.data.currentWeek + 1))
+    } else if (dx > 40) {
+      // 右滑 → 上一周
+      this.switchToWeek(Math.max(1, this.data.currentWeek - 1))
+    }
+    this.setData({ swiping: false })
+  },
+
+  switchToWeek(week) {
+    if (week === this.data.currentWeek) return
+    wx.vibrateShort({ type: 'light' })
     this.calcWeekDates(week)
     this.setData({ currentWeek: week })
-    this.loadAllCourses()
+    this.generateGrid(this.data.allCourses)
   },
 
   async loadAllCourses() {
@@ -105,25 +138,18 @@ Page({
   generateGrid(allCourses) {
     const { currentWeek, maxSection } = this.data
 
-    // grid-area 宽度 = 750 - 70（左侧节次列）
-    const gridW = 750 - 70
-    // 列宽 = gridW / 7
-    const colW = Math.floor(gridW / 7)
+    // 列宽 = (750 - 左侧列宽) / 7
+    const gridW = 750 - LEFT_W
+    const colW = gridW / 7
 
-    // 竖线位置（8条线，rpx 固定值）
-    const vLinePositions = []
-    for (let i = 0; i <= 7; i++) {
-      vLinePositions.push(i * colW)
-    }
-
-    // 构造节次行数据（含时间）
+    // 构造节次行数据
     const gridRows = []
     for (let section = 1; section <= maxSection; section++) {
       const tm = TIME_MAP[section - 1] || { start: '', end: '' }
       gridRows.push({ section, startTime: tm.start, endTime: tm.end })
     }
 
-    // 筛选当前周可见课程
+    // 筛选当前周课程
     const visible = allCourses
       .filter(c => {
         if (currentWeek < (c.startWeek || 1) || currentWeek > (c.endWeek || 18)) return false
@@ -140,13 +166,15 @@ Page({
         const row = (c.startSection || 1) - 1 // 0-based
         return {
           ...c,
-          _left: col * colW + 4,              // rpx 固定值
-          _top: row * ROW_H + 5,             // rpx 定位
-          _height: span * ROW_H - 10         // rpx 高度
+          // 用 top/left 绝对定位，不用 margin
+          _top: row * ROW_H + 4,
+          _left: col * colW + 3,
+          _width: colW - 6,
+          _height: span * ROW_H - 8
         }
       })
 
-    this.setData({ gridRows, maxSection, visibleCourses: visible, vLinePositions })
+    this.setData({ gridRows, maxSection, visibleCourses: visible })
   },
 
   addCourse() { wx.navigateTo({ url: '/pages/course/add' }) },
