@@ -12,9 +12,9 @@ page {
 /* ===== 顶栏 ===== */
 .top-bar {
   background: var(--card-bg, #fff);
-  padding: 16rpx 24rpx;
+  padding: 14rpx 24rpx;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
 }
@@ -39,18 +39,12 @@ page {
   color: var(--green, #58CC02);
   margin-left: 10rpx;
 }
-
-/* 滑动提示条 */
-.swipe-hint {
-  text-align: center;
-  padding: 6rpx 0;
-  background: var(--card-bg, #fff);
-  border-bottom: 1rpx solid var(--border, #eee);
-}
 .hint-text {
   font-size: 20rpx;
   color: var(--text-3, #bbb);
 }
+
+
 
 /* ===== 课表滚动区 ===== */
 .timetable-scroll {

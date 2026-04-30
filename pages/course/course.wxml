@@ -1,5 +1,5 @@
 <view class="container">
-  <!-- 顶部栏 -->
+  <!-- 顶部栏：周选择器 + 滑动提示同行 -->
   <view class="top-bar">
     <view class="week-selector">
       <picker mode="selector" range="{{weeks}}" value="{{currentWeek - 1}}" bindchange="onWeekChange">
@@ -9,10 +9,6 @@
         </view>
       </picker>
     </view>
-  </view>
-
-  <!-- 提示条 -->
-  <view class="swipe-hint" wx:if="{{currentWeek <= 18}}">
     <text class="hint-text">← 左右滑动切换周次 →</text>
   </view>
 
