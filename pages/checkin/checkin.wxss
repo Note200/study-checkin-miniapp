@@ -1,6 +1,6 @@
 /* ===== 打卡页 ===== */
 .container {
-  background: #f4f6f8;
+  background: var(--bg);
   min-height: 100vh;
   padding-bottom: 160rpx;
 }
@@ -112,9 +112,9 @@
   font-weight: 600;
   color: #fff;
 }
-.swipe-btn.btn-do { background: #07C160; }
-.swipe-btn.btn-undo { background: #FF9600; }
-.swipe-btn.btn-delete { background: #FF4D4F; }
+.swipe-btn.btn-do { background: var(--green); }
+.swipe-btn.btn-undo { background: var(--orange); }
+.swipe-btn.btn-delete { background: var(--red); }
 
 /* 删除按钮（保留原样式作为备用） */
 .btn-delete {
@@ -139,9 +139,9 @@
   gap: 20rpx;
 }
 .empty-emoji { font-size: 80rpx; }
-.empty-text { font-size: 28rpx; color: #999; }
+.empty-text { font-size: 28rpx; color: var(--text-3); }
 .btn-create {
-  background: #07C160;
+  background: var(--green);
   color: #fff;
   border-radius: 40rpx;
   font-size: 28rpx;

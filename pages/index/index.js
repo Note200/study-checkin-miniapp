@@ -67,8 +67,7 @@ Page({
     touchStartX: 0,
     touchCurrentX: 0,
     swipingIndex: -1,
-    tooltipIndex: -1,
-    todayDate: ''
+    tooltipIndex: -1
   },
 
   onShow() {
@@ -78,14 +77,12 @@ Page({
     const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000)
     const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length]
     const weekDays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
-    const todayDate = (now.getMonth()+1) + '月' + now.getDate() + '日 ' + weekDays[now.getDay()]
     this.setData({
       userInfo: info,
       isAdmin: info && info.role === 1,
       greeting: this._getGreeting(),
       motivation: MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)],
-      dailyQuote: quote,
-      todayDate: todayDate
+      dailyQuote: quote
     })
     this.loadData()
   },
@@ -226,15 +223,15 @@ Page({
     }
   },
 
-  // 导航方法
-  goCheckin() { wx.switchTab({ url: '/pages/checkin/checkin' }) },
-  goCourse()  { wx.switchTab({ url: '/pages/course/course' }) },
-  goPlan()    { wx.switchTab({ url: '/pages/plan/plan' }) },
-  goProfile() { wx.switchTab({ url: '/pages/profile/profile' }) },
-  goAdmin()   { wx.navigateTo({ url: '/pages/admin/admin' }) },
-  goRank()    { wx.navigateTo({ url: '/pages/rank/rank' }) },
-  goCircle()  { wx.navigateTo({ url: '/pages/circle/circle' }) },
-  goStats()   { wx.navigateTo({ url: '/pages/stats/stats' }) },
+  // 导航方法 — 带触觉反馈
+  goCheckin() { wx.vibrateShort({type:'light'}); wx.switchTab({ url: '/pages/checkin/checkin' }) },
+  goCourse()  { wx.vibrateShort({type:'light'}); wx.switchTab({ url: '/pages/course/course' }) },
+  goPlan()    { wx.vibrateShort({type:'light'}); wx.switchTab({ url: '/pages/plan/plan' }) },
+  goProfile() { wx.vibrateShort({type:'light'}); wx.switchTab({ url: '/pages/profile/profile' }) },
+  goAdmin()   { wx.vibrateShort({type:'light'}); wx.navigateTo({ url: '/pages/admin/admin' }) },
+  goRank()    { wx.vibrateShort({type:'light'}); wx.navigateTo({ url: '/pages/rank/rank' }) },
+  goCircle()  { wx.vibrateShort({type:'light'}); wx.navigateTo({ url: '/pages/circle/circle' }) },
+  goStats()   { wx.vibrateShort({type:'light'}); wx.navigateTo({ url: '/pages/stats/stats' }) },
 
   // 左滑手势
   onSwipeStart(e) {
@@ -262,6 +259,7 @@ Page({
 
   // 快捷打卡/撤销
   quickCheckin(e) {
+    wx.vibrateShort({ type: 'medium' })
     const taskId = e.currentTarget.dataset.id
     const checked = e.currentTarget.dataset.checked
 

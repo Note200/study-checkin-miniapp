@@ -20,17 +20,9 @@
       </view>
     </view>
   </view>
-  <!-- 日期横幅 — 参考 kezhidao -->
-  <view class="date-banner">
-    <view class="date-text">📅 {{todayDate}}</view>
-    <view class="date-streak" wx:if="{{streakDays > 0}}">已坚持 {{streakDays}} 天 💪</view>
-  </view>
-
-  <!-- 每日名言卡片 -->
-  <view class="quote-card card-enter">
-    <view class="quote-mark">"</view>
-    <view class="quote-text">{{dailyQuote.text}}</view>
-    <view class="quote-author">—— {{dailyQuote.author}}</view>
+  <!-- 每日名言 — 紧凑单行 -->
+  <view class="quote-bar" wx:if="{{dailyQuote.text}}">
+    <text class="quote-inline">「{{dailyQuote.text}}」—— {{dailyQuote.author}}</text>
   </view>
 
   <!-- 公告横幅 -->
@@ -39,26 +31,23 @@
     <view class="notice-text">{{notice}}</view>
   </view>
 
-  <!-- 快捷功能 — 6个彩色入口 -->
-  <view class="section-header">
-    <view class="section-title">快捷功能</view>
-  </view>
+  <!-- 快捷功能 — 紧凑网格 -->
   <view class="quick-grid">
     <view class="quick-item" bindtap="goCheckin">
       <image class="quick-icon-img" src="/assets/icons/quick-checkin.png" mode="aspectFit"/>
-      <view class="quick-label">每日打卡</view>
-    </view>
-    <view class="quick-item" bindtap="goRank">
-      <image class="quick-icon-img" src="/assets/icons/quick-rank.png" mode="aspectFit"/>
-      <view class="quick-label">排行榜</view>
+      <view class="quick-label">打卡</view>
     </view>
     <view class="quick-item" bindtap="goCourse">
       <image class="quick-icon-img" src="/assets/icons/quick-course.png" mode="aspectFit"/>
-      <view class="quick-label">课程表</view>
+      <view class="quick-label">课表</view>
     </view>
     <view class="quick-item" bindtap="goPlan">
       <image class="quick-icon-img" src="/assets/icons/quick-plan.png" mode="aspectFit"/>
-      <view class="quick-label">学习计划</view>
+      <view class="quick-label">计划</view>
+    </view>
+    <view class="quick-item" bindtap="goRank">
+      <image class="quick-icon-img" src="/assets/icons/quick-rank.png" mode="aspectFit"/>
+      <view class="quick-label">排行</view>
     </view>
     <view class="quick-item" bindtap="goCircle">
       <image class="quick-icon-img" src="/assets/icons/quick-circle.png" mode="aspectFit"/>
@@ -66,11 +55,7 @@
     </view>
     <view class="quick-item" bindtap="goStats">
       <image class="quick-icon-img" src="/assets/icons/quick-stats.png" mode="aspectFit"/>
-      <view class="quick-label">学习统计</view>
-    </view>
-    <view class="quick-item" bindtap="goProfile">
-      <image class="quick-icon-img" src="/assets/icons/quick-profile.png" mode="aspectFit"/>
-      <view class="quick-label">我的</view>
+      <view class="quick-label">统计</view>
     </view>
   </view>
 
