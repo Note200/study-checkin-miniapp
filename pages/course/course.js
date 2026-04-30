@@ -168,6 +168,18 @@ Page({
       })
 
     this.setData({ gridRows: grid, maxSection, visibleCourses: visible })
+
+    // 用 wx.createAnimation 做卡片弹入动画
+    setTimeout(() => {
+      visible.forEach((c, idx) => {
+        setTimeout(() => {
+          const anim = wx.createAnimation({ duration: 400, timingFunction: 'ease-out' })
+          anim.scale(1).opacity(1).step()
+          const key = 'visibleCourses[' + this.data.visibleCourses.findIndex(v => v.id === c.id) + ']._anim'
+          this.setData({ [key]: anim.export() })
+        }, idx * 80)
+      })
+    }, 50)
   },
 
   async loadCourses() {
