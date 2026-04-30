@@ -14,8 +14,8 @@ const SEMESTER_START = '2026-02-23'
 Page({
   data: {
     weekDay: 1,
-    weekDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-    weekDates: ['', '', '', '', '', '', ''],  // 每天日期字符串
+    weekDays: ['周一', '周二', '周三', '周四', '周五'],
+    weekDates: ['', '', '', '', ''],  // 每天日期字符串
     todayDateStr: '',  // 今天的日期（如 '4/29'）
     weeks: [],
     currentWeek: 1,
@@ -64,8 +64,8 @@ Page({
     this._headerPx = 72 * pxPerRpx
     this._gridLeftPx = 0 // 网格左边即屏幕左边缘
     // 计算 rpx 定位常量（与 WXSS 对齐）
-    this._colW = 87  // 每列 rpx 宽度（680 / 7 ≈ 97，减去 padding 10）
-    this._colGap = 15 // 第一列左 margin
+    this._colW = 136  // 每列 rpx 宽度（(750-70)/5 = 136）
+    this._colGap = 70 // 第一列左 margin（节次标签宽度）
     this._rowH = 128 // 每行 rpx 高度
     // 查询网格实际屏幕位置（用于触摸坐标转换）
     setTimeout(() => {
@@ -100,7 +100,7 @@ Page({
     const today = new Date()
     const todayStr = (today.getMonth() + 1) + '/' + today.getDate()
     let todayDateStr = ''
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 5; i++) {
       const d = new Date(monday.getTime() + i * 86400000)
       const str = (d.getMonth() + 1) + '/' + d.getDate()
       dates.push(str)
@@ -172,15 +172,15 @@ Page({
     const grid = []
     for (let section = 1; section <= maxSection; section++) {
       const row = { section, cells: [] }
-      for (let day = 1; day <= 7; day++) {
+      for (let day = 1; day <= 5; day++) {
         row.cells.push({ day, section })
       }
       grid.push(row)
     }
 
     // 筛选当前周可见课程，计算 margin 定位（参考 kezhidao）
-    const COL_W = 87   // 每列宽度
-    const COL_GAP = 15 // 首列左边距
+    const COL_W = 136  // 每列宽度 (750-70)/5 = 136rpx
+    const COL_GAP = 70 // 首列左边距（节次标签宽度）
     const ROW_H = 128  // 每行高度
     const CARD_W = COL_W - 12 // 卡片宽度（每侧留 6rpx 间隙）
     const visible = allCourses
@@ -320,7 +320,7 @@ Page({
     const ROW_H = this._rowH || 128
     const gridTop = this._gridTopPx || 200
     const gridLeft = this._gridLeftPx || 0
-    const col = Math.max(0, Math.min(6, Math.floor((touch.clientX - gridLeft) / (COL_W * this._pxPerRpx))))
+    const col = Math.max(0, Math.min(4, Math.floor((touch.clientX - gridLeft) / (COL_W * this._pxPerRpx))))
     const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((touch.clientY + this._scrollY - gridTop) / (ROW_H * this._pxPerRpx))))
     this.setData({
       dragLeft: touch.clientX - (COL_W * this._pxPerRpx) / 2,
@@ -446,7 +446,7 @@ Page({
     const COL_W = this._colW || 87
     const ROW_H = this._rowH || 128
     const pxPerRpx = this._pxPerRpx || 1
-    const col = Math.max(0, Math.min(6, Math.floor((clientX - gridLeft) / (COL_W * pxPerRpx))))
+    const col = Math.max(0, Math.min(4, Math.floor((clientX - gridLeft) / (COL_W * pxPerRpx))))
     const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((clientY + this._scrollY - gridTop) / (ROW_H * pxPerRpx))))
     return this.data.visibleCourses.find(c => {
       const day = c.weekDay - 1

@@ -18,7 +18,8 @@
     <!-- 星期标题行 -->
     <view class="grid-header">
       <view class="grid-corner"><view class="grid-corner-text">节/日</view></view>
-      <view class="grid-day-header {{todayDateStr === weekDates[index] ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
+      <view class="grid-day-header {{todayDateStr === weekDates[index] ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index"
+        style="width: 136rpx; flex: none;">
         <view class="day-header-content">
           <view class="grid-day-name">{{item}}</view>
           <view class="grid-day-date">{{weekDates[index]}}</view>

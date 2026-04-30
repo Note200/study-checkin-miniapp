@@ -163,7 +163,8 @@
   pointer-events: none;
 }
 .grid-bg-cell {
-  flex: 1;
+  width: 136rpx;
+  flex: none;
   border-right: 1rpx solid #f0f0f0;
   box-sizing: border-box;
   background: #fff;
