@@ -150,20 +150,23 @@
 
 /* 网格背景 */
 .grid-bg {
-  position: absolute;
-  top: 0; left: 0; right: 0;
+  position: relative;
+  width: 750rpx;
   height: 1024rpx;
+  pointer-events: none;
 }
 .grid-bg-row {
   display: flex;
   height: 128rpx;
   border-bottom: 1rpx solid #f0f0f0;
+  pointer-events: none;
 }
 .grid-bg-cell {
   flex: 1;
   border-right: 1rpx solid #f0f0f0;
   box-sizing: border-box;
   background: #fff;
+  pointer-events: none;
 }
 .grid-bg-cell.section-label {
   width: 70rpx;
@@ -176,15 +179,7 @@
 }
 .grid-bg-section { font-size: 22rpx; color: #999; font-weight: 600; }
 
-/* 课程卡片叠层 */
-.course-layer {
-  position: absolute;
-  top: 0;
-  left: 70rpx;
-  right: 0;
-  height: 1024rpx;
-  pointer-events: none;
-}
+/* 课程卡片（margin 定位，与 kezhidao 一致） */
 .course-card-overlay {
   position: absolute;
   border-radius: 12rpx;

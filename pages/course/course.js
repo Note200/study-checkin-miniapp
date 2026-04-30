@@ -41,8 +41,6 @@ Page({
     _touchStartY: 0,
     _dragTimer: null,
     _dragStarted: false,
-    _cellPx: 0,
-    _rowPx: 0,
     _scrollY: 0,
     _headerPx: 0,
     _gridLeftPx: 0
@@ -63,12 +61,15 @@ Page({
     const sysInfo = wx.getSystemInfoSync()
     const pxPerRpx = sysInfo.windowWidth / 750
     this._pxPerRpx = pxPerRpx
-    this._cellPx = (sysInfo.windowWidth - 70 * pxPerRpx) / 7
-    this._rowPx = 128 * pxPerRpx
     this._headerPx = 72 * pxPerRpx
-    // 查询 scroll-view 实际屏幕位置
+    this._gridLeftPx = 0 // 网格左边即屏幕左边缘
+    // 计算 rpx 定位常量（与 WXSS 对齐）
+    this._colW = 87  // 每列 rpx 宽度（680 / 7 ≈ 97，减去 padding 10）
+    this._colGap = 15 // 第一列左 margin
+    this._rowH = 128 // 每行 rpx 高度
+    // 查询网格实际屏幕位置（用于触摸坐标转换）
     setTimeout(() => {
-      wx.createSelectorQuery().select('.grid-body').boundingClientRect(rect => {
+      wx.createSelectorQuery().select('.grid-bg').boundingClientRect(rect => {
         if (rect) {
           this._gridTopPx = rect.top
           this._gridLeftPx = rect.left
@@ -167,7 +168,7 @@ Page({
     const { currentWeek } = this.data
     const maxSection = 8
     const ROW_H = 128  // 每行128rpx（压低卡片）
-    const COL_W_PERCENT = 100 / 7  // 每列宽度百分比（相对course-layer，7列）
+    const COL_W = 87   // 每列宽度 rpx（680 / 7 ≈ 97，减去 padding）
     const GAP = 4  // 间隙rpx
 
     // 构建 8行 x 7列网格背景
@@ -180,7 +181,11 @@ Page({
       grid.push(row)
     }
 
-    // 筛选当前周可见课程，计算rpx定位
+    // 筛选当前周可见课程，计算 margin 定位（参考 kezhidao）
+    const COL_W = 87   // 每列宽度
+    const COL_GAP = 15 // 首列左边距
+    const ROW_H = 128  // 每行高度
+    const CARD_W = COL_W - 12 // 卡片宽度（每侧留 6rpx 间隙）
     const visible = allCourses
       .filter(c => {
         // 周次范围筛选
@@ -197,10 +202,10 @@ Page({
         const span = (c.endSection || c.startSection) - c.startSection + 1
         return {
           ...c,
-          _top: (c.startSection - 1) * ROW_H + GAP,
-          _left: (c.weekDay - 1) * COL_W_PERCENT + 0.5,
-          _width: COL_W_PERCENT - 1,
-          _height: span * ROW_H - GAP * 2
+          _top: (c.startSection - 1) * ROW_H + 3,       // margin-top: 3rpx 微调
+          _left: (c.weekDay - 1) * COL_W + COL_GAP,     // margin-left
+          _width: CARD_W,                                 // 固定宽度 rpx
+          _height: span * ROW_H - 5                       // 高度（减去间隙）
         }
       })
 
@@ -263,8 +268,8 @@ Page({
     const startX = touch.clientX
     const startY = touch.clientY
     // 确保网格位置已查询
-    if (!this._gridTopPx) {
-      wx.createSelectorQuery().select('.grid-body').boundingClientRect(rect => {
+    if (!this._gridTopPx && this._gridTopPx !== 0) {
+      wx.createSelectorQuery().select('.grid-bg').boundingClientRect(rect => {
         if (rect) {
           this._gridTopPx = rect.top
           this._gridLeftPx = rect.left
@@ -275,12 +280,18 @@ Page({
     this._dragTimer = setTimeout(() => {
       const course = this._findCourseAt(startX, startY)
       if (!course) return
+      const COL_W = this._colW || 87
+      const ROW_H = this._rowH || 128
+      const ghostW = (COL_W - 12) * this._pxPerRpx
+      const ghostH = ROW_H * this._pxPerRpx
       this.setData({
         dragging: true,
         _dragStarted: true,
         dragCourse: course,
-        dragLeft: startX - this._cellPx / 2,
-        dragTop: startY - this._rowPx / 2
+        dragLeft: startX - ghostW / 2,
+        dragTop: startY - ghostH / 2,
+        _ghostPxW: ghostW,
+        _ghostPxH: ghostH
       })
       wx.vibrateShort({ type: 'medium' })
     }, 500)
@@ -307,13 +318,16 @@ Page({
     }
     this._scrollY = e.currentTarget.scrollTop || 0
     const touch = e.touches[0]
+    const COL_W = this._colW || 87
+    const COL_GAP = this._colGap || 15
+    const ROW_H = this._rowH || 128
     const gridTop = this._gridTopPx || 200
-    const gridLeft = this._gridLeftPx || this._cellPx
-    const col = Math.max(0, Math.min(6, Math.round((touch.clientX - gridLeft) / this._cellPx)))
-    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.round((touch.clientY + this._scrollY - gridTop) / this._rowPx)))
+    const gridLeft = this._gridLeftPx || 0
+    const col = Math.max(0, Math.min(6, Math.floor((touch.clientX - gridLeft) / (COL_W * this._pxPerRpx))))
+    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((touch.clientY + this._scrollY - gridTop) / (ROW_H * this._pxPerRpx))))
     this.setData({
-      dragLeft: touch.clientX - this._cellPx / 2,
-      dragTop: touch.clientY - this._rowPx / 2,
+      dragLeft: touch.clientX - (COL_W * this._pxPerRpx) / 2,
+      dragTop: touch.clientY - (ROW_H * this._pxPerRpx) / 2,
       ghostCol: col,
       ghostRow: row
     })
@@ -372,14 +386,12 @@ Page({
       })
       return
     }
-    // 计算目标rpx位置
-    const COL_W = 100 / 7
-    const ROW_H = 128
-    const GAP = 4
+    const COL_W = this._colW || 87
+    const COL_GAP = this._colGap || 15
+    const ROW_H = this._rowH || 128
+    const CARD_W = COL_W - 12
     const span = (dragCourse.endSection || dragCourse.startSection) - dragCourse.startSection + 1
-    const targetLeft = (newDay - 1) * COL_W + 0.5
-    const targetTop = newSection * ROW_H + GAP
-    // 更新allCourses
+    // 更新 allCourses
     const allCourses = this.data.allCourses.map(c => {
       if (c.id === dragCourse.id) {
         return { ...c, weekDay: newDay, startSection: newSection, endSection: newSection + span - 1 }
@@ -433,9 +445,12 @@ Page({
   // 根据屏幕坐标查找课程
   _findCourseAt(clientX, clientY) {
     const gridTop = this._gridTopPx || 200
-    const gridLeft = this._gridLeftPx || this._cellPx
-    const col = Math.max(0, Math.min(6, Math.round((clientX - gridLeft) / this._cellPx)))
-    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.round((clientY + this._scrollY - gridTop) / this._rowPx)))
+    const gridLeft = this._gridLeftPx || 0
+    const COL_W = this._colW || 87
+    const ROW_H = this._rowH || 128
+    const pxPerRpx = this._pxPerRpx || 1
+    const col = Math.max(0, Math.min(6, Math.floor((clientX - gridLeft) / (COL_W * pxPerRpx))))
+    const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((clientY + this._scrollY - gridTop) / (ROW_H * pxPerRpx))))
     return this.data.visibleCourses.find(c => {
       const day = c.weekDay - 1
       const startRow = c.startSection - 1

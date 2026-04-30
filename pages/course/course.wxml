@@ -26,25 +26,24 @@
       </view>
     </view>
 
-    <!-- 格子主体 -->
+    <!-- 格子主体（单层：网格背景 + 课程卡片，参考 kezhidao margin 定位） -->
     <scroll-view scroll-y class="grid-body {{slideDir ? 'slide-' + slideDir + (slidePhase === 'out' ? ' slide-out' : ' slide-in') : ''}}"
       bindtouchstart="onGridTouchStart"
       bindtouchmove="onGridTouchMove"
       bindtouchend="onGridTouchEnd">
       <view class="grid-bg">
+        <!-- 网格行 -->
         <view class="grid-bg-row" wx:for="{{gridRows}}" wx:key="section">
           <view class="grid-bg-cell section-label">
             <view class="grid-bg-section">{{item.section}}</view>
           </view>
           <view class="grid-bg-cell" wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell"></view>
         </view>
-      </view>
-      <!-- 课程卡片叠层 -->
-      <view class="course-layer">
+        <!-- 课程卡片（margin 定位，与网格同行同列） -->
         <view 
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
-          class="course-card-overlay {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
-          style="top: {{c._top}}rpx; left: {{c._left}}%; width: {{c._width}}%; height: {{c._height}}rpx; background: {{c.color}};"
+          class="course-card-overlay"
+          style="margin-top: {{c._top}}rpx; margin-left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse">
           <view class="cell-name">{{c.name}}</view>
           <view class="cell-info">{{c.teacher}}</view>
@@ -54,7 +53,7 @@
     </scroll-view>
     <!-- 拖拽幽灵卡片 -->
     <view wx:if="{{dragging}}" class="drag-ghost"
-      style="left: {{dragLeft}}px; top: {{dragTop}}px; width: {{_cellPx || 96}}px; height: {{_rowPx || 128}}px; background: {{dragCourse.color}};">
+      style="left: {{dragLeft}}px; top: {{dragTop}}px; width: {{_ghostPxW || 80}}px; height: {{_ghostPxH || 128}}px; background: {{dragCourse.color}};">
       <view class="cell-name">{{dragCourse.name}}</view>
       <view class="cell-info">{{dragCourse.teacher}}</view>
       <view class="cell-classroom">{{dragCourse.classroom}}</view>
