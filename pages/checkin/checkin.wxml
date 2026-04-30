@@ -102,7 +102,7 @@
     <view class="success-content">
       <view class="success-circle">
         <view class="success-check {{showSuccessAnim ? 'animate' : ''}}">
-          <view class="check-mark">✓</text>
+          <view class="check-mark">✓</view>
         </view>
       </view>
       <text class="success-text">打卡成功</text>
