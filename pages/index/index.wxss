@@ -98,12 +98,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0;
-  padding: 16rpx 24rpx 0;
+  padding: 16rpx 16rpx 8rpx;
   background: #fff;
   margin: 0 24rpx;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  border: 2rpx solid var(--border);
 }
 .quick-item {
   width: 33.33%;
@@ -111,10 +110,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 28rpx 0;
-  gap: 12rpx;
+  padding: 24rpx 0 16rpx;
+  gap: 10rpx;
   transition: transform 0.15s ease;
+  border-radius: 20rpx;
+  margin: 4rpx 0;
 }
+/* 每个入口不同颜色背景 — 参考 susu-mini-tem 彩色图标风格 */
+.quick-item:nth-child(1) { background: #e8f5e9; }
+.quick-item:nth-child(2) { background: #fff3e0; }
+.quick-item:nth-child(3) { background: #e3f2fd; }
+.quick-item:nth-child(4) { background: #f3e5f5; }
+.quick-item:nth-child(5) { background: #fce4ec; }
+.quick-item:nth-child(6) { background: #e0f7fa; }
+.quick-item:nth-child(7) { background: #fff8e1; }
 .quick-item:active {
   transform: scale(0.92);
 }
@@ -149,6 +158,10 @@
   overflow: hidden;
   position: relative;
   border: 2rpx solid var(--border);
+  transition: transform 0.15s ease;
+}
+.course-chip:active {
+  transform: scale(0.96);
 }
 .course-chip-bar {
   position: absolute;
@@ -163,12 +176,12 @@
   font-weight: 700;
   color: var(--text-1);
   margin-bottom: 8rpx;
-  padding-left: 12rpx;
+  padding-left: 16rpx;
 }
 .course-chip-info {
   font-size: 22rpx;
   color: var(--text-3);
-  padding-left: 12rpx;
+  padding-left: 16rpx;
 }
 
 /* 今日进度卡片 */
@@ -362,7 +375,7 @@
   z-index: 1;
 }
 .bar-wrap {
-  width: 40rpx;
+  width: 48rpx;
   height: 160rpx;
   display: flex;
   align-items: flex-end;
@@ -416,6 +429,25 @@
 }
 .chart-total-label { font-size: 24rpx; color: var(--text-3); }
 .chart-total-val { font-size: 34rpx; font-weight: 800; color: var(--green); }
+
+/* 日期横幅 — 参考 kezhidao 顶部日期显示 */
+.date-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 32rpx;
+  background: rgba(255,255,255,0.15);
+}
+.date-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.95);
+  font-weight: 600;
+}
+.date-streak {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+}
 
 /* 每日名言卡片 */
 .quote-card {
@@ -488,6 +520,9 @@
   from { opacity: 0; transform: translateY(30rpx); }
   to { opacity: 1; transform: translateY(0); }
 }
-.card-enter:nth-child(2) { animation-delay: 0.1s; }
-.card-enter:nth-child(3) { animation-delay: 0.2s; }
-.card-enter:nth-child(4) { animation-delay: 0.3s; }
+.card-enter:nth-child(2) { animation-delay: 0.08s; }
+.card-enter:nth-child(3) { animation-delay: 0.16s; }
+.card-enter:nth-child(4) { animation-delay: 0.24s; }
+.card-enter:nth-child(5) { animation-delay: 0.32s; }
+.card-enter:nth-child(6) { animation-delay: 0.40s; }
+.card-enter:nth-child(7) { animation-delay: 0.48s; }

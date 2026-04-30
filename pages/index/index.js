@@ -67,7 +67,8 @@ Page({
     touchStartX: 0,
     touchCurrentX: 0,
     swipingIndex: -1,
-    tooltipIndex: -1
+    tooltipIndex: -1,
+    todayDate: ''
   },
 
   onShow() {
@@ -76,12 +77,15 @@ Page({
     const now = new Date()
     const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000)
     const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length]
+    const weekDays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+    const todayDate = (now.getMonth()+1) + '月' + now.getDate() + '日 ' + weekDays[now.getDay()]
     this.setData({
       userInfo: info,
       isAdmin: info && info.role === 1,
       greeting: this._getGreeting(),
       motivation: MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)],
-      dailyQuote: quote
+      dailyQuote: quote,
+      todayDate: todayDate
     })
     this.loadData()
   },

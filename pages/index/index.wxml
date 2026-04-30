@@ -20,6 +20,11 @@
       </view>
     </view>
   </view>
+  <!-- 日期横幅 — 参考 kezhidao -->
+  <view class="date-banner">
+    <view class="date-text">📅 {{todayDate}}</view>
+    <view class="date-streak" wx:if="{{streakDays > 0}}">已坚持 {{streakDays}} 天 💪</view>
+  </view>
 
   <!-- 每日名言卡片 -->
   <view class="quote-card card-enter">
