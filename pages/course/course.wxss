@@ -152,6 +152,36 @@ page {
   background: #fff;
 }
 
+/* 切周滑动动画 */
+.slide-left-out {
+  animation: slideLeftOut 0.15s ease-out forwards;
+}
+.slide-left-in {
+  animation: slideLeftIn 0.15s ease-out forwards;
+}
+.slide-right-out {
+  animation: slideRightOut 0.15s ease-out forwards;
+}
+.slide-right-in {
+  animation: slideRightIn 0.15s ease-out forwards;
+}
+@keyframes slideLeftOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-30%); opacity: 0.3; }
+}
+@keyframes slideLeftIn {
+  from { transform: translateX(30%); opacity: 0.3; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideRightOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(30%); opacity: 0.3; }
+}
+@keyframes slideRightIn {
+  from { transform: translateX(-30%); opacity: 0.3; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 /* 水平分隔线 */
 .h-line {
   position: absolute;

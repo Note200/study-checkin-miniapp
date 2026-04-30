@@ -41,7 +41,8 @@ Page({
     // 滑动切周
     touchStartX: 0,
     touchStartY: 0,
-    swiping: false
+    swiping: false,
+    slideClass: ''
   },
 
   onLoad() {
@@ -114,9 +115,14 @@ Page({
   switchToWeek(week) {
     if (week === this.data.currentWeek) return
     wx.vibrateShort({ type: 'light' })
-    this.calcWeekDates(week)
-    this.setData({ currentWeek: week })
-    this.generateGrid(this.data.allCourses)
+    const dir = week > this.data.currentWeek ? 'left' : 'right'
+    this.setData({ slideClass: 'slide-' + dir + '-out' })
+    setTimeout(() => {
+      this.calcWeekDates(week)
+      this.setData({ currentWeek: week, slideClass: 'slide-' + dir + '-in' })
+      this.generateGrid(this.data.allCourses)
+      setTimeout(() => { this.setData({ slideClass: '' }) }, 160)
+    }, 160)
   },
 
   async loadAllCourses() {

@@ -47,19 +47,19 @@
       </view>
 
       <!-- 课程网格（position: relative，卡片用 top/left 绝对定位） -->
-      <view class="grid-area">
+      <view class="grid-area {{slideClass}}">
         <!-- 水平分隔线 -->
         <view class="h-line" wx:for="{{gridRows}}" wx:key="section"
           style="top: {{index * ROW_H + ROW_H}}rpx;"></view>
 
-        <!-- 课程卡片 — top/left 绝对定位，不再用 margin -->
+        <!-- 课程卡片 — top/left 绝对定位 -->
         <view
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
           class="course-card"
           style="top:{{c._top}}rpx;left:{{c._left}}rpx;width:{{c._width}}rpx;height:{{c._height}}rpx;background:{{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="card-name">{{c.name}}</view>
-          <view class="card-room">{{c.classroom}}</view>
+          <view class="card-room">{{c.teacher}}{{c.teacher && c.classroom ? '·' : ''}}{{c.classroom}}</view>
         </view>
       </view>
     </view>
