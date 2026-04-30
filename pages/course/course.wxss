@@ -59,8 +59,9 @@
 .v-line {
   position: absolute;
   top: 0;
-  width: 2rpx;
-  background: #ccc;
+  width: 4rpx;
+  background: #999;
+  z-index: 10;
 }
 
 /* 节次标签 */
