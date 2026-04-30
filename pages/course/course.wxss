@@ -45,12 +45,15 @@
 /* ===== 格子视图 ===== */
 .grid-wrapper { background: #fff; }
 .grid-wrapper.view-hidden { display: none; }
-.grid-scroll { width: 100%; }
+.grid-scroll { width: 100%; height: 800rpx; }
 .grid-inner {
   position: relative;
   min-height: 400rpx;
   background-color: #fff;
-  border-left: 2rpx solid #aaa;
+  background-image: linear-gradient(to right, #aaa 2rpx, transparent 2rpx);
+  background-size: 97rpx 100%;
+  background-position: 70rpx 0;
+  background-repeat: repeat-y;
 }
 
 /* 分隔线 */
