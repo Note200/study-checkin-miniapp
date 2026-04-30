@@ -169,17 +169,15 @@ Page({
 
     this.setData({ gridRows: grid, maxSection, visibleCourses: visible })
 
-    // 用 wx.createAnimation 做卡片弹入动画
-    setTimeout(() => {
-      visible.forEach((c, idx) => {
-        setTimeout(() => {
-          const anim = wx.createAnimation({ duration: 400, timingFunction: 'ease-out' })
-          anim.scale(1).opacity(1).step()
-          const key = 'visibleCourses[' + this.data.visibleCourses.findIndex(v => v.id === c.id) + ']._anim'
-          this.setData({ [key]: anim.export() })
-        }, idx * 80)
-      })
-    }, 50)
+    // 弹入动画：单次 setData，用 step delay 做错开
+    const animMap = {}
+    visible.forEach((c, idx) => {
+      const anim = wx.createAnimation({ timingFunction: 'ease-out' })
+      anim.scale(0.3).opacity(0).step({ duration: 0 })
+      anim.scale(1).opacity(1).step({ duration: 400, delay: idx * 80 })
+      animMap['visibleCourses[' + idx + ']._anim'] = anim.export()
+    })
+    this.setData(animMap)
   },
 
   async loadCourses() {
