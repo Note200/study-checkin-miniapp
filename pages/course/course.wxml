@@ -69,7 +69,7 @@
       </view>
     </view>
     <view class="course-list" wx:if="{{courses.length > 0}}">
-      <view class="course-item" wx:for="{{courses}}" wx:key="id">
+      <view class="course-item" style="animation-delay: {{index * 80}}ms;" wx:for="{{courses}}" wx:key="id">
         <view class="item-bar" style="background: {{item.color}}"></view>
         <view class="item-body" data-id="{{item.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="item-name">{{item.name}}</view>
