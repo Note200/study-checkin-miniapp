@@ -3,8 +3,10 @@ page {
 }
 
 .container {
-  min-height: 100vh;
-  background: #f5f5f5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 /* ===== 顶栏 ===== */
@@ -14,8 +16,13 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 .week-selector {
+  display: flex;
+  align-items: center;
+}
+.week-picker-wrap {
   display: flex;
   align-items: center;
   background: #e8f5e9;
@@ -32,38 +39,49 @@ page {
   color: #58CC02;
   margin-left: 10rpx;
 }
-.week-picker-trigger {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+
+/* ===== 课表滚动区（微信文档：scroll-view 需固定高度） ===== */
+.timetable-scroll {
+  flex: 1;
+  height: 0;
 }
 
-/* ===== 星期行 ===== */
-.day-row {
+.timetable-body {
   display: flex;
-  background: #fff;
-  border-bottom: 1rpx solid #eee;
-  padding: 10rpx 0;
+  flex-wrap: wrap;
+  position: relative;
+  width: 750rpx;
 }
-.day-left {
-  width: 90rpx;
+
+/* 左上角月份 */
+.corner-cell {
+  width: 70rpx;
+  height: 70rpx;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
-.month-text {
+.corner-month {
   font-size: 24rpx;
   font-weight: 600;
   color: #58CC02;
 }
+
+/* 星期标题行 */
+.day-header {
+  display: flex;
+  width: calc(750rpx - 70rpx);
+  height: 70rpx;
+  flex-shrink: 0;
+}
 .day-item {
-  flex: 1;
+  width: calc(100% / 7);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6rpx 0;
+  padding: 4rpx 0;
 }
 .day-item.today {
   background: #e8f5e9;
@@ -86,16 +104,9 @@ page {
   color: #7ecb8a;
 }
 
-/* ===== 课表主体 ===== */
-.timetable {
-  display: flex;
-  background: #fff;
-  min-height: calc(100vh - 180rpx);
-}
-
 /* 节次标签列 */
 .section-col {
-  width: 90rpx;
+  width: 70rpx;
   flex-shrink: 0;
 }
 .section-cell {
@@ -104,50 +115,56 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1rpx solid #eee;
 }
 .section-num {
   font-size: 24rpx;
   font-weight: 600;
   color: #58CC02;
 }
+.section-times {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .section-time {
-  font-size: 16rpx;
+  font-size: 14rpx;
   color: #bbb;
   line-height: 1.2;
 }
 
 /* 课程网格区域 */
 .grid-area {
-  flex: 1;
   position: relative;
+  width: calc(750rpx - 70rpx);
 }
 
-/* 分隔线 */
+/* 水平分隔线 */
 .h-line {
   position: absolute;
   left: 0;
   right: 0;
   height: 1rpx;
-  background: #eee;
+  background: rgba(200, 200, 200, 0.3);
 }
+
+/* 竖直分隔线 */
 .v-line {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 1rpx;
-  background: #eee;
+  background: rgba(200, 200, 200, 0.3);
 }
 
-/* 课程卡片 */
+/* 课程卡片（kezhidao 风格：margin-left + margin-top + absolute） */
 .course-card {
   position: absolute;
-  border-radius: 10rpx;
-  padding: 6rpx 8rpx;
+  width: calc(100% / 7 - 10rpx);
   box-sizing: border-box;
+  border-radius: 16rpx;
+  padding: 8rpx 8rpx;
   overflow: hidden;
   z-index: 2;
-  margin: 2rpx;
 }
 .card-name {
   font-size: 20rpx;
@@ -155,14 +172,16 @@ page {
   color: #fff;
   line-height: 1.2;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  padding-left: 4rpx;
 }
 .card-room {
   font-size: 16rpx;
   color: rgba(255,255,255,0.85);
   margin-top: 2rpx;
+  padding-left: 4rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

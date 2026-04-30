@@ -129,10 +129,9 @@ Page({
         const row = (c.startSection || 1) - 1 // 0-based
         return {
           ...c,
-          _leftPct: col * (100 / 7),         // 百分比定位
-          _widthPct: 100 / 7,                 // 每列宽度百分比
-          _top: row * ROW_H + 2,              // rpx 定位
-          _height: span * ROW_H - 4           // rpx 高度
+          _col: col,                           // 列索引 0-6
+          _top: row * ROW_H + 5,              // rpx 定位（kezhidao: (nums-1)*60+2.5)*2）
+          _height: span * ROW_H - 10          // rpx 高度（kezhidao: (span*60-5)*2）
         }
       })
 
