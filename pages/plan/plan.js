@@ -214,16 +214,35 @@ Page({
     })
   },
 
-  onSwipeChange(e) {
-    const index = e.currentTarget.dataset.index
-    let x = e.detail.x
-    if (x > 0) x = 0
-    if (x < -160) x = -160
+  onTouchStart(e) {
+    this._touchStartX = e.touches[0].clientX
+    this._touchIndex = e.currentTarget.dataset.index
+  },
+
+  onTouchMove(e) {
+    if (this._touchStartX === undefined) return
+    const dx = e.touches[0].clientX - this._touchStartX
+    if (dx > 0) return // only swipe left
+    const index = this._touchIndex
+    const x = Math.max(dx * 2, -160)
     const plans = this.data.plans.map((p, i) => ({
       ...p,
-      _x: i === index ? x : (p._x && p._x < -80 ? -160 : 0)
+      _x: i === index ? x : 0
     }))
     this.setData({ plans })
+  },
+
+  onTouchEnd(e) {
+    if (this._touchStartX === undefined) return
+    const dx = e.changedTouches[0].clientX - this._touchStartX
+    const index = this._touchIndex
+    const finalX = dx * 2 < -80 ? -160 : 0
+    const plans = this.data.plans.map((p, i) => ({
+      ...p,
+      _x: i === index ? finalX : 0
+    }))
+    this.setData({ plans })
+    this._touchStartX = undefined
   },
 
   resetSwipes() {

@@ -214,23 +214,19 @@
 }
 
 /* ===== 左滑删除（计划页） ===== */
-.swipe-area {
+.swipe-wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 20rpx;
   margin-bottom: 16rpx;
 }
-.swipe-card {
-  width: 100%;
-  height: auto;
-  min-height: 80rpx;
+.swipe-inner {
+  display: flex;
+  transition: transform 0.2s ease;
 }
-.swipe-card .plan-card {
-  transition: box-shadow 0.2s, opacity 0.2s;
-}
-.swipe-card .plan-card.swiped {
-  box-shadow: -4rpx 4rpx 16rpx rgba(0,0,0,0.1);
-  opacity: 0.85;
+.swipe-inner .plan-card {
+  flex: 1;
+  min-width: 100%;
 }
 .swipe-delete-btn {
   position: absolute;

@@ -12,21 +12,16 @@
 
   <!-- 计划列表 -->
   <view class="plan-list" wx:if="{{plans.length > 0}}">
-    <movable-area class="swipe-area" wx:for="{{plans}}" wx:key="id" style="height:auto;">
-      <movable-view
-        class="swipe-card"
-        direction="horizontal"
-        x="{{item._x || 0}}"
-        damping="30"
-        friction="5"
-        out-of-bounds
-        bindchange="onSwipeChange"
-        data-index="{{index}}"
-        id="swipe-{{index}}">
+    <view class="swipe-wrapper" wx:for="{{plans}}" wx:key="id">
+      <view class="swipe-inner" style="transform:translateX({{item._x || 0}}rpx);">
         <!-- 前景卡片 -->
         <view
-          class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}} {{item._x < -60 ? 'swiped' : ''}}"
+          class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}}"
           bindlongpress="onLongPress"
+          bindtouchstart="onTouchStart"
+          bindtouchmove="onTouchMove"
+          bindtouchend="onTouchEnd"
+          data-index="{{index}}"
           data-id="{{item.id}}"
           data-title="{{item.title}}"
           data-content="{{item.content}}"
@@ -74,11 +69,11 @@
           </view>
         </view>
         <!-- 滑出后的删除按钮 -->
-        <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}">
+        <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}" wx:if="{{item._x < -60}}">
           <view class="swipe-delete-text">删除</view>
         </view>
-      </movable-view>
-    </movable-area>
+      </view>
+    </view>
   </view>
 
   <!-- 空状态 -->
