@@ -167,9 +167,6 @@ Page({
   generateGrid(allCourses) {
     const { currentWeek } = this.data
     const maxSection = 8
-    const ROW_H = 128  // 每行128rpx（压低卡片）
-    const COL_W = 87   // 每列宽度 rpx（680 / 7 ≈ 97，减去 padding）
-    const GAP = 4  // 间隙rpx
 
     // 构建 8行 x 7列网格背景
     const grid = []
