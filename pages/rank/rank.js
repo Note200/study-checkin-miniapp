@@ -24,4 +24,11 @@ Page({
       this.setData({ loading: false })
     }
   }
+
+  async onPullDownRefresh() {
+    try {
+      await this.loadRank()
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })

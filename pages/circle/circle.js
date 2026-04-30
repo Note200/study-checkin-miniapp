@@ -233,4 +233,11 @@ Page({
       }
     })
   }
+
+  async onPullDownRefresh() {
+    try {
+      await this.loadPosts()
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })

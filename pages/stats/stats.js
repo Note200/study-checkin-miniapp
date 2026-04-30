@@ -105,4 +105,11 @@ Page({
       }
     } catch (e) {}
   }
+
+  async onPullDownRefresh() {
+    try {
+      await Promise.all([this.loadStats(), this.loadWeekData(), this.loadCalendar(), this.loadTaskStats()])
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })

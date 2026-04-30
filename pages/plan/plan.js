@@ -230,4 +230,11 @@ Page({
     const plans = this.data.plans.map(p => ({ ...p, _x: 0 }))
     this.setData({ plans })
   }
+
+  async onPullDownRefresh() {
+    try {
+      await this.loadPlans()
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })
