@@ -34,9 +34,15 @@
         <!-- 水平分隔线 -->
         <view wx:for="{{gridRows}}" wx:key="section" class="h-line" style="top: {{(index + 1) * ROW_H}}rpx;"></view>
 
-        <!-- 竖直分隔线（用 data 数组，不用字面量） -->
-        <view wx:for="{{vLines}}" wx:key="*this" class="v-line"
-          style="left: {{SEC_W + item * COL_W}}rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <!-- 竖直分隔线（硬编码8条，不用 wx:for） -->
+        <view class="v-line" style="left: 70rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 167rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 264rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 361rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 458rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 555rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 652rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <view class="v-line" style="left: 749rpx; height: {{maxSection * ROW_H}}rpx;"></view>
 
         <!-- 节次标签 -->
         <view wx:for="{{gridRows}}" wx:key="section" class="section-label"
