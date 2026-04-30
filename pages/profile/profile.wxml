@@ -1,36 +1,36 @@
-﻿<view class="container">
+<view class="container">
 
-  <!-- 缁胯壊娓愬彉澶撮儴 -->
+  <!-- 绿色渐变头部 -->
   <view class="profile-header">
     <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill" bindtap="changeAvatar"/>
-    <view class="avatar-edit-hint"><view>馃摲</view></view>
+    <view class="avatar-edit-hint"><view>📷</view></view>
     <view class="name-row">
-      <view class="nickname">{{userInfo.nickname || '鍚屽'}}</view>
-      <view class="edit-icon" bindtap="editProfile"><view>鉁忥笍</view></view>
+      <view class="nickname">{{userInfo.nickname || '同学'}}</view>
+      <view class="edit-icon" bindtap="editProfile"><view>✏️</view></view>
     </view>
-    <view class="sub-info">{{userInfo.major || ''}}{{userInfo.className ? ' 路 ' + userInfo.className : ''}}</view>
+    <view class="sub-info">{{userInfo.major || ''}}{{userInfo.className ? ' · ' + userInfo.className : ''}}</view>
   </view>
 
-  <!-- 瀛︿範鏁版嵁闈㈡澘 -->
+  <!-- 学习数据面板 -->
   <view class="stats-panel">
     <view class="stats-item">
       <view class="stats-num">{{totalDays}}</view>
-      <view class="stats-label">绱鎵撳崱</view>
+      <view class="stats-label">累计打卡</view>
     </view>
     <view class="stats-divider"></view>
     <view class="stats-item">
       <view class="stats-num">{{streakDays}}</view>
-      <view class="stats-label">杩炵画澶╂暟</view>
+      <view class="stats-label">连续天数</view>
     </view>
     <view class="stats-divider"></view>
     <view class="stats-item">
       <view class="stats-num">{{monthDays}}</view>
-      <view class="stats-label">鏈湀鎵撳崱</view>
+      <view class="stats-label">本月打卡</view>
     </view>
   </view>
 
-  <!-- 鎴愬氨寰界珷 -->
-  <view class="section-label">鎴戠殑鎴愬氨</view>
+  <!-- 成就徽章 -->
+  <view class="section-label">我的成就</view>
   <scroll-view scroll-x class="achievement-scroll">
     <view class="achievement-item {{item.unlocked ? '' : 'locked'}}" wx:for="{{achievements}}" wx:key="name">
       <view class="achievement-icon" style="background: {{item.unlocked ? item.bg : '#f0f0f0'}}">
@@ -41,8 +41,8 @@
     </view>
   </scroll-view>
 
-  <!-- 瀛︿範璁剧疆 -->
-  <view class="section-label">瀛︿範璁剧疆</view>
+  <!-- 学习设置 -->
+  <view class="section-label">学习设置</view>
   <view class="menu-card">
     <view class="menu-item" wx:for="{{menuItems}}" wx:key="title" data-path="{{item.path}}" data-is-tab="{{item.isTab}}" bindtap="onMenuTap">
       <view class="menu-icon-wrap" style="background: {{item.bg || '#E8F8EF'}}">
@@ -52,27 +52,27 @@
         <view class="menu-title">{{item.title}}</view>
         <view class="menu-desc">{{item.desc}}</view>
       </view>
-      <view class="menu-arrow">鈥?/view>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
-  <!-- 绠＄悊鍛樺叆鍙?-->
+  <!-- 管理员入口 -->
   <view class="menu-card" wx:if="{{isAdmin}}">
     <view class="menu-item" bindtap="goAdmin">
       <view class="menu-icon-wrap" style="background: #E8F8EF">
-        <view class="menu-emoji">馃洝锔?/text>
+        <view class="menu-emoji">🛡️</view>
       </view>
       <view class="menu-body">
-        <view class="menu-title">鐝骇绠＄悊</view>
-        <view class="menu-desc">绠＄悊鎴愬憳涓庡叕鍛?/text>
+        <view class="menu-title">班级管理</view>
+        <view class="menu-desc">管理成员与公告</view>
       </view>
-      <view class="admin-tag"><view>绠＄悊鍛?/view></view>
-      <view class="menu-arrow">鈥?/view>
+      <view class="admin-tag"><view>管理员</view></view>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
-  <!-- 璐﹀彿瀹夊叏 -->
-  <view class="section-label">璐﹀彿瀹夊叏</view>
+  <!-- 账号安全 -->
+  <view class="section-label">账号安全</view>
   <view class="menu-card">
     <view class="menu-item" wx:for="{{actionItems}}" wx:key="title" data-action="{{item.action}}" bindtap="onActionTap">
       <view class="menu-icon-wrap" style="background: {{item.bg || '#F7F8FA'}}">
@@ -81,55 +81,55 @@
       <view class="menu-body">
         <view class="menu-title">{{item.title}}</view>
       </view>
-      <view class="menu-arrow">鈥?/view>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
-  <!-- 閫€鍑虹櫥褰?-->
+  <!-- 退出登录 -->
   <view class="logout-wrap">
     <view class="logout-btn" bindtap="logout">
-      <view>閫€鍑虹櫥褰?/view>
+      <view>退出登录</view>
     </view>
   </view>
 
-  <view class="version"><view>瀛﹁€屾椂涔?v1.0.0</view></view>
+  <view class="version"><view>学而时习 v1.0.0</view></view>
 
-  <!-- 缂栬緫鏄电О寮圭獥 -->
+  <!-- 编辑昵称弹窗 -->
   <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">缂栬緫涓汉淇℃伅</view>
+      <view class="modal-title">编辑个人信息</view>
       <view class="form-input-group">
-        <input class="input" placeholder="璇疯緭鍏ユ樀绉? bindinput="onNicknameInput" value="{{editNickname}}" />
+        <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
       </view>
       <view class="form-input-group">
-        <input class="input" placeholder="璇疯緭鍏ヤ笓涓? bindinput="onMajorInput" value="{{editMajor}}" />
+        <input class="input" placeholder="请输入专业" bindinput="onMajorInput" value="{{editMajor}}" />
       </view>
       <view class="form-input-group">
-        <input class="input" placeholder="璇疯緭鍏ョ彮绾? bindinput="onClassInput" value="{{editClass}}" />
+        <input class="input" placeholder="请输入班级" bindinput="onClassInput" value="{{editClass}}" />
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closeEditModal">鍙栨秷</button>
-        <button class="modal-btn confirm" bindtap="saveProfile">淇濆瓨</button>
+        <button class="modal-btn cancel" bindtap="closeEditModal">取消</button>
+        <button class="modal-btn confirm" bindtap="saveProfile">保存</button>
       </view>
     </view>
   </view>
 
-  <!-- 淇敼瀵嗙爜寮圭獥 -->
+  <!-- 修改密码弹窗 -->
   <view class="modal-mask" wx:if="{{showPasswordModal}}" bindtap="closePasswordModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">淇敼瀵嗙爜</view>
+      <view class="modal-title">修改密码</view>
       <view class="form-input-group">
-        <input class="input" password placeholder="璇疯緭鍏ユ棫瀵嗙爜" bindinput="onOldPwdInput" value="{{oldPassword}}" />
+        <input class="input" password placeholder="请输入旧密码" bindinput="onOldPwdInput" value="{{oldPassword}}" />
       </view>
       <view class="form-input-group">
-        <input class="input" password placeholder="璇疯緭鍏ユ柊瀵嗙爜锛堣嚦灏?浣嶏級" bindinput="onNewPwdInput" value="{{newPassword}}" />
+        <input class="input" password placeholder="请输入新密码（至少6位）" bindinput="onNewPwdInput" value="{{newPassword}}" />
       </view>
       <view class="form-input-group">
-        <input class="input" password placeholder="璇风‘璁ゆ柊瀵嗙爜" bindinput="onConfirmPwdInput" value="{{confirmPassword}}" />
+        <input class="input" password placeholder="请确认新密码" bindinput="onConfirmPwdInput" value="{{confirmPassword}}" />
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closePasswordModal">鍙栨秷</button>
-        <button class="modal-btn confirm" bindtap="savePassword">纭淇敼</button>
+        <button class="modal-btn cancel" bindtap="closePasswordModal">取消</button>
+        <button class="modal-btn confirm" bindtap="savePassword">确认修改</button>
       </view>
     </view>
   </view>

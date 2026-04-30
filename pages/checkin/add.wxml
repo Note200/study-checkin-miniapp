@@ -1,69 +1,69 @@
-﻿<view class="container">
+<view class="container">
   <view class="page-title">
-    <view>鍒涘缓鎵撳崱</view>
-    <view class="page-subtitle">璁惧畾浣犵殑瀛︿範鐩爣</view>
+    <view>创建打卡</view>
+    <view class="page-subtitle">设定你的学习目标</view>
   </view>
 
   <view class="form">
     <view class="form-item">
-      <view class="label">鎵撳崱浠诲姟鍚嶇О</view>
+      <view class="label">打卡任务名称</view>
       <view class="input-wrap">
-        <input class="input" placeholder="濡傦細姣忔棩鑳屽崟璇? bindinput="onTitleInput" value="{{title}}" />
+        <input class="input" placeholder="如：每日背单词" bindinput="onTitleInput" value="{{title}}" />
       </view>
     </view>
 
     <view class="form-item">
-      <view class="label">浠诲姟绫诲瀷</view>
+      <view class="label">任务类型</view>
       <view class="type-list">
         <view
           class="type-item {{type === 0 ? 'active' : ''}}"
           data-type="0"
           bindtap="onTypeChange">
-          <view class="type-icon">馃攧</view>
-          <view class="type-name">涔犳儻鎵撳崱</view>
-          <view class="type-desc">姣忓ぉ閮借鎵撳崱</view>
+          <view class="type-icon">🔄</view>
+          <view class="type-name">习惯打卡</view>
+          <view class="type-desc">每天都要打卡</view>
         </view>
         <view
           class="type-item {{type === 1 ? 'active' : ''}}"
           data-type="1"
           bindtap="onTypeChange">
-          <view class="type-icon">馃幆</view>
-          <view class="type-name">鐩爣鎵撳崱</view>
-          <view class="type-desc">鍧氭寔瀹屾垚N澶?/text>
+          <view class="type-icon">🎯</view>
+          <view class="type-name">目标打卡</view>
+          <view class="type-desc">坚持完成N天</view>
         </view>
       </view>
     </view>
 
     <view class="form-item">
-      <view class="label">鐩爣澶╂暟</view>
+      <view class="label">目标天数</view>
       <view class="picker-wrap">
         <picker mode="selector" range="{{days}}" bindchange="onDaysChange">
-          <view class="picker">{{targetDays}} 澶?/view>
+          <view class="picker">{{targetDays}} 天</view>
         </picker>
       </view>
     </view>
 
     <view class="form-item">
-      <view class="label">姣忔鐩爣鏃堕暱</view>
+      <view class="label">每次目标时长</view>
       <view class="picker-wrap">
         <picker mode="selector" range="{{minutes}}" bindchange="onMinutesChange">
-          <view class="picker">{{targetMinutes}} 鍒嗛挓</view>
+          <view class="picker">{{targetMinutes}} 分钟</view>
         </picker>
       </view>
     </view>
 
     <view class="form-item">
-      <view class="label">鍏紑鑼冨洿</view>
+      <view class="label">公开范围</view>
       <view class="checkbox-wrap">
         <checkbox-group bindchange="onPublicChange">
           <label class="checkbox-item">
             <checkbox value="1" checked="{{isPublic === 1}}" color="#07C160"/>
-            <view>鍏紑缁欑彮绾ф垚鍛?/text>
+            <view>公开给班级成员</view>
           </label>
         </checkbox-group>
       </view>
     </view>
 
-    <button class="btn-submit" bindtap="submit">鍒涘缓鎵撳崱浠诲姟</button>
+    <button class="btn-submit" bindtap="submit">创建打卡任务</button>
   </view>
 </view>

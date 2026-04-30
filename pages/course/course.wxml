@@ -1,23 +1,23 @@
-﻿<view class="container">
-  <!-- 椤堕儴鏍?-->
+<view class="container">
+  <!-- 顶部栏 -->
   <view class="top-bar">
     <view class="week-selector">
-      <view class="week-selector-label">绗?/text>
+      <view class="week-selector-label">第</view>
       <picker mode="selector" range="{{weeks}}" bindchange="onWeekChange">
         <view class="week-selector-value">{{currentWeek}}</view>
       </picker>
-      <view class="week-selector-label">{{currentWeek >= 17 ? '鍛紙鑰冭瘯鍛級' : '鍛?}}</view>
+      <view class="week-selector-label">{{currentWeek >= 17 ? '周（考试周）' : '周'}}</view>
     </view>
     <view class="view-toggle" bindtap="switchView">
-      <view>{{showGrid ? '馃搵 鍒楄〃' : '馃搳 琛ㄦ牸'}}</view>
+      <view>{{showGrid ? '📋 列表' : '📊 表格'}}</view>
     </view>
   </view>
 
-  <!-- ====== 鏍煎瓙瑙嗗浘 ====== -->
+  <!-- ====== 格子视图 ====== -->
   <view class="grid-wrapper {{showGrid ? (viewAnim ? 'view-fade-in' : '') : 'view-hidden'}}">
-    <!-- 鏄熸湡鏍囬琛?-->
+    <!-- 星期标题行 -->
     <view class="grid-header">
-      <view class="grid-corner"><view class="grid-corner-text">鑺?鏃?/text></view>
+      <view class="grid-corner"><view class="grid-corner-text">节/日</view></view>
       <view class="grid-day-header {{todayDateStr === weekDates[index] ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
         <view class="day-header-content">
           <view class="grid-day-name">{{item}}</view>
@@ -26,7 +26,7 @@
       </view>
     </view>
 
-    <!-- 鏍煎瓙涓讳綋 -->
+    <!-- 格子主体 -->
     <scroll-view scroll-y class="grid-body {{slideDir ? 'slide-' + slideDir + (slidePhase === 'out' ? ' slide-out' : ' slide-in') : ''}}"
       bindtouchstart="onGridTouchStart"
       bindtouchmove="onGridTouchMove"
@@ -39,7 +39,7 @@
           <view class="grid-bg-cell" wx:for="{{item.cells}}" wx:key="day" wx:for-item="cell"></view>
         </view>
       </view>
-      <!-- 璇剧▼鍗＄墖鍙犲眰 -->
+      <!-- 课程卡片叠层 -->
       <view class="course-layer">
         <view 
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
@@ -52,7 +52,7 @@
         </view>
       </view>
     </scroll-view>
-    <!-- 鎷栨嫿骞界伒鍗＄墖 -->
+    <!-- 拖拽幽灵卡片 -->
     <view wx:if="{{dragging}}" class="drag-ghost"
       style="left: {{dragLeft}}px; top: {{dragTop}}px; width: {{_cellPx || 96}}px; height: {{_rowPx || 128}}px; background: {{dragCourse.color}};">
       <view class="cell-name">{{dragCourse.name}}</view>
@@ -61,7 +61,7 @@
     </view>
   </view>
 
-  <!-- ====== 鍒楄〃瑙嗗浘 ====== -->
+  <!-- ====== 列表视图 ====== -->
   <view class="list-wrapper {{!showGrid ? (viewAnim ? 'view-fade-in' : '') : 'view-hidden'}}">
     <view class="week-tabs">
       <view class="week-tab {{weekDay === index + 1 ? 'active' : ''}} {{todayDateStr === weekDates[index] ? 'today-tab' : ''}}" wx:for="{{weekDays}}" wx:key="index"
@@ -76,16 +76,16 @@
         <view class="course-body" data-id="{{item.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="course-name">{{item.name}}</view>
           <view class="course-detail">
-            <view>{{item.teacher}}</view><view> 路 </view><view>{{item.classroom}}</view>
+            <view>{{item.teacher}}</view><view> · </view><view>{{item.classroom}}</view>
           </view>
-          <view class="course-detail">绗瑊{item.startSection}}-{{item.endSection}}鑺?/view>
+          <view class="course-detail">第{{item.startSection}}-{{item.endSection}}节</view>
         </view>
       </view>
     </view>
     <view class="empty-state" wx:else>
-      <view class="empty-emoji">馃摎</view>
-      <view class="empty-text">鏆傛棤璇剧▼瀹夋帓</view>
-      <button class="btn-create" bindtap="addCourse">娣诲姞璇剧▼</button>
+      <view class="empty-emoji">📚</view>
+      <view class="empty-text">暂无课程安排</view>
+      <button class="btn-create" bindtap="addCourse">添加课程</button>
     </view>
   </view>
 

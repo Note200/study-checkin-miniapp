@@ -1,48 +1,48 @@
-﻿<view class="container">
-  <!-- 鏍囬鏍?-->
+<view class="container">
+  <!-- 标题栏 -->
   <view class="page-header">
-    <view class="page-title">馃弳 鎵撳崱鎺掕姒?/text>
-    <view class="page-sub">鏈懆鐝骇鎵撳崱鎺掑悕</view>
+    <view class="page-title">🏆 打卡排行榜</view>
+    <view class="page-sub">本周班级打卡排名</view>
   </view>
 
-  <!-- 鍓嶄笁鍚嶅鍙?-->
+  <!-- 前三名奖台 -->
   <view class="podium" wx:if="{{rankList.length >= 3}}">
-    <!-- 绗簩鍚?-->
+    <!-- 第二名 -->
     <view class="podium-item second">
       <view class="podium-avatar-wrap">
         <image class="podium-avatar" src="{{rankList[1].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
-        <view class="podium-crown">馃</view>
+        <view class="podium-crown">🥈</view>
       </view>
       <view class="podium-name">{{rankList[1].nickname}}</view>
       <view class="podium-bar second-bar">
-        <view class="podium-count">{{rankList[1].checkinCount}}娆?/text>
+        <view class="podium-count">{{rankList[1].checkinCount}}次</view>
       </view>
     </view>
-    <!-- 绗竴鍚?-->
+    <!-- 第一名 -->
     <view class="podium-item first">
       <view class="podium-avatar-wrap">
         <image class="podium-avatar" src="{{rankList[0].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
-        <view class="podium-crown">馃</view>
+        <view class="podium-crown">🥇</view>
       </view>
       <view class="podium-name">{{rankList[0].nickname}}</view>
       <view class="podium-bar first-bar">
-        <view class="podium-count">{{rankList[0].checkinCount}}娆?/text>
+        <view class="podium-count">{{rankList[0].checkinCount}}次</view>
       </view>
     </view>
-    <!-- 绗笁鍚?-->
+    <!-- 第三名 -->
     <view class="podium-item third">
       <view class="podium-avatar-wrap">
         <image class="podium-avatar" src="{{rankList[2].avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
-        <view class="podium-crown">馃</view>
+        <view class="podium-crown">🥉</view>
       </view>
       <view class="podium-name">{{rankList[2].nickname}}</view>
       <view class="podium-bar third-bar">
-        <view class="podium-count">{{rankList[2].checkinCount}}娆?/text>
+        <view class="podium-count">{{rankList[2].checkinCount}}次</view>
       </view>
     </view>
   </view>
 
-  <!-- 瀹屾暣鎺掑悕鍒楄〃 -->
+  <!-- 完整排名列表 -->
   <view class="rank-list" wx:if="{{rankList.length > 0}}">
     <view class="rank-item {{item.isMe ? 'me' : ''}}" wx:for="{{rankList}}" wx:key="userId">
       <view class="rank-num rank-{{item.rank <= 3 ? item.rank : 'other'}}">
@@ -51,18 +51,18 @@
       <image class="rank-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
       <view class="rank-info">
         <view class="rank-name">{{item.nickname}}</view>
-        <view class="rank-label">{{item.isMe ? '馃帀 灏辨槸浣狅紒' : ''}}</view>
+        <view class="rank-label">{{item.isMe ? '🎉 就是你！' : ''}}</view>
       </view>
       <view class="rank-score">
         <view class="rank-count">{{item.checkinCount}}</view>
-        <view class="rank-unit">娆?/text>
+        <view class="rank-unit">次</view>
       </view>
     </view>
   </view>
 
-  <!-- 绌虹姸鎬?-->
+  <!-- 空状态 -->
   <view class="empty-state" wx:if="{{rankList.length === 0 && !loading}}">
-    <view class="empty-emoji">馃弳</view>
-    <view class="empty-text">鏆傛棤鎺掕鏁版嵁锛屽揩鍘绘墦鍗″惂</view>
+    <view class="empty-emoji">🏆</view>
+    <view class="empty-text">暂无排行数据，快去打卡吧</view>
   </view>
 </view>

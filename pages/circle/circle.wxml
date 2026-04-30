@@ -1,96 +1,96 @@
-﻿<view class="container">
+<view class="container">
 
-  <!-- 椤堕儴鍙戝竷鍖?-->
+  <!-- 顶部发布区 -->
   <view class="publish-card">
     <view class="publish-row">
       <image class="publish-avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
       <view class="publish-input" bindtap="showPublishModal">
-        <view class="publish-placeholder">鍒嗕韩浣犵殑瀛︿範鍔ㄦ€?..</view>
+        <view class="publish-placeholder">分享你的学习动态...</view>
       </view>
     </view>
     <view class="type-tags">
-      <view class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">馃挕 闅忎究璇磋</view>
-      <view class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">馃摉 瀛︿範鍒嗕韩</view>
-      <view class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">鉂?鎻愰棶姹傚姪</view>
+      <view class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">💡 随便说说</view>
+      <view class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">📖 学习分享</view>
+      <view class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">❓ 提问求助</view>
     </view>
   </view>
 
-  <!-- 鍔ㄦ€佸垪琛?-->
+  <!-- 动态列表 -->
   <view class="post-list" wx:if="{{posts.length > 0}}">
     <view class="post-card" wx:for="{{posts}}" wx:key="id">
-      <!-- 鐢ㄦ埛淇℃伅琛?-->
+      <!-- 用户信息行 -->
       <view class="post-header">
         <image class="post-avatar" src="{{item.authorAvatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
         <view class="post-user-info">
           <view class="post-username">{{item.authorName}}</view>
           <view class="post-meta-row">
             <view class="post-time">{{item.createTime}}</view>
-            <view class="post-class-tag" wx:if="{{item.sameClass}}">鍚岀彮</view>
+            <view class="post-class-tag" wx:if="{{item.sameClass}}">同班</view>
           </view>
         </view>
-        <!-- 鍒犻櫎鎸夐挳 -->
+        <!-- 删除按钮 -->
         <view class="post-delete" wx:if="{{item.canDelete}}" data-id="{{item.id}}" bindtap="deletePost">
-          <view>鍒犻櫎</view>
+          <view>删除</view>
         </view>
       </view>
-      <!-- 鍐呭 -->
+      <!-- 内容 -->
       <view class="post-content">
         <view>{{item.content}}</view>
       </view>
-      <!-- 浜掑姩鏍?-->
+      <!-- 互动栏 -->
       <view class="post-actions">
         <view class="action-btn {{item.liked ? 'liked' : ''}}" data-post="{{item}}" bindtap="toggleLike">
-          <view class="action-icon">{{item.liked ? '鉂わ笍' : '馃'}}</view>
+          <view class="action-icon">{{item.liked ? '❤️' : '🤍'}}</view>
           <view class="action-count">{{item.likeCount > 0 ? item.likeCount : ''}}</view>
         </view>
         <view class="action-btn {{item._showComments ? 'active' : ''}}" data-postid="{{item.id}}" data-index="{{index}}" bindtap="toggleComments">
-          <view class="action-icon">馃挰</view>
+          <view class="action-icon">💬</view>
           <view class="action-count">{{item.commentCount > 0 ? item.commentCount : ''}}</view>
         </view>
       </view>
 
-      <!-- 鍐呭祵璇勮鍒楄〃 -->
+      <!-- 内嵌评论列表 -->
       <view class="comments-section" wx:if="{{item._showComments}}">
         <view class="comment-item" wx:for="{{commentsMap[item.id]}}" wx:key="id">
           <image class="comment-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
           <view class="comment-bubble">
-            <view class="comment-user">{{item.nickname || '鐢ㄦ埛'}}</view>
+            <view class="comment-user">{{item.nickname || '用户'}}</view>
             <view class="comment-text"><view>{{item.content}}</view></view>
             <view class="comment-time">{{item.createTime}}</view>
           </view>
         </view>
         <view class="comment-empty" wx:if="{{!commentsMap[item.id] || commentsMap[item.id].length === 0}}">
-          <view>鏆傛棤璇勮锛屽揩鏉ユ姠娌欏彂</view>
+          <view>暂无评论，快来抢沙发</view>
         </view>
-        <!-- 璇勮杈撳叆妗?-->
+        <!-- 评论输入框 -->
         <view class="comment-input-row">
-          <input class="comment-input" placeholder="鍐欎笅浣犵殑璇勮..." value="{{commentsMap[item.id] && commentsMap[item.id]._input || ''}}" data-postid="{{item.id}}" bindinput="onCommentInput2" bindconfirm="submitComment2"/>
-          <view class="comment-send-btn" data-postid="{{item.id}}" bindtap="submitComment2">鍙戦€?/text>
+          <input class="comment-input" placeholder="写下你的评论..." value="{{commentsMap[item.id] && commentsMap[item.id]._input || ''}}" data-postid="{{item.id}}" bindinput="onCommentInput2" bindconfirm="submitComment2"/>
+          <view class="comment-send-btn" data-postid="{{item.id}}" bindtap="submitComment2">发送</view>
         </view>
       </view>
     </view>
   </view>
 
-  <!-- 绌虹姸鎬?-->
+  <!-- 空状态 -->
   <view class="empty-state" wx:if="{{posts.length === 0 && !loading}}">
-    <view class="empty-emoji">馃挰</view>
-    <view class="empty-text">杩樻病鏈夊姩鎬侊紝鏉ュ彂绗竴鏉″惂</view>
+    <view class="empty-emoji">💬</view>
+    <view class="empty-text">还没有动态，来发第一条吧</view>
   </view>
 
-  <!-- 鍙戝竷寮圭獥 -->
+  <!-- 发布弹窗 -->
   <view class="modal-mask" wx:if="{{showPublishModal}}" bindtap="hidePublishModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">鍙戝竷鍔ㄦ€?/view>
-      <viewarea class="circle-textarea" placeholder="鍐欎笅浣犵殑鎯虫硶..." maxlength="500" bindinput="onContentInput" value="{{postContent}}"/>
+      <view class="modal-title">发布动态</view>
+      <textarea class="circle-textarea" placeholder="写下你的想法..." maxlength="500" bindinput="onContentInput" value="{{postContent}}"/>
       <view class="char-count">{{postContent.length}}/500</view>
       <view class="type-tags modal-types">
-        <view class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">馃挕 闅忎究璇磋</view>
-        <view class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">馃摉 瀛︿範鍒嗕韩</view>
-        <view class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">鉂?鎻愰棶姹傚姪</view>
+        <view class="type-tag {{postType === 0 ? 'active-green' : ''}}" data-type="0" bindtap="setType">💡 随便说说</view>
+        <view class="type-tag {{postType === 1 ? 'active-blue' : ''}}" data-type="1" bindtap="setType">📖 学习分享</view>
+        <view class="type-tag {{postType === 2 ? 'active-orange' : ''}}" data-type="2" bindtap="setType">❓ 提问求助</view>
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="hidePublishModal">鍙栨秷</button>
-        <button class="modal-btn confirm" bindtap="submitPost">鍙戝竷</button>
+        <button class="modal-btn cancel" bindtap="hidePublishModal">取消</button>
+        <button class="modal-btn confirm" bindtap="submitPost">发布</button>
       </view>
     </view>
   </view>

@@ -1,31 +1,31 @@
-﻿<view class="container">
-  <!-- Logo 鍖?-->
+<view class="container">
+  <!-- Logo 区 -->
   <view class="logo-wrap">
     <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
-    <view class="app-name">瀛︿範鎵撳崱绯荤粺</view>
-    <view class="app-slogan">鍏绘垚濂戒範鎯紝浠庢瘡澶╂墦鍗″紑濮?/text>
+    <view class="app-name">学习打卡系统</view>
+    <view class="app-slogan">养成好习惯，从每天打卡开始</view>
   </view>
 
-  <!-- 鍗＄墖 -->
+  <!-- 卡片 -->
   <view class="login-card">
-    <view class="card-title">璐﹀彿鐧诲綍</view>
+    <view class="card-title">账号登录</view>
 
     <view class="input-group">
-      <view class="input-icon-text">馃懁</view>
+      <view class="input-icon-text">👤</view>
       <input
         class="input"
         type="text"
-        placeholder="璇疯緭鍏ョ敤鎴峰悕/瀛﹀彿"
+        placeholder="请输入用户名/学号"
         value="{{username}}"
         bindinput="onUsernameInput"/>
     </view>
 
     <view class="input-group">
-      <view class="input-icon-text">馃敀</view>
+      <view class="input-icon-text">🔒</view>
       <input
         class="input"
         type="password"
-        placeholder="璇疯緭鍏ュ瘑鐮?
+        placeholder="请输入密码"
         value="{{password}}"
         bindinput="onPasswordInput"/>
     </view>
@@ -34,30 +34,30 @@
       <checkbox-group bindchange="onRememberChange">
         <label style="display:flex;align-items:center;font-size:24rpx;color:#999;">
           <checkbox value="1" style="transform:scale(0.8);"/>
-          <view>璁颁綇鎴?/text>
+          <view>记住我</view>
         </label>
       </checkbox-group>
-      <view class="forgot" bindtap="onForgotPwd">蹇樿瀵嗙爜锛?/text>
+      <view class="forgot" bindtap="onForgotPwd">忘记密码？</view>
     </view>
 
     <button
       class="btn-login {{loading ? 'disabled' : ''}}"
       bindtap="accountLogin"
       disabled="{{loading}}">
-      <view>{{loading ? '鐧诲綍涓?..' : '鐧?褰?}}</view>
+      <view>{{loading ? '登录中...' : '登 录'}}</view>
     </button>
 
     <view class="register-link">
-      <view>杩樻病鏈夎处鍙凤紵</view>
-      <view class="link" bindtap="toRegister">绔嬪嵆娉ㄥ唽</view>
+      <view>还没有账号？</view>
+      <view class="link" bindtap="toRegister">立即注册</view>
     </view>
   </view>
 
-  <!-- 鍗忚 -->
+  <!-- 协议 -->
   <view class="agreement">
-    <view>鐧诲綍鍗宠〃绀哄悓鎰?/text>
-    <view class="agreement-link">銆婄敤鎴峰崗璁€?/text>
-    <view>鍜?/text>
-    <view class="agreement-link">銆婇殣绉佹斂绛栥€?/text>
+    <view>登录即表示同意</view>
+    <view class="agreement-link">《用户协议》</view>
+    <view>和</view>
+    <view class="agreement-link">《隐私政策》</view>
   </view>
 </view>
