@@ -466,7 +466,7 @@ Page({
         }
       }
     })
-  }
+  },
 
 
   async onPullDownRefresh() {

@@ -229,7 +229,7 @@ Page({
   resetSwipes() {
     const plans = this.data.plans.map(p => ({ ...p, _x: 0 }))
     this.setData({ plans })
-  }
+  },
 
   async onPullDownRefresh() {
     try {

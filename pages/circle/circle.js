@@ -232,7 +232,7 @@ Page({
         }
       }
     })
-  }
+  },
 
   async onPullDownRefresh() {
     try {

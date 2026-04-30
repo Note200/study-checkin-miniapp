@@ -335,7 +335,7 @@ Page({
         }
       }
     })
-  }
+  },
 
 
   async onPullDownRefresh() {

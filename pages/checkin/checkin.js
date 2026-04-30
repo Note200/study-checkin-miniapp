@@ -296,7 +296,7 @@ Page({
     })
   },
 
-  addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }
+  addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) },
 
   async onPullDownRefresh() {
     try {

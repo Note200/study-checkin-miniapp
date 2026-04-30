@@ -104,7 +104,7 @@ Page({
         this.setData({ taskStats })
       }
     } catch (e) {}
-  }
+  },
 
   async onPullDownRefresh() {
     try {

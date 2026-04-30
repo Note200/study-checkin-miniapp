@@ -23,7 +23,7 @@ Page({
     } finally {
       this.setData({ loading: false })
     }
-  }
+  },
 
   async onPullDownRefresh() {
     try {
