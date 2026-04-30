@@ -124,7 +124,7 @@ Page({
 
     const isEdit = !!this.data.id
     const url = isEdit ? '/api/course/update' : '/api/course/add'
-    const method = 'POST'
+    const method = isEdit ? 'PUT' : 'POST'
     const data = {
       name: this.data.name,
       teacher: this.data.teacher,

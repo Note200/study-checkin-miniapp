@@ -44,6 +44,15 @@
     </view>
 
     <view class="form-item">
+      <text class="label">每次目标时长</text>
+      <view class="picker-wrap">
+        <picker mode="selector" range="{{minutes}}" bindchange="onMinutesChange">
+          <view class="picker">{{targetMinutes}} 分钟</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-item">
       <text class="label">公开范围</text>
       <view class="checkbox-wrap">
         <checkbox-group bindchange="onPublicChange">

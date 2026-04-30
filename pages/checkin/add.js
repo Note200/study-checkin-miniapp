@@ -6,8 +6,10 @@ Page({
     title: '',
     type: 0,
     targetDays: 30,
+    targetMinutes: 30,
     isPublic: 1,
-    days: [7, 14, 21, 30, 60, 90]
+    days: [7, 14, 21, 30, 60, 90],
+    minutes: [15, 30, 45, 60, 90, 120]
   },
 
   onTitleInput(e) { this.setData({ title: e.detail.value }) },
@@ -19,6 +21,11 @@ Page({
   onDaysChange(e) {
     const index = parseInt(e.detail.value)
     this.setData({ targetDays: this.data.days[index] })
+  },
+
+  onMinutesChange(e) {
+    const index = parseInt(e.detail.value)
+    this.setData({ targetMinutes: this.data.minutes[index] })
   },
 
   onPublicChange(e) {
@@ -39,6 +46,7 @@ Page({
           title: this.data.title,
           type: this.data.type,
           targetDays: this.data.targetDays,
+          targetMinutes: this.data.targetMinutes,
           isPublic: this.data.isPublic
         }
       })
