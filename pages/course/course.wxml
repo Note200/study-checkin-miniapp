@@ -17,8 +17,8 @@
   <view class="grid-wrapper {{showGrid ? (viewAnim ? 'view-fade-in' : '') : 'view-hidden'}}">
     <!-- 星期标题行 -->
     <view class="day-row">
-      <view class="day-label-box">月</view>
-      <view class="day-item {{todayDateStr === weekDates[index] ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
+      <view class="day-label-box"></view>
+      <view class="day-item {{todayDay === index + 1 ? 'today' : ''}}" wx:for="{{weekDays}}" wx:key="index">
         <view class="day-name">{{item}}</view>
         <view class="day-date">{{weekDates[index]}}</view>
       </view>
@@ -29,21 +29,24 @@
       bindtouchstart="onGridTouchStart"
       bindtouchmove="onGridTouchMove"
       bindtouchend="onGridTouchEnd">
-      <view class="grid-inner" style="height: {{maxSection * 120 + 10}}rpx;">
+      <view class="grid-inner" style="height: {{maxSection * ROW_H + 10}}rpx;">
 
         <!-- 水平分隔线 -->
-        <view wx:for="{{maxSection}}" wx:key="index" class="h-line" style="top: {{(index + 1) * 120}}rpx;"></view>
+        <view wx:for="{{maxSection}}" wx:key="index" class="h-line" style="top: {{(index + 1) * ROW_H}}rpx;"></view>
+
+        <!-- 竖直分隔线（8条：左侧边框+7列分隔） -->
+        <view wx:for="{{[0,1,2,3,4,5,6,7]}}" wx:key="*this" class="v-line" style="left: {{SEC_W + item * COL_W}}rpx; height: {{maxSection * ROW_H}}rpx;"></view>
 
         <!-- 节次标签 -->
-        <view wx:for="{{gridRows}}" wx:key="section" class="section-label" style="top: {{(item.section - 1) * 120}}rpx;">
+        <view wx:for="{{gridRows}}" wx:key="section" class="section-label" style="top: {{(item.section - 1) * ROW_H}}rpx; height: {{ROW_H}}rpx;">
           <view class="section-num">{{item.section}}</view>
         </view>
 
         <!-- 课程卡片 -->
         <view
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
-          class="course-card {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
-          style="top: {{c._top}}rpx; left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}};"
+          class="course-card card-anim {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
+          style="top: {{c._top}}rpx; left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}}; animation-delay: {{c._animDelay}}ms;"
           data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="card-name">{{c.name}}</view>
           <view class="card-room">{{c.classroom}}</view>

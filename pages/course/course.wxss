@@ -16,18 +16,9 @@
   color: #fff;
   flex-shrink: 0;
 }
-.week-selector {
-  display: flex;
-  align-items: center;
-}
+.week-selector { display: flex; align-items: center; }
 .week-label { font-size: 28rpx; color: rgba(255,255,255,0.85); margin: 0 8rpx; }
-.week-value {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #fff;
-  min-width: 36rpx;
-  text-align: center;
-}
+.week-value { font-size: 32rpx; font-weight: 700; color: #fff; min-width: 36rpx; text-align: center; }
 .view-toggle {
   background: rgba(255,255,255,0.2);
   border-radius: 20rpx;
@@ -57,28 +48,18 @@
 }
 
 /* ===== 格子视图 ===== */
-.grid-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+.grid-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
 /* 星期标题行 */
 .day-row {
   display: flex;
   height: 80rpx;
   background: #fff;
-  border-bottom: 1rpx solid #e8e8e8;
+  border-bottom: 2rpx solid #e0e0e0;
   flex-shrink: 0;
 }
 .day-label-box {
-  width: 64rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22rpx;
-  color: #aaa;
+  width: 56rpx;
   flex-shrink: 0;
 }
 .day-item {
@@ -87,33 +68,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-left: 1rpx solid #e8e8e8;
 }
-.day-name {
-  font-size: 24rpx;
-  color: #666;
-  font-weight: 600;
-}
-.day-date {
-  font-size: 18rpx;
-  color: #ccc;
-  margin-top: 2rpx;
-}
+.day-name { font-size: 24rpx; color: #666; font-weight: 600; }
+.day-date { font-size: 18rpx; color: #ccc; margin-top: 2rpx; }
+.day-item.today { background: #E8F5E9; border-radius: 8rpx; }
 .day-item.today .day-name { color: #58CC02; font-weight: 700; }
 .day-item.today .day-date { color: #58CC02; }
-.day-item.today {
-  background: #E8F5E9;
-  border-radius: 12rpx;
-}
 
 /* 课程表主体 */
-.grid-scroll {
-  flex: 1;
-  background: #fff;
-}
-.grid-inner {
-  position: relative;
-  width: 100%;
-}
+.grid-scroll { flex: 1; background: #fff; }
+.grid-inner { position: relative; width: 100%; }
 
 /* 水平分隔线 */
 .h-line {
@@ -121,7 +86,16 @@
   left: 0;
   right: 0;
   height: 1rpx;
-  background: #e8e8e8;
+  background: #e0e0e0;
+  z-index: 1;
+}
+
+/* 竖直分隔线 */
+.v-line {
+  position: absolute;
+  top: 0;
+  width: 1rpx;
+  background: #e0e0e0;
   z-index: 1;
 }
 
@@ -129,24 +103,23 @@
 .section-label {
   position: absolute;
   left: 0;
-  width: 64rpx;
-  height: 120rpx;
+  width: 56rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
 }
 .section-num {
-  font-size: 22rpx;
-  color: #aaa;
-  font-weight: 600;
+  font-size: 24rpx;
+  color: #999;
+  font-weight: 700;
 }
 
 /* 课程卡片 */
 .course-card {
   position: absolute;
-  border-radius: 10rpx;
-  padding: 6rpx 8rpx;
+  border-radius: 12rpx;
+  padding: 8rpx 10rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,6 +127,7 @@
   overflow: hidden;
   z-index: 10;
   box-sizing: border-box;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.12);
 }
 .course-card.dragging-card {
   opacity: 0.3;
@@ -161,7 +135,7 @@
 }
 .card-name {
   font-size: 22rpx;
-  font-weight: 600;
+  font-weight: 700;
   color: #fff;
   text-align: center;
   overflow: hidden;
@@ -169,74 +143,48 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  line-height: 1.2;
+  line-height: 1.3;
   text-shadow: 0 1rpx 3rpx rgba(0,0,0,0.2);
 }
 .card-room {
   font-size: 18rpx;
   color: rgba(255,255,255,0.9);
-  margin-top: 2rpx;
+  margin-top: 4rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
 
+/* 卡片入场动画 */
+.card-anim {
+  opacity: 0;
+  transform: scale(0.85);
+  animation: cardPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes cardPop {
+  0% { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 /* ===== 列表视图 ===== */
-.list-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.week-tabs {
-  display: flex;
-  background: #fff;
-  padding: 16rpx 8rpx;
-  border-bottom: 1rpx solid #e8e8e8;
-  flex-shrink: 0;
-}
-.week-tab {
-  flex: 1;
-  text-align: center;
-  padding: 12rpx 0;
-  border-radius: 12rpx;
-  transition: all 0.2s;
-}
-.week-tab.active {
-  background: #58CC02;
-  color: #fff;
-}
+.list-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.week-tabs { display: flex; background: #fff; padding: 16rpx 8rpx; border-bottom: 1rpx solid #e8e8e8; flex-shrink: 0; }
+.week-tab { flex: 1; text-align: center; padding: 12rpx 0; border-radius: 12rpx; transition: all 0.2s; }
+.week-tab.active { background: #58CC02; color: #fff; }
 .week-tab.today-tab:not(.active) { background: #E8F5E9; }
 .tab-name { font-size: 24rpx; font-weight: 600; }
 .tab-date { font-size: 18rpx; color: #bbb; margin-top: 2rpx; }
 .week-tab.active .tab-date { color: rgba(255,255,255,0.8); }
-.course-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16rpx 24rpx;
-}
-.course-item {
-  display: flex;
-  background: #fff;
-  border-radius: 16rpx;
-  margin-bottom: 16rpx;
-  overflow: hidden;
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
-}
+.course-list { flex: 1; overflow-y: auto; padding: 16rpx 24rpx; }
+.course-item { display: flex; background: #fff; border-radius: 16rpx; margin-bottom: 16rpx; overflow: hidden; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06); }
 .item-bar { width: 8rpx; flex-shrink: 0; }
 .item-body { flex: 1; padding: 20rpx 24rpx; }
 .item-name { font-size: 30rpx; font-weight: 600; color: #333; }
 .item-detail { font-size: 24rpx; color: #999; margin-top: 8rpx; }
 
 /* 空状态 */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 120rpx 0;
-}
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120rpx 0; }
 .empty-icon { font-size: 80rpx; margin-bottom: 20rpx; }
 .empty-text { font-size: 28rpx; color: #999; }
 

@@ -7,20 +7,19 @@ const COURSE_COLORS = [
   '#FF99C3', '#FF7875'
 ]
 
-// 学期开学日期（第1周的周一）
 const SEMESTER_START = '2026-02-23'
 
-// 格子布局常量（与 CSS 同步）
-const SEC_W = 64   // 节次标签列宽 rpx
-const COL_W = 136  // 每列宽 rpx = (750-64)/5
-const ROW_H = 120  // 每行高 rpx
-const CARD_GAP = 6 // 卡片左右间距 rpx
+// 布局常量（rpx，与 WXSS 同步）
+const SEC_W = 56   // 节次标签列宽
+const COL_W = 99   // 每列宽 = (750-56)/7
+const ROW_H = 160  // 每行高
+const CARD_GAP = 4 // 卡片左右间距
 
 Page({
   data: {
     weekDay: 1,
-    weekDays: ['一', '二', '三', '四', '五'],
-    weekDates: ['', '', '', '', ''],
+    weekDays: ['一', '二', '三', '四', '五', '六', '日'],
+    weekDates: ['', '', '', '', '', '', ''],
     todayDateStr: '',
     weeks: [],
     currentWeek: 1,
@@ -29,12 +28,15 @@ Page({
     allCourses: [],
     showGrid: true,
     todayDay: 1,
-    slideDir: '',
-    slidePhase: '',
     viewAnim: false,
     listSlideDir: '',
     gridRows: [],
     visibleCourses: [],
+    // 布局常量暴露给 WXML
+    SEC_W: SEC_W,
+    COL_W: COL_W,
+    ROW_H: ROW_H,
+    // 拖拽
     dragging: false,
     dragCourse: null,
     dragLeft: 0,
@@ -56,7 +58,7 @@ Page({
     const diffDays = Math.floor((new Date().getTime() - semesterStart.getTime()) / 86400000)
     const autoWeek = Math.max(1, Math.min(18, Math.floor(diffDays / 7) + 1))
     this.calcWeekDates(autoWeek)
-    this.setData({ todayDay, weekDay: todayDay > 5 ? 1 : todayDay, currentWeek: autoWeek })
+    this.setData({ todayDay, weekDay: todayDay, currentWeek: autoWeek })
     const sysInfo = wx.getSystemInfoSync()
     this._pxPerRpx = sysInfo.windowWidth / 750
     setTimeout(() => {
@@ -81,7 +83,7 @@ Page({
     const dates = []
     const today = new Date()
     let todayDateStr = ''
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       const d = new Date(monday.getTime() + i * 86400000)
       const str = (d.getMonth() + 1) + '/' + d.getDate()
       dates.push(str)
@@ -104,13 +106,9 @@ Page({
 
   onWeekChange(e) {
     const week = this.data.weeks[e.detail.value]
-    this.setData({ slidePhase: 'out', slideDir: 'left' })
-    setTimeout(() => {
-      this.calcWeekDates(week)
-      this.setData({ currentWeek: week, slidePhase: 'in' })
-      this.loadAllCourses()
-      setTimeout(() => this.setData({ slidePhase: '', slideDir: '' }), 300)
-    }, 150)
+    this.calcWeekDates(week)
+    this.setData({ currentWeek: week })
+    this.loadAllCourses()
   },
 
   switchView() {
@@ -138,13 +136,11 @@ Page({
   generateGrid(allCourses) {
     const { currentWeek, maxSection } = this.data
 
-    // 网格行数据（仅用于渲染节次标签）
     const grid = []
     for (let section = 1; section <= maxSection; section++) {
       grid.push({ section })
     }
 
-    // 筛选当前周课程 + 计算绝对定位
     const visible = allCourses
       .filter(c => {
         if (currentWeek < (c.startWeek || 1) || currentWeek > (c.endWeek || 18)) return false
@@ -155,7 +151,7 @@ Page({
         if (wt === 4 && currentWeek <= 8) return false
         return true
       })
-      .map(c => {
+      .map((c, idx) => {
         const span = (c.endSection || c.startSection) - c.startSection + 1
         const col = (c.weekDay || 1) - 1
         const row = (c.startSection || 1) - 1
@@ -164,7 +160,8 @@ Page({
           _top: row * ROW_H + 3,
           _left: SEC_W + col * COL_W + CARD_GAP,
           _width: COL_W - CARD_GAP * 2,
-          _height: span * ROW_H - 6
+          _height: span * ROW_H - 6,
+          _animDelay: idx * 60
         }
       })
 
@@ -253,7 +250,7 @@ Page({
     const gridTop = this._gridTopPx || 200
     const gridLeft = this._gridLeftPx || 0
     const pxPerRpx = this._pxPerRpx
-    const col = Math.max(0, Math.min(4, Math.floor((touch.clientX - gridLeft - SEC_W * pxPerRpx) / (COL_W * pxPerRpx))))
+    const col = Math.max(0, Math.min(6, Math.floor((touch.clientX - gridLeft - SEC_W * pxPerRpx) / (COL_W * pxPerRpx))))
     const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((touch.clientY + this._scrollY - gridTop) / (ROW_H * pxPerRpx))))
     this.setData({
       dragLeft: touch.clientX - (COL_W * pxPerRpx) / 2,
@@ -273,14 +270,9 @@ Page({
         if (this._swipeDir === 'left' && currentWeek < weeks.length) newWeek = currentWeek + 1
         else if (this._swipeDir === 'right' && currentWeek > 1) newWeek = currentWeek - 1
         if (newWeek !== currentWeek) {
-          const dir = this._swipeDir === 'left' ? 'left' : 'right'
-          this.setData({ slidePhase: 'out', slideDir: dir })
-          setTimeout(() => {
-            this.calcWeekDates(newWeek)
-            this.setData({ currentWeek: newWeek, slidePhase: 'in' })
-            this.loadAllCourses()
-            setTimeout(() => this.setData({ slidePhase: '', slideDir: '' }), 300)
-          }, 150)
+          this.calcWeekDates(newWeek)
+          this.setData({ currentWeek: newWeek })
+          this.loadAllCourses()
           wx.showToast({ title: '第' + newWeek + '周', icon: 'none', duration: 800 })
         }
       }
@@ -333,7 +325,7 @@ Page({
     const gridTop = this._gridTopPx || 200
     const gridLeft = this._gridLeftPx || 0
     const pxPerRpx = this._pxPerRpx || 1
-    const col = Math.max(0, Math.min(4, Math.floor((clientX - gridLeft - SEC_W * pxPerRpx) / (COL_W * pxPerRpx))))
+    const col = Math.max(0, Math.min(6, Math.floor((clientX - gridLeft - SEC_W * pxPerRpx) / (COL_W * pxPerRpx))))
     const row = Math.max(0, Math.min(this.data.maxSection - 1, Math.floor((clientY + this._scrollY - gridTop) / (ROW_H * pxPerRpx))))
     return this.data.visibleCourses.find(c => {
       const day = (c.weekDay || 1) - 1
