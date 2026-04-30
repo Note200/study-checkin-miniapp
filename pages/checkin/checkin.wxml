@@ -19,17 +19,17 @@
         bindtouchmove="onSwipeMove"
         bindtouchend="onSwipeEnd">
         <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
-          <text class="task-icon">{{item.icon || '📖'}}</text>
+          <view class="task-icon">{{item.icon || '📖'}}</view>
         </view>
         <view class="task-info">
           <text class="task-name">{{item.title}}</text>
           <view class="task-sub-row">
-            <text class="task-clock">⏱</text>
+            <view class="task-clock">⏱</view>
             <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
           </view>
         </view>
         <view class="btn-checkin {{item.todayChecked ? 'checked' : ''}}" catchtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}" data-id="{{item.id}}">
-          <text class="btn-checkin-text">{{item.todayChecked ? '已完成' : '打卡'}}</text>
+          <view class="btn-checkin-text">{{item.todayChecked ? '已完成' : '打卡'}}</view>
         </view>
       </view>
       <!-- 底层操作按钮 -->
@@ -49,8 +49,8 @@
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{tasks.length === 0}}">
-    <text class="empty-emoji">✏️</text>
-    <text class="empty-text">还没有打卡任务，去创建一个吧</text>
+    <view class="empty-emoji">✏️</view>
+    <view class="empty-text">还没有打卡任务，去创建一个吧</view>
     <button class="btn-create" bindtap="addTask">+ 创建任务</button>
   </view>
 
@@ -102,7 +102,7 @@
     <view class="success-content">
       <view class="success-circle">
         <view class="success-check {{showSuccessAnim ? 'animate' : ''}}">
-          <text class="check-mark">✓</text>
+          <view class="check-mark">✓</text>
         </view>
       </view>
       <text class="success-text">打卡成功</text>

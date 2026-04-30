@@ -73,8 +73,8 @@
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{posts.length === 0 && !loading}}">
-    <text class="empty-emoji">💬</text>
-    <text class="empty-text">还没有动态，来发第一条吧</text>
+    <view class="empty-emoji">💬</view>
+    <view class="empty-text">还没有动态，来发第一条吧</view>
   </view>
 
   <!-- 发布弹窗 -->

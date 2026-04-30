@@ -62,7 +62,7 @@
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{rankList.length === 0 && !loading}}">
-    <text class="empty-emoji">🏆</text>
-    <text class="empty-text">暂无排行数据，快去打卡吧</text>
+    <view class="empty-emoji">🏆</view>
+    <view class="empty-text">暂无排行数据，快去打卡吧</view>
   </view>
 </view>

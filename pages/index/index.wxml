@@ -12,11 +12,11 @@
     <view class="header-right">
       <!-- 连续打卡火焰徽章 -->
       <view class="streak-badge pulse-fire" wx:if="{{streakDays > 0}}">
-        <text class="streak-fire">🔥</text>
-        <text class="streak-num">{{streakDays}}</text>
+        <view class="streak-fire">🔥</view>
+        <view class="streak-num">{{streakDays}}</view>
       </view>
       <view class="bell-btn" bindtap="goAdmin" wx:if="{{isAdmin}}">
-        <text class="bell-icon">🔔</text>
+        <view class="bell-icon">🔔</view>
       </view>
     </view>
   </view>
@@ -71,7 +71,7 @@
 
   <!-- 成就里程碑 -->
   <view class="milestone-bar card-enter" wx:if="{{milestone}}">
-    <text class="milestone-emoji">{{milestone.emoji}}</text>
+    <view class="milestone-emoji">{{milestone.emoji}}</view>
     <text class="milestone-text">已连续打卡 {{streakDays}} 天 · {{milestone.label}}</text>
   </view>
 
@@ -99,11 +99,11 @@
       <view class="ring-wrap">
         <view class="ring-bg" style="background: conic-gradient(var(--green) {{todayRate}}%, var(--border) {{todayRate}}%);">
           <view class="ring-inner">
-            <text class="ring-num">{{todayRate}}</text>
-            <text class="ring-unit">%</text>
+            <view class="ring-num">{{todayRate}}</view>
+            <view class="ring-unit">%</view>
           </view>
         </view>
-        <text class="ring-label">完成率</text>
+        <view class="ring-label">完成率</view>
       </view>
       <view class="ring-stats">
         <view class="stat-item">
@@ -135,7 +135,7 @@
           bindtouchmove="onSwipeMove"
           bindtouchend="onSwipeEnd">
           <view class="task-check {{item.todayChecked ? 'checked' : ''}}">
-            <text wx:if="{{item.todayChecked}}">✓</text>
+            <view wx:if="{{item.todayChecked}}">✓</view>
           </view>
           <view class="task-meta">
             <text class="task-name {{item.todayChecked ? 'done-text' : ''}}">{{item.title}}</text>

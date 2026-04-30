@@ -44,10 +44,10 @@
                 data-id="{{item.id}}"
                 data-status="{{item.status}}"
                 bindtap="togglePlan">
-                <text wx:if="{{item.status === 1}}">✓</text>
+                <view wx:if="{{item.status === 1}}">✓</view>
               </view>
               <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
-              <view class="swipe-hint"><text>← 滑动</text></view>
+              <view class="swipe-hint"><view>← 滑动</view></view>
             </view>
 
             <!-- 标签行：优先级 + 日期 -->
@@ -75,7 +75,7 @@
         </view>
         <!-- 滑出后的删除按钮 -->
         <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}">
-          <text class="swipe-delete-text">删除</text>
+          <view class="swipe-delete-text">删除</view>
         </view>
       </movable-view>
     </movable-area>
@@ -83,8 +83,8 @@
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{plans.length === 0}}">
-    <text class="empty-emoji">📋</text>
-    <text class="empty-text">还没有计划，添加一个吧</text>
+    <view class="empty-emoji">📋</view>
+    <view class="empty-text">还没有计划，添加一个吧</view>
   </view>
 
   <!-- FAB -->

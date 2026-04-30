@@ -3,10 +3,10 @@
   <!-- 绿色渐变头部 -->
   <view class="profile-header">
     <image class="avatar" src="{{userInfo.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill" bindtap="changeAvatar"/>
-    <view class="avatar-edit-hint"><text>📷</text></view>
+    <view class="avatar-edit-hint"><view>📷</view></view>
     <view class="name-row">
       <text class="nickname">{{userInfo.nickname || '同学'}}</text>
-      <view class="edit-icon" bindtap="editProfile"><text>✏️</text></view>
+      <view class="edit-icon" bindtap="editProfile"><view>✏️</view></view>
     </view>
     <text class="sub-info">{{userInfo.major || ''}}{{userInfo.className ? ' · ' + userInfo.className : ''}}</text>
   </view>
@@ -14,17 +14,17 @@
   <!-- 学习数据面板 -->
   <view class="stats-panel">
     <view class="stats-item">
-      <text class="stats-num">{{totalDays}}</text>
+      <view class="stats-num">{{totalDays}}</view>
       <text class="stats-label">累计打卡</text>
     </view>
     <view class="stats-divider"></view>
     <view class="stats-item">
-      <text class="stats-num">{{streakDays}}</text>
+      <view class="stats-num">{{streakDays}}</view>
       <text class="stats-label">连续天数</text>
     </view>
     <view class="stats-divider"></view>
     <view class="stats-item">
-      <text class="stats-num">{{monthDays}}</text>
+      <view class="stats-num">{{monthDays}}</view>
       <text class="stats-label">本月打卡</text>
     </view>
   </view>
@@ -34,7 +34,7 @@
   <scroll-view scroll-x class="achievement-scroll">
     <view class="achievement-item {{item.unlocked ? '' : 'locked'}}" wx:for="{{achievements}}" wx:key="name">
       <view class="achievement-icon" style="background: {{item.unlocked ? item.bg : '#f0f0f0'}}">
-        <text>{{item.icon}}</text>
+        <view>{{item.icon}}</view>
       </view>
       <text class="achievement-name">{{item.name}}</text>
       <text class="achievement-desc">{{item.desc}}</text>
@@ -52,7 +52,7 @@
         <text class="menu-title">{{item.title}}</text>
         <text class="menu-desc">{{item.desc}}</text>
       </view>
-      <text class="menu-arrow">›</text>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
@@ -66,8 +66,8 @@
         <text class="menu-title">班级管理</text>
         <text class="menu-desc">管理成员与公告</text>
       </view>
-      <view class="admin-tag"><text>管理员</text></view>
-      <text class="menu-arrow">›</text>
+      <view class="admin-tag"><view>管理员</view></view>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
@@ -81,18 +81,18 @@
       <view class="menu-body">
         <text class="menu-title">{{item.title}}</text>
       </view>
-      <text class="menu-arrow">›</text>
+      <view class="menu-arrow">›</view>
     </view>
   </view>
 
   <!-- 退出登录 -->
   <view class="logout-wrap">
     <view class="logout-btn" bindtap="logout">
-      <text>退出登录</text>
+      <view>退出登录</view>
     </view>
   </view>
 
-  <view class="version"><text>学而时习 v1.0.0</text></view>
+  <view class="version"><view>学而时习 v1.0.0</view></view>
 
   <!-- 编辑昵称弹窗 -->
   <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">

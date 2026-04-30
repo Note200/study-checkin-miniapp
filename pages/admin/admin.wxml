@@ -37,7 +37,7 @@
           <text class="info-label">邀请码</text>
           <view class="code-wrap">
             <text class="info-value code">{{classInfo.inviteCode || '未生成'}}</text>
-            <text class="copy-btn" bindtap="copyCode" wx:if="{{classInfo.inviteCode}}">复制</text>
+            <view class="copy-btn" bindtap="copyCode" wx:if="{{classInfo.inviteCode}}">复制</view>
           </view>
         </view>
         <view class="info-row">
@@ -103,30 +103,30 @@
     <view class="stats-grid">
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <text class="stats-icon">👥</text>
+          <view class="stats-icon">👥</view>
         </view>
-        <text class="stats-num">{{stats.memberCount || 0}}</text>
+        <view class="stats-num">{{stats.memberCount || 0}}</view>
         <text class="stats-label">成员数</text>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <text class="stats-icon">📋</text>
+          <view class="stats-icon">📋</view>
         </view>
-        <text class="stats-num">{{stats.taskCount || 0}}</text>
+        <view class="stats-num">{{stats.taskCount || 0}}</view>
         <text class="stats-label">打卡任务</text>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <text class="stats-icon">✅</text>
+          <view class="stats-icon">✅</view>
         </view>
-        <text class="stats-num">{{stats.checkinCount || 0}}</text>
+        <view class="stats-num">{{stats.checkinCount || 0}}</view>
         <text class="stats-label">打卡记录</text>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <text class="stats-icon">📝</text>
+          <view class="stats-icon">📝</view>
         </view>
-        <text class="stats-num">{{stats.planCount || 0}}</text>
+        <view class="stats-num">{{stats.planCount || 0}}</view>
         <text class="stats-label">学习计划</text>
       </view>
     </view>

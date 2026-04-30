@@ -83,8 +83,8 @@
       </view>
     </view>
     <view class="empty-state" wx:else>
-      <text class="empty-emoji">📚</text>
-      <text class="empty-text">暂无课程安排</text>
+      <view class="empty-emoji">📚</view>
+      <view class="empty-text">暂无课程安排</view>
       <button class="btn-create" bindtap="addCourse">添加课程</button>
     </view>
   </view>
