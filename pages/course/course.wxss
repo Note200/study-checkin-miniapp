@@ -46,7 +46,15 @@
 .grid-wrapper { background: #fff; }
 .grid-wrapper.view-hidden { display: none; }
 .grid-scroll { width: 100%; }
-.grid-inner { position: relative; min-height: 400rpx; }
+/* 用背景渐变画竖线，比absolute元素更可靠 */
+.grid-inner {
+  position: relative;
+  min-height: 400rpx;
+  background-image: linear-gradient(to right, #aaa 2rpx, transparent 2rpx);
+  background-size: 97rpx 100%;
+  background-position: 70rpx 0;
+  background-repeat: repeat-y;
+}
 
 /* 分隔线 */
 .h-line {

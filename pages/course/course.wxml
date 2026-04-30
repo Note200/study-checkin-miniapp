@@ -34,15 +34,7 @@
         <!-- 水平分隔线 -->
         <view wx:for="{{gridRows}}" wx:key="section" class="h-line" style="top: {{(index + 1) * ROW_H}}rpx;"></view>
 
-        <!-- 竖直分隔线（硬编码8条，不用 wx:for） -->
-        <view class="v-line" style="left: 70rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 167rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 264rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 361rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 458rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 555rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 652rpx; height: {{maxSection * ROW_H}}rpx;"></view>
-        <view class="v-line" style="left: 749rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <!-- 竖线用 grid-inner 背景渐变画，不需要额外元素 -->
 
         <!-- 节次标签 -->
         <view wx:for="{{gridRows}}" wx:key="section" class="section-label"
