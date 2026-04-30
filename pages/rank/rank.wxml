@@ -44,7 +44,7 @@
 
   <!-- 完整排名列表 -->
   <view class="rank-list" wx:if="{{rankList.length > 0}}">
-    <view class="rank-item {{item.isMe ? 'me' : ''}}" wx:for="{{rankList}}" wx:key="userId">
+    <view class="rank-item card-animate {{item.isMe ? 'me' : ''}}" wx:for="{{rankList}}" wx:key="userId">
       <view class="rank-num rank-{{item.rank <= 3 ? item.rank : 'other'}}">
         <view>{{item.rank}}</view>
       </view>

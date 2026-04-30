@@ -72,6 +72,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 160rpx;
+  display: block;
 }
 .podium-bar {
   border-radius: 16rpx 16rpx 0 0;
@@ -86,25 +87,34 @@
   font-size: 24rpx;
   font-weight: 800;
   color: #fff;
+  display: block;
 }
 
 /* 排名列表 */
 .rank-list {
   padding: 16rpx 24rpx;
 }
+.rank-list .rank-item:nth-child(1) { animation-delay: 0s; }
+.rank-list .rank-item:nth-child(2) { animation-delay: 0.06s; }
+.rank-list .rank-item:nth-child(3) { animation-delay: 0.12s; }
+.rank-list .rank-item:nth-child(4) { animation-delay: 0.18s; }
+.rank-list .rank-item:nth-child(5) { animation-delay: 0.24s; }
+.rank-list .rank-item:nth-child(n+6) { animation-delay: 0.3s; }
 .rank-item {
   display: flex;
   align-items: center;
   padding: 24rpx 20rpx;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 16rpx;
   margin-bottom: 12rpx;
   gap: 20rpx;
   border: 2rpx solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 .rank-item.me {
   background: var(--green-light);
   border-color: var(--green);
+  box-shadow: 0 4rpx 16rpx rgba(88,204,2,0.15);
 }
 .rank-num {
   width: 56rpx;

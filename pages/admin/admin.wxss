@@ -7,11 +7,11 @@
 
 /* 顶部标签 */
 .tabs {
-  background: #fff;
+  background: var(--card-bg);
   display: flex;
   padding: 20rpx 24rpx;
   gap: 16rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
 }
 .tab {
   flex: 1;
@@ -19,7 +19,7 @@
   padding: 16rpx 0;
   border-radius: 50rpx;
   font-size: 26rpx;
-  color: #999;
+  color: var(--text-3);
   background: var(--bg);
 }
 .tab.active { background: var(--green); color: #fff; font-weight: 700; }
@@ -28,11 +28,11 @@
 
 /* 卡片 */
 .card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 20rpx;
   padding: 28rpx;
   margin: 16rpx 24rpx 0;
-  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
 }
 .card-header {
   display: flex;
@@ -40,14 +40,14 @@
   align-items: center;
   margin-bottom: 20rpx;
 }
-.card-title { font-size: 30rpx; font-weight: 700; color: #1a1a1a; }
-.card-count { font-size: 24rpx; color: #aaa; }
+.card-title { font-size: 30rpx; font-weight: 700; color: var(--text-1); }
+.card-count { font-size: 24rpx; color: var(--text-3); }
 
 /* 班级信息 */
 .class-info { display: flex; flex-direction: column; gap: 16rpx; }
 .info-row { display: flex; justify-content: space-between; align-items: center; }
-.info-label { font-size: 26rpx; color: #aaa; }
-.info-value { font-size: 28rpx; color: #1a1a1a; }
+.info-label { font-size: 26rpx; color: var(--text-3); }
+.info-value { font-size: 28rpx; color: var(--text-1); }
 .code { font-family: monospace; font-size: 32rpx; color: var(--green); font-weight: 700; letter-spacing: 4rpx; }
 .code-wrap { display: flex; align-items: center; gap: 16rpx; }
 .copy-btn {
@@ -59,10 +59,10 @@
 .stats-grid { display: flex; flex-wrap: wrap; gap: 20rpx; padding: 20rpx 24rpx; }
 .stats-card {
   width: 48%;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 20rpx;
   padding: 32rpx 20rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,22 +87,22 @@
 }
 .stats-label {
   font-size: 24rpx;
-  color: #aaa;
+  color: var(--text-3);
 }
 
 /* 成员列表 */
 .member-list { display: flex; flex-direction: column; gap: 0; }
 .member-item {
   display: flex; align-items: center; padding: 20rpx 0;
-  border-bottom: 1rpx solid #f5f5f5; gap: 16rpx;
+  border-bottom: 1rpx solid var(--border); gap: 16rpx;
 }
 .member-item:last-child { border-bottom: none; }
 .member-avatar { width: 72rpx; height: 72rpx; border-radius: 50%; flex-shrink: 0; }
 .member-info { flex: 1; }
-.member-name { font-size: 28rpx; color: #1a1a1a; display: block; }
-.member-role { font-size: 22rpx; color: #aaa; }
+.member-name { font-size: 28rpx; color: var(--text-1); display: block; }
+.member-role { font-size: 22rpx; color: var(--text-3); }
 .member-badge {
-  background: #f0f0f0; color: #999; font-size: 20rpx;
+  background: var(--bg); color: var(--text-3); font-size: 20rpx;
   border-radius: 20rpx; padding: 4rpx 16rpx;
 }
 .member-badge.admin { background: var(--green-light); color: var(--green); }
@@ -110,13 +110,13 @@
 /* 公告 */
 .notice-list { padding: 0 24rpx; display: flex; flex-direction: column; gap: 16rpx; }
 .notice-item {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 16rpx;
   padding: 24rpx;
   display: flex;
   align-items: center;
   gap: 16rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
 }
 .notice-dot {
   width: 12rpx;
@@ -126,8 +126,8 @@
   flex-shrink: 0;
 }
 .notice-content { flex: 1; display: flex; flex-direction: column; gap: 6rpx; }
-.notice-title { font-size: 28rpx; font-weight: 600; color: #333; }
-.notice-date { font-size: 22rpx; color: #aaa; }
+.notice-title { font-size: 28rpx; font-weight: 600; color: var(--text-1); }
+.notice-date { font-size: 22rpx; color: var(--text-3); }
 .notice-action {
   font-size: 24rpx;
   color: var(--red);
@@ -170,4 +170,4 @@
 }
 
 /* 空状态 */
-.empty-tip { text-align: center; padding: 40rpx 0; font-size: 26rpx; color: #aaa; }
+.empty-tip { text-align: center; padding: 40rpx 0; font-size: 26rpx; color: var(--text-3); }
