@@ -99,9 +99,9 @@ Page({
         const taskStats = res.data.map(t => ({
           id: t.id,
           title: t.title,
-          checkedDays: t.checkedDays || 0,
+          checkedDays: t.totalDays || 0,
           targetDays: t.targetDays || 30,
-          rate: t.targetDays ? Math.min(100, Math.round((t.checkedDays || 0) / t.targetDays * 100)) : 0
+          rate: t.targetDays ? Math.min(100, Math.round((t.totalDays || 0) / t.targetDays * 100)) : 0
         }))
         this.setData({ taskStats })
       }

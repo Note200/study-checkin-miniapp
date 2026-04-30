@@ -28,6 +28,7 @@ Page({
           if (post.createTime) {
             post.createTime = this._formatTime(post.createTime)
           }
+          post.swiped = false
           return post
         })
         this.setData({ posts })
@@ -211,6 +212,7 @@ Page({
     }
   },
 
+  // 删除动态
   deletePost(e) {
     const id = e.currentTarget.dataset.id
     wx.showModal({
@@ -232,6 +234,34 @@ Page({
         }
       }
     })
+  },
+
+  // 左滑删除
+  onSwipeStart(e) {
+    this._startX = e.touches[0].clientX
+    this._startY = e.touches[0].clientY
+    this._swipeMoved = false
+  },
+
+  onSwipeMove(e) {
+    if (this._swipeMoved) return
+    const deltaX = e.touches[0].clientX - this._startX
+    const deltaY = e.touches[0].clientY - this._startY
+    // 水平滑动距离大于垂直时才触发
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+      this._swipeMoved = true
+      const index = e.currentTarget.dataset.index
+      const posts = this.data.posts
+      const swiped = deltaX < -30
+      if (posts[index].swiped !== swiped) {
+        posts[index] = { ...posts[index], swiped }
+        this.setData({ posts })
+      }
+    }
+  },
+
+  onSwipeEnd(e) {
+    // 保持滑动状态
   },
 
   async onPullDownRefresh() {

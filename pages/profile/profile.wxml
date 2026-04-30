@@ -8,7 +8,10 @@
       <view class="nickname">{{userInfo.nickname || '同学'}}</view>
       <view class="edit-icon" bindtap="editProfile"><view>✏️</view></view>
     </view>
-    <view class="sub-info">{{userInfo.major || ''}}{{userInfo.className ? ' · ' + userInfo.className : ''}}</view>
+    <view class="sub-info">
+      <view>{{userInfo.major || ''}}{{userInfo.className ? ' · ' + userInfo.className : ''}}</view>
+      <view class="sub-edit-icon" bindtap="editProfile"><view>✏️</view></view>
+    </view>
   </view>
 
   <!-- 学习数据面板 -->

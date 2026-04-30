@@ -17,7 +17,13 @@
 
   <!-- 动态列表 -->
   <view class="post-list" wx:if="{{posts.length > 0}}">
-    <view class="post-card" wx:for="{{posts}}" wx:key="id">
+    <view class="swipe-wrap" wx:for="{{posts}}" wx:key="id">
+      <view class="post-card swipe-content {{item.swiped ? 'swiped' : ''}}"
+        style="transform: translateX({{item.swiped ? -160 : 0}}rpx)"
+        data-index="{{index}}"
+        bindtouchstart="onSwipeStart"
+        bindtouchmove="onSwipeMove"
+        bindtouchend="onSwipeEnd">
       <!-- 用户信息行 -->
       <view class="post-header">
         <image class="post-avatar" src="{{item.authorAvatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
@@ -27,10 +33,6 @@
             <view class="post-time">{{item.createTime}}</view>
             <view class="post-class-tag" wx:if="{{item.sameClass}}">同班</view>
           </view>
-        </view>
-        <!-- 删除按钮 -->
-        <view class="post-delete" wx:if="{{item.canDelete}}" data-id="{{item.id}}" bindtap="deletePost">
-          <view>删除</view>
         </view>
       </view>
       <!-- 内容 -->
@@ -68,6 +70,13 @@
           <view class="comment-send-btn" data-postid="{{item.id}}" bindtap="submitComment2">发送</view>
         </view>
       </view>
+    </view>
+    <!-- 左滑操作按钮（仅自己的动态） -->
+    <view class="swipe-actions" wx:if="{{item.canDelete}}">
+      <view class="swipe-btn btn-delete" data-id="{{item.id}}" bindtap="deletePost">
+        <view>删除</view>
+      </view>
+    </view>
     </view>
   </view>
 
