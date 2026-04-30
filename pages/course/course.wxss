@@ -189,18 +189,4 @@ page {
 }
 
 /* FAB */
-.fab {
-  position: fixed;
-  right: 40rpx;
-  bottom: 140rpx;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  background: #58CC02;
-  color: #fff;
-  font-size: 52rpx;
-  text-align: center;
-  line-height: 100rpx;
-  box-shadow: 0 8rpx 24rpx rgba(88,204,2,0.4);
-  z-index: 100;
-}
+/* .fab 使用 app.wxss 全局样式 */
