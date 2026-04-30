@@ -10,8 +10,8 @@ const COURSE_COLORS = [
 const SEMESTER_START = '2026-02-23'
 
 // 布局常量（rpx，与 WXSS 同步）
-const SEC_W = 56   // 节次标签列宽
-const COL_W = 99   // 每列宽 = (750-56)/7
+const SEC_W = 70   // 节次标签列宽（加宽防挤压）
+const COL_W = 97   // 每列宽 = (750-70)/7 ≈ 97
 const ROW_H = 160  // 每行高
 const CARD_GAP = 4 // 卡片左右间距
 
@@ -36,6 +36,8 @@ Page({
     SEC_W: SEC_W,
     COL_W: COL_W,
     ROW_H: ROW_H,
+    // 竖线位置数组（WXML 不能直接算 [0,1,...,7]）
+    vLines: [0, 1, 2, 3, 4, 5, 6, 7],
     // 拖拽
     dragging: false,
     dragCourse: null,
@@ -157,11 +159,11 @@ Page({
         const row = (c.startSection || 1) - 1
         return {
           ...c,
-          _top: row * ROW_H + 3,
+          _top: row * ROW_H + CARD_GAP,
           _left: SEC_W + col * COL_W + CARD_GAP,
           _width: COL_W - CARD_GAP * 2,
-          _height: span * ROW_H - 6,
-          _animDelay: idx * 60
+          _height: span * ROW_H - CARD_GAP * 2,
+          _animDelay: idx * 80
         }
       })
 
@@ -202,7 +204,7 @@ Page({
     })
   },
 
-  // ===== 触摸事件 =====
+  // ===== 触摸事件：左滑切周 =====
   onGridTouchStart(e) {
     if (this.data.dragging) return
     const touch = e.touches[0]

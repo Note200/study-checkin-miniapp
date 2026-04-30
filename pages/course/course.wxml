@@ -32,13 +32,15 @@
       <view class="grid-inner" style="height: {{maxSection * ROW_H + 10}}rpx;">
 
         <!-- 水平分隔线 -->
-        <view wx:for="{{maxSection}}" wx:key="index" class="h-line" style="top: {{(index + 1) * ROW_H}}rpx;"></view>
+        <view wx:for="{{gridRows}}" wx:key="section" class="h-line" style="top: {{(index + 1) * ROW_H}}rpx;"></view>
 
-        <!-- 竖直分隔线（8条：左侧边框+7列分隔） -->
-        <view wx:for="{{[0,1,2,3,4,5,6,7]}}" wx:key="*this" class="v-line" style="left: {{SEC_W + item * COL_W}}rpx; height: {{maxSection * ROW_H}}rpx;"></view>
+        <!-- 竖直分隔线（用 data 数组，不用字面量） -->
+        <view wx:for="{{vLines}}" wx:key="*this" class="v-line"
+          style="left: {{SEC_W + item * COL_W}}rpx; height: {{maxSection * ROW_H}}rpx;"></view>
 
         <!-- 节次标签 -->
-        <view wx:for="{{gridRows}}" wx:key="section" class="section-label" style="top: {{(item.section - 1) * ROW_H}}rpx; height: {{ROW_H}}rpx;">
+        <view wx:for="{{gridRows}}" wx:key="section" class="section-label"
+          style="top: {{(item.section - 1) * ROW_H}}rpx; height: {{ROW_H}}rpx;">
           <view class="section-num">{{item.section}}</view>
         </view>
 
