@@ -297,4 +297,11 @@ Page({
   },
 
   addTask() { wx.navigateTo({ url: '/pages/checkin/add' }) }
+
+  async onPullDownRefresh() {
+    try {
+      await Promise.all([this.loadTasks(), this.loadCalendar()])
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })

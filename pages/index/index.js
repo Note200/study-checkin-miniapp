@@ -336,4 +336,12 @@ Page({
       }
     })
   }
+
+
+  async onPullDownRefresh() {
+    try {
+      await this.loadData()
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })

@@ -467,4 +467,12 @@ Page({
       }
     })
   }
+
+
+  async onPullDownRefresh() {
+    try {
+      await this.loadAllCourses()
+    } catch (e) {}
+    wx.stopPullDownRefresh()
+  },
 })
