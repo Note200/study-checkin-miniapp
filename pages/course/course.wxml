@@ -43,7 +43,7 @@
         <view 
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
           class="course-card-overlay"
-          style="margin-top: {{c._top}}rpx; margin-left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}};"
+          style="position: absolute; top: {{c._top}}rpx; left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse">
           <view class="cell-name">{{c.name}}</view>
           <view class="cell-info">{{c.teacher}}</view>

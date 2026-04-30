@@ -199,8 +199,8 @@ Page({
         const span = (c.endSection || c.startSection) - c.startSection + 1
         return {
           ...c,
-          _top: (c.startSection - 1) * ROW_H + 3,       // margin-top: 3rpx 微调
-          _left: (c.weekDay - 1) * COL_W + COL_GAP,     // margin-left
+          _top: (c.startSection - 1) * ROW_H + 3,       // top: 3rpx 微调
+          _left: (c.weekDay - 1) * COL_W + COL_GAP,     // left
           _width: CARD_W,                                 // 固定宽度 rpx
           _height: span * ROW_H - 5                       // 高度（减去间隙）
         }

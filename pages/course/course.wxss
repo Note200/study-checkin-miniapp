@@ -113,7 +113,7 @@
 
 .grid-body {
   width: 100%;
-  height: 1024rpx; /* 8行 x 128rpx */
+  height: 100%;
   position: relative;
   overflow: visible;
 }
@@ -152,7 +152,8 @@
 .grid-bg {
   position: relative;
   width: 750rpx;
-  height: 1024rpx;
+  height: 100%;
+  min-height: 1024rpx;
   pointer-events: none;
 }
 .grid-bg-row {
