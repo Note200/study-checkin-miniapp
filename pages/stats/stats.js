@@ -4,6 +4,7 @@ const app = getApp()
 Page({
   data: {
     totalDays: 0,
+    streakDays: 0,
     totalHours: 0,
     totalTasks: 0,
     weekData: [],
@@ -28,6 +29,7 @@ Page({
       if (res.code === 200 && res.data) {
         this.setData({
           totalDays: res.data.totalDays || 0,
+          streakDays: res.data.streakDays || 0,
           totalHours: res.data.totalHours || 0,
           totalTasks: res.data.totalTasks || 0
         })

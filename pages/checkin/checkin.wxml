@@ -1,13 +1,13 @@
-<view class="container">
+﻿<view class="container">
 
-  <!-- 今日打卡任务（支持左滑删除） -->
+  <!-- 浠婃棩鎵撳崱浠诲姟锛堟敮鎸佸乏婊戝垹闄わ級 -->
   <view class="section-hd">
-    <text class="section-title">今日打卡任务</text>
+    <view class="section-title">浠婃棩鎵撳崱浠诲姟</view>
   </view>
 
   <view class="task-list" wx:if="{{tasks.length > 0}}">
     <view class="swipe-wrap" wx:for="{{tasks}}" wx:key="id">
-      <!-- 前景卡片 -->
+      <!-- 鍓嶆櫙鍗＄墖 -->
       <view
         class="task-card card-animate {{item.swiped ? 'swiped' : ''}}"
         style="transform: translateX({{item.swiped ? -160 : 0}}rpx)"
@@ -19,52 +19,52 @@
         bindtouchmove="onSwipeMove"
         bindtouchend="onSwipeEnd">
         <view class="task-icon-wrap" style="background: {{item.iconBg || '#E8F8EF'}}">
-          <view class="task-icon">{{item.icon || '📖'}}</view>
+          <view class="task-icon">{{item.icon || '馃摉'}}</view>
         </view>
         <view class="task-info">
-          <text class="task-name">{{item.title}}</text>
+          <view class="task-name">{{item.title}}</view>
           <view class="task-sub-row">
-            <view class="task-clock">⏱</view>
-            <text class="task-sub">目标 {{item.targetMinutes || 30}} 分钟</text>
+            <view class="task-clock">鈴?/view>
+            <view class="task-sub">鐩爣 {{item.targetMinutes || 30}} 鍒嗛挓</view>
           </view>
         </view>
         <view class="btn-checkin {{item.todayChecked ? 'checked' : ''}}" catchtap="{{item.todayChecked ? 'undoCheckin' : 'openCheckin'}}" data-id="{{item.id}}">
-          <view class="btn-checkin-text">{{item.todayChecked ? '已完成' : '打卡'}}</view>
+          <view class="btn-checkin-text">{{item.todayChecked ? '宸插畬鎴? : '鎵撳崱'}}</view>
         </view>
       </view>
-      <!-- 底层操作按钮 -->
+      <!-- 搴曞眰鎿嶄綔鎸夐挳 -->
       <view class="swipe-actions" style="opacity:{{item.swiped ? 1 : 0}}">
         <view class="swipe-btn btn-do" catchtap="openCheckin" data-id="{{item.id}}" wx:if="{{!item.todayChecked}}">
-          <text>打卡</text>
+          <view>鎵撳崱</view>
         </view>
         <view class="swipe-btn btn-undo" catchtap="undoCheckin" data-id="{{item.id}}" wx:if="{{item.todayChecked}}">
-          <text>撤销</text>
+          <view>鎾ら攢</view>
         </view>
         <view class="swipe-btn btn-delete" catchtap="deleteTask" data-id="{{item.id}}">
-          <text>删除</text>
+          <view>鍒犻櫎</view>
         </view>
       </view>
     </view>
   </view>
 
-  <!-- 空状态 -->
+  <!-- 绌虹姸鎬?-->
   <view class="empty-state" wx:if="{{tasks.length === 0}}">
-    <view class="empty-emoji">✏️</view>
-    <view class="empty-text">还没有打卡任务，去创建一个吧</view>
-    <button class="btn-create" bindtap="addTask">+ 创建任务</button>
+    <view class="empty-emoji">鉁忥笍</view>
+    <view class="empty-text">杩樻病鏈夋墦鍗′换鍔★紝鍘诲垱寤轰竴涓惂</view>
+    <button class="btn-create" bindtap="addTask">+ 鍒涘缓浠诲姟</button>
   </view>
 
-  <!-- 本月打卡日历 -->
+  <!-- 鏈湀鎵撳崱鏃ュ巻 -->
   <view class="section-hd" style="margin-top: 16rpx;">
-    <text class="section-title">本月打卡日历</text>
-    <text class="section-month">{{calendarYear}}年{{calendarMonth}}月</text>
+    <view class="section-title">鏈湀鎵撳崱鏃ュ巻</view>
+    <view class="section-month">{{calendarYear}}骞磠{calendarMonth}}鏈?/text>
   </view>
   <view class="card calendar-card">
-    <!-- 星期标题 -->
+    <!-- 鏄熸湡鏍囬 -->
     <view class="week-row">
-      <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this" class="week-label">{{item}}</text>
+      <view wx:for="{{['鏃?,'涓€','浜?,'涓?,'鍥?,'浜?,'鍏?]}}" wx:key="*this" class="week-label">{{item}}</view>
     </view>
-    <!-- 日期格（热力图） -->
+    <!-- 鏃ユ湡鏍硷紙鐑姏鍥撅級 -->
     <view class="date-grid">
       <view
         wx:for="{{calendarDays}}"
@@ -73,27 +73,27 @@
         bindtap="onDateTap"
         bindlongpress="longPressDate"
         class="date-cell {{item.isToday ? 'today' : ''}} {{item.empty ? 'empty' : ''}} {{item.selected ? 'selected' : ''}} {{item.checked ? 'heat-' + item.level : ''}}">
-        <text wx:if="{{!item.empty}}">{{item.day}}</text>
+        <view wx:if="{{!item.empty}}">{{item.day}}</view>
       </view>
     </view>
-    <!-- 热力图图例 -->
+    <!-- 鐑姏鍥惧浘渚?-->
     <view class="heat-legend">
-      <text class="legend-label">少</text>
+      <view class="legend-label">灏?/text>
       <view class="legend-dot heat-0"></view>
       <view class="legend-dot heat-1"></view>
       <view class="legend-dot heat-2"></view>
       <view class="legend-dot heat-3"></view>
       <view class="legend-dot heat-4"></view>
-      <text class="legend-label">多</text>
+      <view class="legend-label">澶?/text>
     </view>
   </view>
 
   <!-- FAB -->
   <view class="fab" bindtap="addTask">+</view>
 
-  <!-- 打卡成功动画 + 撒花 -->
+  <!-- 鎵撳崱鎴愬姛鍔ㄧ敾 + 鎾掕姳 -->
   <view class="success-overlay" wx:if="{{showSuccessAnim}}">
-    <!-- 撒花粒子 -->
+    <!-- 鎾掕姳绮掑瓙 -->
     <view class="confetti-container">
       <view wx:for="{{confettiList}}" wx:key="id"
         class="confetti confetti-{{item.shape}}"
@@ -102,46 +102,46 @@
     <view class="success-content">
       <view class="success-circle">
         <view class="success-check {{showSuccessAnim ? 'animate' : ''}}">
-          <view class="check-mark">✓</view>
+          <view class="check-mark">鉁?/view>
         </view>
       </view>
-      <text class="success-text">打卡成功</text>
-      <text class="success-sub">继续加油！💪</text>
+      <view class="success-text">鎵撳崱鎴愬姛</view>
+      <view class="success-sub">缁х画鍔犳补锛侌煉?/text>
     </view>
   </view>
 
-  <!-- 打卡弹窗 -->
+  <!-- 鎵撳崱寮圭獥 -->
   <view class="modal-mask" wx:if="{{showCheckinModal}}" bindtap="closeModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">今日打卡</view>
+      <view class="modal-title">浠婃棩鎵撳崱</view>
       <view class="modal-task-name">{{currentTask.title}}</view>
       <view class="modal-date-row">
-        <text class="modal-date-label">打卡日期</text>
+        <view class="modal-date-label">鎵撳崱鏃ユ湡</view>
         <picker mode="date" value="{{checkinDate}}" bindchange="onDateChange">
-          <view class="date-picker-btn">{{checkinDate || '选择日期'}}</view>
+          <view class="date-picker-btn">{{checkinDate || '閫夋嫨鏃ユ湡'}}</view>
         </picker>
       </view>
       <view class="modal-textarea-wrap">
-        <textarea class="modal-textarea" placeholder="说点什么吧（可选）" bindinput="onRemarkInput" value="{{checkinRemark}}" style="width:100%;box-sizing:border-box;" />
+        <viewarea class="modal-textarea" placeholder="璇寸偣浠€涔堝惂锛堝彲閫夛級" bindinput="onRemarkInput" value="{{checkinRemark}}" style="width:100%;box-sizing:border-box;" />
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closeModal">取消</button>
-        <button class="modal-btn confirm" bindtap="doCheckin">确认打卡</button>
+        <button class="modal-btn cancel" bindtap="closeModal">鍙栨秷</button>
+        <button class="modal-btn confirm" bindtap="doCheckin">纭鎵撳崱</button>
       </view>
     </view>
   </view>
 
-  <!-- 历史弹窗 -->
+  <!-- 鍘嗗彶寮圭獥 -->
   <view class="modal-mask" wx:if="{{showHistory}}" bindtap="closeHistory">
     <view class="modal-content history-modal" catchtap="preventClose">
-      <view class="modal-title">打卡历史</view>
+      <view class="modal-title">鎵撳崱鍘嗗彶</view>
       <scroll-view scroll-y class="history-list">
         <view class="history-item" wx:for="{{historyList}}" wx:key="id">
           <view class="history-date">{{item.checkinDate}}</view>
-          <view class="history-remark">{{item.remark || '无备注'}}</view>
+          <view class="history-remark">{{item.remark || '鏃犲娉?}}</view>
         </view>
       </scroll-view>
-      <button class="modal-btn confirm" bindtap="closeHistory">关闭</button>
+      <button class="modal-btn confirm" bindtap="closeHistory">鍏抽棴</button>
     </view>
   </view>
 

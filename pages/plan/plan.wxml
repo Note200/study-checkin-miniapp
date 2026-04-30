@@ -1,16 +1,16 @@
-<view class="container">
+﻿<view class="container">
 
-  <!-- 标签栏 + 新增按钮 -->
+  <!-- 鏍囩鏍?+ 鏂板鎸夐挳 -->
   <view class="top-bar">
     <view class="tabs">
-      <view class="tab {{activeTab === 0 ? 'active' : ''}}" data-index="0" bindtap="switchTab">全部</view>
-      <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">进行中</view>
-      <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">已完成</view>
+      <view class="tab {{activeTab === 0 ? 'active' : ''}}" data-index="0" bindtap="switchTab">鍏ㄩ儴</view>
+      <view class="tab {{activeTab === 1 ? 'active' : ''}}" data-index="1" bindtap="switchTab">杩涜涓?/view>
+      <view class="tab {{activeTab === 2 ? 'active' : ''}}" data-index="2" bindtap="switchTab">宸插畬鎴?/view>
     </view>
-    <view class="btn-add" bindtap="showAdd">+ 新增</view>
+    <view class="btn-add" bindtap="showAdd">+ 鏂板</view>
   </view>
 
-  <!-- 计划列表 -->
+  <!-- 璁″垝鍒楄〃 -->
   <view class="plan-list" wx:if="{{plans.length > 0}}">
     <movable-area class="swipe-area" wx:for="{{plans}}" wx:key="id" style="height:auto;">
       <movable-view
@@ -23,7 +23,7 @@
         bindchange="onSwipeChange"
         data-index="{{index}}"
         id="swipe-{{index}}">
-        <!-- 前景卡片 -->
+        <!-- 鍓嶆櫙鍗＄墖 -->
         <view
           class="plan-card card-animate {{item.status === 1 ? 'done' : ''}} {{item.priority === 2 ? 'urgent' : item.priority === 0 ? 'low' : ''}} {{item._x < -60 ? 'swiped' : ''}}"
           bindlongpress="onLongPress"
@@ -33,121 +33,121 @@
           data-plan-date="{{item.planDate}}"
           data-priority="{{item.priority}}"
           data-status="{{item.status}}">
-          <!-- 左侧彩色竖条 -->
+          <!-- 宸︿晶褰╄壊绔栨潯 -->
           <view class="plan-left-bar"></view>
 
           <view class="plan-body">
-            <!-- 顶部：勾选 + 标题 -->
+            <!-- 椤堕儴锛氬嬀閫?+ 鏍囬 -->
             <view class="plan-top">
               <view
                 class="check-circle {{item.status === 1 ? 'checked' : ''}}"
                 data-id="{{item.id}}"
                 data-status="{{item.status}}"
                 bindtap="togglePlan">
-                <view wx:if="{{item.status === 1}}">✓</view>
+                <view wx:if="{{item.status === 1}}">鉁?/view>
               </view>
-              <text class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</text>
-              <view class="swipe-hint"><view>← 滑动</view></view>
+              <view class="plan-title {{item.status === 1 ? 'strike' : ''}}">{{item.title}}</view>
+              <view class="swipe-hint"><view>鈫?婊戝姩</view></view>
             </view>
 
-            <!-- 标签行：优先级 + 日期 -->
+            <!-- 鏍囩琛岋細浼樺厛绾?+ 鏃ユ湡 -->
             <view class="plan-tags">
-              <text class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
-                {{item.priority === 2 ? '紧急' : item.priority === 1 ? '普通' : '宽松'}}
-              </text>
-              <text class="tag-date">⏰ {{item.planDate}}</text>
+              <view class="tag {{item.priority === 2 ? 'tag-red' : item.priority === 1 ? 'tag-orange' : 'tag-green'}}">
+                {{item.priority === 2 ? '绱ф€? : item.priority === 1 ? '鏅€? : '瀹芥澗'}}
+              </view>
+              <view class="tag-date">鈴?{{item.planDate}}</view>
             </view>
 
-            <!-- 内容预览 -->
+            <!-- 鍐呭棰勮 -->
             <view class="content-preview" wx:if="{{item.content}}">
-              <text>{{item.content}}</text>
+              <view>{{item.content}}</view>
             </view>
 
-            <!-- 进度条 -->
+            <!-- 杩涘害鏉?-->
             <view class="plan-progress-row">
-              <text class="progress-label">完成进度</text>
-              <text class="progress-pct {{item.status === 1 ? 'green' : ''}}">{{item.status === 1 ? '100%' : (item.progress || 0) + '%'}}</text>
+              <view class="progress-label">瀹屾垚杩涘害</view>
+              <view class="progress-pct {{item.status === 1 ? 'green' : ''}}">{{item.status === 1 ? '100%' : (item.progress || 0) + '%'}}</view>
             </view>
             <view class="progress-bar">
               <view class="progress-fill" style="width: {{item.status === 1 ? 100 : (item.progress || 0)}}%"></view>
             </view>
           </view>
         </view>
-        <!-- 滑出后的删除按钮 -->
+        <!-- 婊戝嚭鍚庣殑鍒犻櫎鎸夐挳 -->
         <view class="swipe-delete-btn" catchtap="deletePlan" data-id="{{item.id}}">
-          <view class="swipe-delete-text">删除</view>
+          <view class="swipe-delete-text">鍒犻櫎</view>
         </view>
       </movable-view>
     </movable-area>
   </view>
 
-  <!-- 空状态 -->
+  <!-- 绌虹姸鎬?-->
   <view class="empty-state" wx:if="{{plans.length === 0}}">
-    <view class="empty-emoji">📋</view>
-    <view class="empty-text">还没有计划，添加一个吧</view>
+    <view class="empty-emoji">馃搵</view>
+    <view class="empty-text">杩樻病鏈夎鍒掞紝娣诲姞涓€涓惂</view>
   </view>
 
   <!-- FAB -->
   <view class="fab" bindtap="showAdd">+</view>
 
-  <!-- 添加弹窗 -->
+  <!-- 娣诲姞寮圭獥 -->
   <view class="modal-mask" wx:if="{{showAddModal}}" bindtap="closeModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">添加学习计划</view>
+      <view class="modal-title">娣诲姞瀛︿範璁″垝</view>
       <view class="form-input-group">
-        <input class="input" placeholder="计划标题" data-field="title" bindinput="onInput" value="{{newPlan.title}}"/>
+        <input class="input" placeholder="璁″垝鏍囬" data-field="title" bindinput="onInput" value="{{newPlan.title}}"/>
       </view>
       <view class="modal-textarea-wrap">
-        <textarea class="modal-textarea" placeholder="计划详情（可选）" data-field="content" bindinput="onInput" value="{{newPlan.content}}"/>
+        <viewarea class="modal-textarea" placeholder="璁″垝璇︽儏锛堝彲閫夛級" data-field="content" bindinput="onInput" value="{{newPlan.content}}"/>
       </view>
       <view class="modal-row">
-        <text class="modal-label">优先级</text>
+        <view class="modal-label">浼樺厛绾?/text>
         <view class="priority-row">
-          <view class="pri-btn {{newPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setPriority">宽松</view>
-          <view class="pri-btn {{newPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setPriority">普通</view>
-          <view class="pri-btn {{newPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setPriority">紧急</view>
+          <view class="pri-btn {{newPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setPriority">瀹芥澗</view>
+          <view class="pri-btn {{newPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setPriority">鏅€?/view>
+          <view class="pri-btn {{newPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setPriority">绱ф€?/view>
         </view>
       </view>
       <view class="modal-row">
-        <text class="modal-label">计划日期</text>
+        <view class="modal-label">璁″垝鏃ユ湡</view>
         <picker mode="date" value="{{newPlan.planDate}}" bindchange="onDateChange">
-          <view class="date-picker">{{newPlan.planDate || '选择日期'}}</view>
+          <view class="date-picker">{{newPlan.planDate || '閫夋嫨鏃ユ湡'}}</view>
         </picker>
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closeModal">取消</button>
-        <button class="modal-btn confirm" bindtap="submitPlan">确认添加</button>
+        <button class="modal-btn cancel" bindtap="closeModal">鍙栨秷</button>
+        <button class="modal-btn confirm" bindtap="submitPlan">纭娣诲姞</button>
       </view>
     </view>
   </view>
 
-  <!-- 编辑弹窗 -->
+  <!-- 缂栬緫寮圭獥 -->
   <view class="modal-mask" wx:if="{{showEditModal}}" bindtap="closeEditModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">编辑计划</view>
+      <view class="modal-title">缂栬緫璁″垝</view>
       <view class="form-input-group">
-        <input class="input" placeholder="计划标题" data-field="title" bindinput="onEditInput" value="{{editPlan.title}}"/>
+        <input class="input" placeholder="璁″垝鏍囬" data-field="title" bindinput="onEditInput" value="{{editPlan.title}}"/>
       </view>
       <view class="modal-textarea-wrap">
-        <textarea class="modal-textarea" placeholder="计划详情（可选）" data-field="content" bindinput="onEditInput" value="{{editPlan.content}}"/>
+        <viewarea class="modal-textarea" placeholder="璁″垝璇︽儏锛堝彲閫夛級" data-field="content" bindinput="onEditInput" value="{{editPlan.content}}"/>
       </view>
       <view class="modal-row">
-        <text class="modal-label">优先级</text>
+        <view class="modal-label">浼樺厛绾?/text>
         <view class="priority-row">
-          <view class="pri-btn {{editPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setEditPriority">宽松</view>
-          <view class="pri-btn {{editPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setEditPriority">普通</view>
-          <view class="pri-btn {{editPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setEditPriority">紧急</view>
+          <view class="pri-btn {{editPlan.priority === 0 ? 'active-green' : ''}}" data-val="0" bindtap="setEditPriority">瀹芥澗</view>
+          <view class="pri-btn {{editPlan.priority === 1 ? 'active-orange' : ''}}" data-val="1" bindtap="setEditPriority">鏅€?/view>
+          <view class="pri-btn {{editPlan.priority === 2 ? 'active-red' : ''}}" data-val="2" bindtap="setEditPriority">绱ф€?/view>
         </view>
       </view>
       <view class="modal-row">
-        <text class="modal-label">计划日期</text>
+        <view class="modal-label">璁″垝鏃ユ湡</view>
         <picker mode="date" value="{{editPlan.planDate}}" bindchange="onEditDateChange">
-          <view class="date-picker">{{editPlan.planDate || '选择日期'}}</view>
+          <view class="date-picker">{{editPlan.planDate || '閫夋嫨鏃ユ湡'}}</view>
         </picker>
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="closeEditModal">取消</button>
-        <button class="modal-btn confirm" bindtap="submitEditPlan">保存修改</button>
+        <button class="modal-btn cancel" bindtap="closeEditModal">鍙栨秷</button>
+        <button class="modal-btn confirm" bindtap="submitEditPlan">淇濆瓨淇敼</button>
       </view>
     </view>
   </view>

@@ -3,16 +3,16 @@
   <!-- 顶部概览 -->
   <view class="overview">
     <view class="stat-card">
-      <text class="stat-value">{{totalDays}}</text>
-      <text class="stat-label">打卡天数</text>
+      <text class="stat-value">{{streakDays}}</text>
+      <text class="stat-label">连续打卡</text>
     </view>
     <view class="stat-card">
       <text class="stat-value">{{totalHours}}</text>
       <text class="stat-label">学习时长(h)</text>
     </view>
     <view class="stat-card">
-      <text class="stat-value">{{totalTasks}}</text>
-      <text class="stat-label">完成任务</text>
+      <text class="stat-value">{{totalDays}}</text>
+      <text class="stat-label">累计天数</text>
     </view>
   </view>
 
