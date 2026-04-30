@@ -1,150 +1,150 @@
-<view class="container">
-  <!-- 标签栏 -->
+﻿<view class="container">
+  <!-- 鏍囩鏍?-->
   <view class="tabs">
     <view 
       class="tab {{activeTab === 0 ? 'active' : ''}}" 
       data-index="0" 
       bindtap="switchTab">
-      <text>班级管理</text>
+      <view>鐝骇绠＄悊</view>
     </view>
     <view 
       class="tab {{activeTab === 1 ? 'active' : ''}}" 
       data-index="1" 
       bindtap="switchTab">
-      <text>公告管理</text>
+      <view>鍏憡绠＄悊</view>
     </view>
     <view 
       class="tab {{activeTab === 2 ? 'active' : ''}}" 
       data-index="2" 
       bindtap="switchTab">
-      <text>数据统计</text>
+      <view>鏁版嵁缁熻</view>
     </view>
   </view>
 
-  <!-- 班级管理 -->
+  <!-- 鐝骇绠＄悊 -->
   <view class="tab-content" wx:if="{{activeTab === 0}}">
     <view class="card" wx:if="{{classInfo}}">
       <view class="card-header">
-        <text class="card-title">班级信息</text>
-        <button class="btn-small" bindtap="generateCode">生成邀请码</button>
+        <view class="card-title">鐝骇淇℃伅</view>
+        <button class="btn-small" bindtap="generateCode">鐢熸垚閭€璇风爜</button>
       </view>
       <view class="class-info">
         <view class="info-row">
-          <text class="info-label">班级名称</text>
-          <text class="info-value">{{classInfo.name || ''}}</text>
+          <view class="info-label">鐝骇鍚嶇О</view>
+          <view class="info-value">{{classInfo.name || ''}}</view>
         </view>
         <view class="info-row">
-          <text class="info-label">邀请码</text>
+          <view class="info-label">閭€璇风爜</view>
           <view class="code-wrap">
-            <text class="info-value code">{{classInfo.inviteCode || '未生成'}}</text>
-            <view class="copy-btn" bindtap="copyCode" wx:if="{{classInfo.inviteCode}}">复制</view>
+            <view class="info-value code">{{classInfo.inviteCode || '鏈敓鎴?}}</view>
+            <view class="copy-btn" bindtap="copyCode" wx:if="{{classInfo.inviteCode}}">澶嶅埗</view>
           </view>
         </view>
         <view class="info-row">
-          <text class="info-label">成员数量</text>
-          <text class="info-value">{{stats.memberCount || 0}} 人</text>
+          <view class="info-label">鎴愬憳鏁伴噺</view>
+          <view class="info-value">{{stats.memberCount || 0}} 浜?/text>
         </view>
       </view>
     </view>
 
     <view class="card">
       <view class="card-header">
-        <text class="card-title">成员列表</text>
-        <text class="card-count">{{stats.memberCount || 0}} 人</text>
+        <view class="card-title">鎴愬憳鍒楄〃</view>
+        <view class="card-count">{{stats.memberCount || 0}} 浜?/text>
       </view>
       <view class="member-list" wx:if="{{memberList.length > 0}}">
         <view class="member-item" wx:for="{{memberList}}" wx:key="id">
           <image class="member-avatar" src="{{item.avatar || '/assets/icons/default_avatar.png'}}" mode="aspectFill"/>
           <view class="member-info">
-            <text class="member-name">{{item.nickname}}</text>
-            <text class="member-role">{{item.role === 1 ? '管理员' : '成员'}}</text>
+            <view class="member-name">{{item.nickname}}</view>
+            <view class="member-role">{{item.role === 1 ? '绠＄悊鍛? : '鎴愬憳'}}</view>
           </view>
           <view class="member-badge {{item.role === 1 ? 'admin' : ''}}">
-            <text>{{item.role === 1 ? '管理' : '成员'}}</text>
+            <view>{{item.role === 1 ? '绠＄悊' : '鎴愬憳'}}</view>
           </view>
         </view>
       </view>
       <view class="empty-tip" wx:else>
-        <text>暂无成员</text>
+        <view>鏆傛棤鎴愬憳</view>
       </view>
     </view>
 
     <view class="empty-tip" wx:if="{{!classInfo}}">
-      <text>暂未加入班级</text>
+      <view>鏆傛湭鍔犲叆鐝骇</view>
     </view>
   </view>
 
-  <!-- 公告管理 -->
+  <!-- 鍏憡绠＄悊 -->
   <view class="tab-content" wx:if="{{activeTab === 1}}">
     <button class="btn-publish" bindtap="showNoticeModal">
-      <text>+ 发布公告</text>
+      <view>+ 鍙戝竷鍏憡</view>
     </button>
 
     <view class="notice-list">
       <view class="notice-item" wx:for="{{noticeList}}" wx:key="id">
         <view class="notice-dot"></view>
         <view class="notice-content">
-          <text class="notice-title">{{item.title}}</text>
-          <text class="notice-date">{{item.createTime}}</text>
+          <view class="notice-title">{{item.title}}</view>
+          <view class="notice-date">{{item.createTime}}</view>
         </view>
         <view class="notice-action" data-id="{{item.id}}" bindtap="deleteNotice">
-          <text>删除</text>
+          <view>鍒犻櫎</view>
         </view>
       </view>
     </view>
 
     <view class="empty-tip" wx:if="{{noticeList.length === 0}}">
-      <text>暂无公告</text>
+      <view>鏆傛棤鍏憡</view>
     </view>
   </view>
 
-  <!-- 数据统计 -->
+  <!-- 鏁版嵁缁熻 -->
   <view class="tab-content" wx:if="{{activeTab === 2}}">
     <view class="stats-grid">
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <view class="stats-icon">👥</view>
+          <view class="stats-icon">馃懃</view>
         </view>
         <view class="stats-num">{{stats.memberCount || 0}}</view>
-        <text class="stats-label">成员数</text>
+        <view class="stats-label">鎴愬憳鏁?/text>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <view class="stats-icon">📋</view>
+          <view class="stats-icon">馃搵</view>
         </view>
         <view class="stats-num">{{stats.taskCount || 0}}</view>
-        <text class="stats-label">打卡任务</text>
+        <view class="stats-label">鎵撳崱浠诲姟</view>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <view class="stats-icon">✅</view>
+          <view class="stats-icon">鉁?/view>
         </view>
         <view class="stats-num">{{stats.checkinCount || 0}}</view>
-        <text class="stats-label">打卡记录</text>
+        <view class="stats-label">鎵撳崱璁板綍</view>
       </view>
       <view class="stats-card">
         <view class="stats-icon-wrap">
-          <view class="stats-icon">📝</view>
+          <view class="stats-icon">馃摑</view>
         </view>
         <view class="stats-num">{{stats.planCount || 0}}</view>
-        <text class="stats-label">学习计划</text>
+        <view class="stats-label">瀛︿範璁″垝</view>
       </view>
     </view>
   </view>
 
-  <!-- 公告发布弹窗 -->
+  <!-- 鍏憡鍙戝竷寮圭獥 -->
   <view class="modal-mask" wx:if="{{showPublishModal}}" bindtap="hideNoticeModal">
     <view class="modal-content" catchtap="preventClose">
-      <view class="modal-title">发布公告</view>
+      <view class="modal-title">鍙戝竷鍏憡</view>
       <view class="form-input-group">
-        <input class="input" placeholder="公告标题" bindinput="onNoticeTitleInput" value="{{noticeTitle}}"/>
+        <input class="input" placeholder="鍏憡鏍囬" bindinput="onNoticeTitleInput" value="{{noticeTitle}}"/>
       </view>
       <view class="notice-textarea-wrap">
-        <textarea class="notice-textarea" placeholder="公告内容（选填）" bindinput="onNoticeContentInput" value="{{noticeContent}}"/>
+        <viewarea class="notice-textarea" placeholder="鍏憡鍐呭锛堥€夊～锛? bindinput="onNoticeContentInput" value="{{noticeContent}}"/>
       </view>
       <view class="modal-actions">
-        <button class="modal-btn cancel" bindtap="hideNoticeModal">取消</button>
-        <button class="modal-btn confirm" bindtap="submitNotice">发布</button>
+        <button class="modal-btn cancel" bindtap="hideNoticeModal">鍙栨秷</button>
+        <button class="modal-btn confirm" bindtap="submitNotice">鍙戝竷</button>
       </view>
     </view>
   </view>

@@ -1,20 +1,20 @@
-<view class="container">
-  <!-- Logo 区 -->
+﻿<view class="container">
+  <!-- Logo 鍖?-->
   <view class="logo-wrap">
     <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
-    <text class="app-name">创建账号</text>
+    <view class="app-name">鍒涘缓璐﹀彿</view>
   </view>
 
-  <!-- 卡片 -->
+  <!-- 鍗＄墖 -->
   <view class="register-card">
-    <text class="card-title">填写注册信息</text>
+    <view class="card-title">濉啓娉ㄥ唽淇℃伅</view>
 
     <view class="input-group">
       <image class="input-icon" src="/assets/icons/user.png" mode="aspectFit"/>
       <input
         class="input"
         type="text"
-        placeholder="请输入用户名/学号"
+        placeholder="璇疯緭鍏ョ敤鎴峰悕/瀛﹀彿"
         bindinput="onUsernameInput"/>
     </view>
 
@@ -23,7 +23,7 @@
       <input
         class="input"
         type="text"
-        placeholder="请输入昵称（选填）"
+        placeholder="璇疯緭鍏ユ樀绉帮紙閫夊～锛?
         bindinput="onNicknameInput"/>
     </view>
 
@@ -32,7 +32,7 @@
       <input
         class="input"
         type="password"
-        placeholder="请输入密码（至少6位）"
+        placeholder="璇疯緭鍏ュ瘑鐮侊紙鑷冲皯6浣嶏級"
         bindinput="onPasswordInput"/>
     </view>
 
@@ -41,7 +41,7 @@
       <input
         class="input"
         type="password"
-        placeholder="请再次输入密码"
+        placeholder="璇峰啀娆¤緭鍏ュ瘑鐮?
         bindinput="onConfirmInput"/>
     </view>
 
@@ -49,12 +49,12 @@
       class="btn-register {{loading ? 'disabled' : ''}}"
       bindtap="register"
       disabled="{{loading}}">
-      <text>{{loading ? '注册中...' : '注 册'}}</text>
+      <view>{{loading ? '娉ㄥ唽涓?..' : '娉?鍐?}}</view>
     </button>
 
     <view class="login-link">
-      <text>已有账号？</text>
-      <text class="link" bindtap="goBack">立即登录</text>
+      <view>宸叉湁璐﹀彿锛?/text>
+      <view class="link" bindtap="goBack">绔嬪嵆鐧诲綍</view>
     </view>
   </view>
 </view>
