@@ -52,7 +52,7 @@
         <view
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
           class="course-card"
-          style="left:{{c._left}}rpx;margin-top:{{c._top}}rpx;height:{{c._height}}rpx;background:{{c.color}};"
+          style="left:{{c._left}}rpx;margin-top:{{c._top}}rpx;height:{{c._height}}rpx;background-color:{{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="card-name">{{c.name}}</view>
           <view class="card-room">{{c.classroom}}</view>
