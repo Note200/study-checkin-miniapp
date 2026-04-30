@@ -172,7 +172,7 @@
 }
 .date-cell {
   width: calc(100% / 7);
-  aspect-ratio: 1;
+  height: 72rpx;
   display: flex;
   align-items: center;
   justify-content: center;
