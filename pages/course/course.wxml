@@ -47,9 +47,8 @@
         <!-- 课程卡片 -->
         <view
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
-          class="course-card"
-          animation="{{c._anim}}"
-          style="top: {{c._top}}rpx; left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}}; opacity: 0; transform: scale(0.3);"
+          class="course-card {{dragging && dragCourse.id === c.id ? 'dragging-card' : ''}}"
+          style="top: {{c._top}}rpx; left: {{c._left}}rpx; width: {{c._width}}rpx; height: {{c._height}}rpx; background: {{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="card-name">{{c.name}}</view>
           <view class="card-room">{{c.classroom}}</view>
