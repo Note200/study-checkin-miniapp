@@ -57,24 +57,22 @@ Page({
           classList,
           classInfo: classList.length > 0 ? classList[0] : null
         })
-        // 加载第一个班级的成员列表
-        if (classList.length > 0 && classList[0].id) {
-          await this.loadMembers(classList[0].id)
-        }
       }
     } catch (e) {
       console.log('加载班级失败')
     }
+    // 加载全部用户（不限班级）
+    await this.loadAllUsers()
   },
 
-  async loadMembers(classId) {
+  async loadAllUsers() {
     try {
-      const res = await app.request({ url: '/api/admin/class/' + classId + '/members' })
+      const res = await app.request({ url: '/api/admin/users' })
       if (res.code === 200) {
         this.setData({ memberList: res.data || [] })
       }
     } catch (e) {
-      console.log('加载成员失败')
+      console.log('加载用户失败')
     }
   },
 
