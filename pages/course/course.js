@@ -41,7 +41,7 @@ Page({
     todayDay: 1,
     gridRows: [],
     visibleCourses: [],
-    vLines: [0, 1, 2, 3, 4, 5, 6, 7],
+    vLinePositions: [],
     ROW_H: ROW_H
   },
 
@@ -105,6 +105,17 @@ Page({
   generateGrid(allCourses) {
     const { currentWeek, maxSection } = this.data
 
+    // grid-area 宽度 = 750 - 70（左侧节次列）
+    const gridW = 750 - 70
+    // 列宽 = gridW / 7
+    const colW = Math.floor(gridW / 7)
+
+    // 竖线位置（8条线，rpx 固定值）
+    const vLinePositions = []
+    for (let i = 0; i <= 7; i++) {
+      vLinePositions.push(i * colW)
+    }
+
     // 构造节次行数据（含时间）
     const gridRows = []
     for (let section = 1; section <= maxSection; section++) {
@@ -129,13 +140,13 @@ Page({
         const row = (c.startSection || 1) - 1 // 0-based
         return {
           ...c,
-          _col: col,                           // 列索引 0-6
-          _top: row * ROW_H + 5,              // rpx 定位（kezhidao: (nums-1)*60+2.5)*2）
-          _height: span * ROW_H - 10          // rpx 高度（kezhidao: (span*60-5)*2）
+          _left: col * colW + 4,              // rpx 固定值
+          _top: row * ROW_H + 5,             // rpx 定位
+          _height: span * ROW_H - 10         // rpx 高度
         }
       })
 
-    this.setData({ gridRows, maxSection, visibleCourses: visible })
+    this.setData({ gridRows, maxSection, visibleCourses: visible, vLinePositions })
   },
 
   addCourse() { wx.navigateTo({ url: '/pages/course/add' }) },

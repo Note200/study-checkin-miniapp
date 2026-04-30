@@ -44,15 +44,15 @@
         <view class="h-line" wx:for="{{gridRows}}" wx:key="section"
           style="top: {{index * ROW_H + ROW_H}}rpx;"></view>
 
-        <!-- 竖直分隔线（百分比） -->
-        <view class="v-line" wx:for="{{vLines}}" wx:key="*this"
-          style="left: {{item}}%;"></view>
+        <!-- 竖直分隔线（rpx 固定值） -->
+        <view class="v-line" wx:for="{{vLinePositions}}" wx:key="*this"
+          style="left: {{item}}rpx;"></view>
 
         <!-- 课程卡片（kezhidao 定位方式：margin-left + margin-top） -->
         <view
           wx:for="{{visibleCourses}}" wx:key="id" wx:for-item="c"
           class="course-card"
-          style="margin-left:calc({{c._col}} * 100% / 7 + 5rpx);margin-top:{{c._top}}rpx;height:{{c._height}}rpx;background:{{c.color}};"
+          style="left:{{c._left}}rpx;margin-top:{{c._top}}rpx;height:{{c._height}}rpx;background:{{c.color}};"
           data-id="{{c.id}}" bindtap="editCourse" bindlongtap="longPressCourse">
           <view class="card-name">{{c.name}}</view>
           <view class="card-room">{{c.classroom}}</view>
