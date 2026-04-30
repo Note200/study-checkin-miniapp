@@ -45,21 +45,7 @@
   position: relative;
   z-index: 1;
 }
-.avatar-edit-hint {
-  position: absolute;
-  bottom: 48rpx;
-  left: 50%;
-  margin-left: 36rpx;
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22rpx;
-  z-index: 3;
-}
+
 .name-row {
   display: flex;
   align-items: center;
